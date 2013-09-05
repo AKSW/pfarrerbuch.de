@@ -63,7 +63,7 @@ store.comparer.ignoredMethods[] = sparqlQuery
 ;;;;
 ;; Frontend language
 ;;
-languages.locale = "en"             ; en, de, ru, zh (Chinese)
+languages.locale = "de"             ; en, de, ru, zh (Chinese)
 
 ;;;;
 ;; Set this identifier to a unique value if you want to run multiple OntoWiki
