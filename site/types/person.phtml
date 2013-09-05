@@ -1,0 +1,150 @@
+<?php
+$staffingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$staffingQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$staffingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$staffingQuery.= 'SELECT ?resourceUri ?ort ?bezeichnung ?start ?ende ?comment' . PHP_EOL;
+$staffingQuery.= 'WHERE {' . PHP_EOL;
+$staffingQuery.= '  <' . $this->resourceUri . '> hp:hasPosition ?resourceUri .' . PHP_EOL;
+$staffingQuery.= '  ?resourceUri hp:place ?ortRes ;' . PHP_EOL;
+$staffingQuery.= '               hp:positionDesignation ?bezeichnung .' . PHP_EOL;
+$staffingQuery.= '  ?ortRes hp:nameOfPlace ?ort .' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$staffingQuery.= '  OPTIONAL {' . PHP_EOL;
+$staffingQuery.= '      ?event rdf:subject <' . $this->resourceUri . '> ;' . PHP_EOL;
+$staffingQuery.= '             rdf:predicate hp:hasPosition ;' . PHP_EOL;
+$staffingQuery.= '             rdf:object ?resourceUri .' . PHP_EOL;
+$staffingQuery.= '      OPTIONAL {' . PHP_EOL;
+$staffingQuery.= '          ?event hp:start ?start .' . PHP_EOL;
+$staffingQuery.= '      }' . PHP_EOL;
+$staffingQuery.= '      OPTIONAL {' . PHP_EOL;
+$staffingQuery.= '          ?event hp:end ?ende .' . PHP_EOL;
+$staffingQuery.= '      }' . PHP_EOL;
+$staffingQuery.= '      OPTIONAL {' . PHP_EOL;
+$staffingQuery.= '          ?event rdfs:comment ?comment .' . PHP_EOL;
+$staffingQuery.= '      }' . PHP_EOL;
+$staffingQuery.= '  }' . PHP_EOL;
+$staffingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+
+$attendingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$attendingQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$attendingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$attendingQuery.= 'SELECT ?resourceUri ?ort ?schulName ?start ?ende ?comment' . PHP_EOL;
+$attendingQuery.= 'WHERE {' . PHP_EOL;
+$attendingQuery.= '  <' . $this->resourceUri . '> hp:attendedSchool ?resourceUri .' . PHP_EOL;
+$attendingQuery.= '  ?resourceUri hp:place ?ortRes ;' . PHP_EOL;
+$attendingQuery.= '               hp:nameOfSchool ?schulName .' . PHP_EOL;
+$attendingQuery.= '  ?ortRes hp:nameOfPlace ?ort .' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$attendingQuery.= '  OPTIONAL {' . PHP_EOL;
+$attendingQuery.= '      ?event rdf:subject <' . $this->resourceUri . '> ;' . PHP_EOL;
+$attendingQuery.= '             rdf:predicate hp:attendedSchool ;' . PHP_EOL;
+$attendingQuery.= '             rdf:object ?resourceUri .' . PHP_EOL;
+$attendingQuery.= '      OPTIONAL {' . PHP_EOL;
+$attendingQuery.= '          ?event hp:start ?start .' . PHP_EOL;
+$attendingQuery.= '      }' . PHP_EOL;
+$attendingQuery.= '      OPTIONAL {' . PHP_EOL;
+$attendingQuery.= '          ?event hp:end ?ende .' . PHP_EOL;
+$attendingQuery.= '      }' . PHP_EOL;
+$attendingQuery.= '      OPTIONAL {' . PHP_EOL;
+$attendingQuery.= '          ?event rdfs:comment ?comment .' . PHP_EOL;
+$attendingQuery.= '      }' . PHP_EOL;
+$attendingQuery.= '  }' . PHP_EOL;
+$attendingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+
+// evtl. noch den schoolType abfragen
+
+?>
+
+<div class="container row-fluid">
+<div class="span8">
+
+<?= $this->literal(array('property' => 'foaf:name', 'tag' => 'h2')) ?>
+<?= $this->literal(array('property' => 'foaf:birthName', 'tag' => 'h2', 'prefix' => '(geb. ', 'postfix' => ')')) // hat keiner ?>
+<div>
+<?= $this->literal(array('property' => 'hp:nameVariant', 'tag' => 'em', 'prefix' => 'Namens Variante: ')) ?>
+</div>
+
+<div>
+*
+<?= $this->date($this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'plain' => true))) ?>
+
+(<?= $this->literal(array('property' => 'hp:birthPlace', 'tag' => 'span')) ?>)
+
+†
+<?= $this->date($this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'plain' => true))) ?>
+
+(<?= $this->literal(array('property' => 'hp:placeOfDeath', 'tag' => 'span')) ?>)
+</div>
+
+<dl>
+<dt>Taufe</dt>
+<dd>
+<?= $this->date($this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'plain' => true))) ?>
+
+<?= $this->literal(array('property' => 'hp:placeOfBaptism', 'tag' => 'span', 'prefix' => ' in ')) ?>
+</dd>
+<dt>Beerdigung</dt>
+<dd>
+<?= $this->date($this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'plain' => true))) ?>
+
+<?= $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in ')) ?>
+</dd>
+</dl>
+
+<hr />
+
+<h3>Pfarrstellen/Pfarramtlicher Werdegang</h3>
+<dl>
+<dt>Ordination</dt>
+<dd>
+<?= $this->date($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'plain' => true))) ?>
+
+<?= $this->literal(array('property' => 'hp:placeOfOrdination', 'tag' => 'span', 'prefix' => ' in ')) ?>
+</dd>
+
+<?= $this->querylist($staffingQuery, 'pfarrerbuch/items/staffing.phtml') ?>
+
+<dt>Emeriterung</dt>
+<dd>
+<?= $this->date($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'plain' => true))) ?>
+
+<?= $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')) ?>
+</dd>
+</dl>
+</div>
+
+<div class="span4">
+<img alt="Foto des Pfarrers" class="size128 img-polaroid" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Gerhardt_p2.jpg" />
+
+<h3>Eltern</h3>
+<dl>
+<dt>Vater</dt>
+<dd><?= $this->literal(array('property' => 'hp:father', 'tag' => 'div', 'class' => 'content')) ?></dd>
+<dt>Mutter</dt>
+<dd><?= $this->literal(array('property' => 'hp:mother', 'tag' => 'div', 'class' => 'content')) ?></dd>
+</dl>
+
+<h3>Schulen/Universitäten</h3>
+<dl>
+<?= $this->querylist($attendingQuery, 'pfarrerbuch/items/attendingSchool.phtml') ?>
+</dl>
+
+<h3>Tätigkeiten</h3>
+<dl>
+ <dt>1. Februar 1250 – 24. Dezember 1714</dt>
+ <dd>Hilfslehrer …</dd>
+</dl>
+
+<hr />
+<h3>Kinder</h3>
+ - Kind 1 bis n
+</div>
+</div>
+<hr/>
+Quellen und Literatur
+
+Bemerkungen:
+<?= $this->literal(array('tag' => 'div', 'class' => 'content')) ?>
+
+--------
+
+Such Repräsentation:
+rdfs:label (Name inklusive Geburtsjahr und Ort) Angabe: ist Pfarrer durch Agaben <em>ev-luth. Pfarrer (Sachsen)</em>

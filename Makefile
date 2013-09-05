@@ -78,6 +78,13 @@ help-test:
 	@echo "  test-integration-mysql-cc .... Same as above plus code coverage report"
 	@echo "  test-extensions .............. Run tests for extensions"
 
+custom:
+	rm -rf extensions/site
+	@echo 'Cloning extensions/site.'
+	git clone git://github.com/AKSW/site.ontowiki.git extensions/site
+	rm -f extensions/site/sites/local
+	cd extensions/site/sites/ && ln -s ../../../site local
+
 # top level target
 
 deploy: directories clean zend submodules
