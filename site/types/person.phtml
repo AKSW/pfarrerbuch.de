@@ -48,8 +48,16 @@ $attendingQuery.= '          ?event rdfs:comment ?comment .' . PHP_EOL;
 $attendingQuery.= '      }' . PHP_EOL;
 $attendingQuery.= '  }' . PHP_EOL;
 $attendingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
-
 // evtl. noch den schoolType abfragen
+
+$childQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$childQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$childQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$childQuery.= 'SELECT ?resourceUri' . PHP_EOL;
+$childQuery.= 'WHERE {' . PHP_EOL;
+$childQuery.= '  <' . $this->resourceUri . '> hp:child ?resourceUri .' . PHP_EOL;
+$childQuery.= '}' . PHP_EOL;
+
 
 ?>
 
@@ -100,7 +108,7 @@ $attendingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 <?= $this->literal(array('property' => 'hp:placeOfOrdination', 'tag' => 'span', 'prefix' => ' in ')) ?>
 </dd>
 
-<?= $this->querylist($staffingQuery, 'pfarrerbuch/items/staffing.phtml') ?>
+<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml') ?>
 
 <dt>Emeriterung</dt>
 <dd>
@@ -117,14 +125,14 @@ $attendingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 <h3>Eltern</h3>
 <dl>
 <dt>Vater</dt>
-<dd><?= $this->literal(array('property' => 'hp:father', 'tag' => 'div', 'class' => 'content')) ?></dd>
+<dd><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:father ?resourceUri', 'template' => 'person')) ?></dd>
 <dt>Mutter</dt>
-<dd><?= $this->literal(array('property' => 'hp:mother', 'tag' => 'div', 'class' => 'content')) ?></dd>
+<dd><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person')) ?></dd>
 </dl>
 
 <h3>Schulen/Universitäten</h3>
 <dl>
-<?= $this->querylist($attendingQuery, 'pfarrerbuch/items/attendingSchool.phtml') ?>
+<?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml') ?>
 </dl>
 
 <h3>Tätigkeiten</h3>
@@ -135,16 +143,14 @@ $attendingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 
 <hr />
 <h3>Kinder</h3>
- - Kind 1 bis n
+<ul>
+<?= $this->querylist($childQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'postfix' => '</li>' )) ?>
+</ul>
 </div>
 </div>
 <hr/>
-Quellen und Literatur
-
-Bemerkungen:
+<h3>Bemerkungen</h3>
 <?= $this->literal(array('tag' => 'div', 'class' => 'content')) ?>
 
---------
-
-Such Repräsentation:
-rdfs:label (Name inklusive Geburtsjahr und Ort) Angabe: ist Pfarrer durch Agaben <em>ev-luth. Pfarrer (Sachsen)</em>
+<h3>Quellen und Literatur</h3>
+…
