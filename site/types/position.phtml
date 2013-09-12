@@ -27,7 +27,7 @@ $staffingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 <dt>Liste der Pfarrer die diese Stelle inne hatten</dt>
 <dd>
 <dl>
-<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'position')) ?>
+<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'position'), array('orderBy' => 'start')) ?>
 </dl>
 </dd>
 </dl>
