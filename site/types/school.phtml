@@ -1,6 +1,21 @@
-Schulbezeichnung Ort
+<h3>
+<?= $this->literal(array('property' => 'hp:nameOfSchool')) ?> 
+<?= $this->literal(array('property' => 'hp:schoolType')) ?> 
+<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:place ?resourceUri', 'template' => 'resource')) ?>
+</h3>
 
-<h1><?php echo $this->title ?></h1>
-<?= $this->literal(array('tag' => 'div', 'class' => 'content')) ?>
+<?php
+$studentQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$studentQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$studentQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$studentQuery.= 'SELECT ?resourceUri' . PHP_EOL;
+$studentQuery.= 'WHERE {' . PHP_EOL;
+$studentQuery.= '  ?resourceUri hp:attendedSchool <' . $this->resourceUri . '> .' . PHP_EOL;
+$studentQuery.= '} LIMIT 20' . PHP_EOL;
+?>
 
-Liste der Personen die an dieser Uni/Schule waren
+<h4>Liste der Personen die an dieser Uni/Schule waren</h4>
+<ul>
+<?= $this->querylist($studentQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+</ul>
+
