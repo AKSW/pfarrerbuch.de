@@ -17,22 +17,22 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/">
 <head>
     <meta charset="UTF-8">
-    <title><?= $title ?></title>
+    <title><?= $title . ': ' . $this->title ?></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="generator" content="<?php echo $this->generator ?>" />
+    <meta name="generator" content="<?= $this->generator ?>" />
 
-    <link rel="alternate" type="application/rdf+xml" href="<?php echo $this->resourceUri ?>.rdf" />
-    <link rel="pingback" href="<?php echo $this->pingbackUrl ?>" />
+    <link rel="alternate" type="application/rdf+xml" href="<?= $this->resourceUri ?>.rdf" />
+    <link rel="pingback" href="<?= $this->pingbackUrl ?>" />
 
-    <link rel="<?php echo $this->curie('http://xmlns.com/foaf/0.1/primaryTopic') ?>" href="<?php echo $this->resourceUri?>" />
-    <link type="text/css" href="<?php echo $this->baseUri ?>/css/bootstrap.css" rel="stylesheet" />
-    <link type="text/css" href="<?php echo $this->baseUri ?>/css/style.css" rel="stylesheet" />
+    <link rel="<?= $this->curie('http://xmlns.com/foaf/0.1/primaryTopic') ?>" href="<?= $this->resourceUri?>" />
+    <link type="text/css" href="<?= $this->baseUri ?>/css/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="<?= $this->baseUri ?>/css/style.css" rel="stylesheet" />
 
     <!-- jQuery -->
-    <script type="text/javascript" src="<?php echo $this->themeUrlBase ?>scripts/libraries/jquery.js"></script>
+    <script type="text/javascript" src="<?= $this->themeUrlBase ?>scripts/libraries/jquery.js"></script>
 
     <style type="text/css">
       body {
@@ -55,7 +55,7 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
 </head>
 
 <body<?php
-    foreach ($this->namespaces as $prefix => $ns): ?><?php echo ' xmlns:' . $prefix . '="' . $ns . '"' ?><?php endforeach; ?>>
+    foreach ($this->namespaces as $prefix => $ns): ?><?= ' xmlns:' . $prefix . '="' . $ns . '"' ?><?php endforeach; ?>>
 <h1><?= $title ?></h1>
 </hr>
 <div class="container">
@@ -68,7 +68,7 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
             $copy = $this->literal(array('uri' => $this->modelUri, 'property' => 'http://creativecommons.org/ns#attributionName'));
             if ($copy != null) :
         ?>
-        <p>&copy; <?php echo date('Y') . ' ' . $copy ?></p>
+        <p>&copy; <?= date('Y') . ' ' . $copy ?></p>
         <?php endif ?>
     </footer>
 </div> <!-- /container -->
