@@ -1,4 +1,11 @@
-<dt><?= $this->date($this->start) ?> – <?= $this->date($this->ende) ?></dt>
+<dt>
+<?php if ($this->start && $this->ende) : ?>
+<?= $this->date($this->start) ?> – <?= $this->date($this->ende) ?></dt>
+<?php elseif ($this->start && !$this->ende): ?>
+<?= $this->date($this->start) ?> – </dt>
+<?php elseif (!$this->start && $this->ende) : ?>
+ – <?= $this->date($this->ende) ?></dt>
+<?php endif ?>
 <dd>
 <a href="<?= htmlentities($this->resourceUri) ?>">
 <?php if ($this->mode == 'person') : ?>
