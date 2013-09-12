@@ -1,0 +1,19 @@
+@base <http://pfarrerbuch.de/> . 
+@prefix hp:     <http://purl.org/vok/hp/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix site:   <http://ns.ontowiki.net/SysOnt/Site/> .
+
+foaf:Document   site:classTemplate "document" .
+foaf:Person     site:classTemplate "person" .
+hp:Place        site:classTemplate "place" .
+hp:School       site:classTemplate "school" .
+hp:Position     site:classTemplate "position" .
+hp:Event        site:classTemplate "event" .
+
+<http://aksw.org/MarkusHein>        foaf:name "Markus Hein" .
+<http://aksw.org/ThomasRiechert>    foaf:name "Thomas Riechert" .
+<http://aksw.org/NormanRadtke>      foaf:name "Norman Radtke" .
+<http://aksw.org/NatanaelArndt>     foaf:name "Natanael Arndt" .
