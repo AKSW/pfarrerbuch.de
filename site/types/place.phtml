@@ -25,7 +25,7 @@ $schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 
 <h4>Liste der Pfarrstellen</h4>
 <ul>
-<?= $this->querylist($positionQuery, 'local/items/position.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+<?= $this->querylist($positionQuery, 'local/items/resource.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
 </ul>
 
 </div>
@@ -34,14 +34,14 @@ $schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 
 <h5>Liste der Schulen und Universitäten</h5>
 <ul>
-<?= $this->querylist($schoolQuery, 'local/items/position.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+<?= $this->querylist($schoolQuery, 'local/items/resource.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
 </ul>
 
-Personen Geboren in …
+<!-- Personen Geboren in … -->
 
-Personen Gestorben in …
+<!-- Personen Gestorben in … -->
 
-Taufort …
-Beerdigt in …
+<!-- Taufort … -->
+<!-- Beerdigt in … -->
 </div>
 </div>
