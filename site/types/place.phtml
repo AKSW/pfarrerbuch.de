@@ -1,14 +1,41 @@
-<h1><?php echo $this->title ?></h1>
+<?php
+$positionQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$positionQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$positionQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$positionQuery.= 'SELECT ?resourceUri ?bezeichnung' . PHP_EOL;
+$positionQuery.= 'WHERE {' . PHP_EOL;
+$positionQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_EOL;
+$positionQuery.= '               a hp:Position ;' . PHP_EOL;
+$positionQuery.= '               hp:positionDesignation ?bezeichnung .' . PHP_EOL;
+$positionQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 
-Liste der Pfarrstellen
+$schoolQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$schoolQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$schoolQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$schoolQuery.= 'SELECT ?resourceUri ?bezeichnung' . PHP_EOL;
+$schoolQuery.= 'WHERE {' . PHP_EOL;
+$schoolQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_EOL;
+$schoolQuery.= '             a hp:School ;' . PHP_EOL;
+$schoolQuery.= '             hp:nameOfSchool ?bezeichnung .' . PHP_EOL;
+$schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+?>
+<div class="container row-fluid">
+<div class="span8">
+<h3><?= $this->title ?></h3>
 
-<?= $this->literal(array('tag' => 'div', 'class' => 'content')) ?>
+<h4>Liste der Pfarrstellen</h4>
+<ul>
+<?= $this->querylist($positionQuery, 'local/items/position.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+</ul>
 
-----------------
-Zweite Spalte
+</div>
 
-Zusätzlich:
-Liste der Schulen und Universitäten
+<div class="span4">
+
+<h5>Liste der Schulen und Universitäten</h5>
+<ul>
+<?= $this->querylist($schoolQuery, 'local/items/position.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+</ul>
 
 Personen Geboren in …
 
@@ -16,3 +43,5 @@ Personen Gestorben in …
 
 Taufort …
 Beerdigt in …
+</div>
+</div>
