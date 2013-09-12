@@ -64,8 +64,9 @@ $childQuery.= '}' . PHP_EOL;
 <div class="container row-fluid">
 <div class="span8">
 
-<?= $this->literal(array('property' => 'foaf:name', 'tag' => 'h2')) ?>
-<?= $this->literal(array('property' => 'foaf:birthName', 'tag' => 'h2', 'prefix' => '(geb. ', 'postfix' => ')')) // hat keiner ?>
+<h3><?= $this->literal(array('property' => 'foaf:lastName')) ?>, 
+<?= $this->literal(array('property' => 'foaf:firstName')) ?>
+<?= $this->literal(array('property' => 'foaf:birthName', 'prefix' => '(geb. ', 'suffix' => ')')) // hat keiner ?></h3>
 <div>
 <?= $this->literal(array('property' => 'hp:nameVariant', 'tag' => 'em', 'prefix' => 'Namens Variante: ')) ?>
 </div>
@@ -97,9 +98,7 @@ $childQuery.= '}' . PHP_EOL;
 </dd>
 </dl>
 
-<hr />
 
-<h3>Pfarrstellen/Pfarramtlicher Werdegang</h3>
 <dl>
 <dt>Ordination</dt>
 <dd>
@@ -122,7 +121,10 @@ $childQuery.= '}' . PHP_EOL;
 <div class="span4">
 <img alt="Foto des Pfarrers" class="size128 img-polaroid" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Gerhardt_p2.jpg" />
 
-<h3>Eltern</h3>
+<!-- Abstand -->
+
+</hr>
+
 <dl>
 <dt>Vater</dt>
 <dd><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:father ?resourceUri', 'template' => 'person')) ?></dd>
@@ -130,27 +132,27 @@ $childQuery.= '}' . PHP_EOL;
 <dd><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person')) ?></dd>
 </dl>
 
-<h3>Schulen/Universitäten</h3>
+<h4>Schulen/Universitäten</h4>
 <dl>
 <?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml') ?>
 </dl>
 
-<h3>Tätigkeiten</h3>
+<h4>Tätigkeiten</h4>
 <dl>
  <dt>1. Februar 1250 – 24. Dezember 1714</dt>
  <dd>Hilfslehrer …</dd>
 </dl>
 
 <hr />
-<h3>Kinder</h3>
+<h4>Kinder</h4>
 <ul>
-<?= $this->querylist($childQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'postfix' => '</li>' )) ?>
+<?= $this->querylist($childQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>' )) ?>
 </ul>
 </div>
 </div>
 <hr/>
-<h3>Bemerkungen</h3>
+<h4>Bemerkungen</h4>
 <?= $this->literal(array('tag' => 'div', 'class' => 'content')) ?>
 
-<h3>Quellen und Literatur</h3>
+<h4>Quellen und Literatur</h4>
 …
