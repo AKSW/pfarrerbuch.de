@@ -57,8 +57,6 @@ $childQuery.= 'SELECT ?resourceUri' . PHP_EOL;
 $childQuery.= 'WHERE {' . PHP_EOL;
 $childQuery.= '  <' . $this->resourceUri . '> hp:child ?resourceUri .' . PHP_EOL;
 $childQuery.= '}' . PHP_EOL;
-
-
 ?>
 
 <div class="container row-fluid">
@@ -75,12 +73,12 @@ $childQuery.= '}' . PHP_EOL;
 *
 <?= $this->date($this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'plain' => true))) ?>
 
-(<?= $this->literal(array('property' => 'hp:birthPlace', 'tag' => 'span')) ?>)
+<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
 
 †
 <?= $this->date($this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'plain' => true))) ?>
 
-(<?= $this->literal(array('property' => 'hp:placeOfDeath', 'tag' => 'span')) ?>)
+<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfDeath ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
 </div>
 
 <dl>
@@ -135,7 +133,7 @@ $pOfOrdination = $this->literal(array('property' => 'hp:placeOfOrdination', 'tag
 </dd>
 <?php endif; ?>
 
-<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
+<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person'), array('orderBy' => 'start')) ?>
 
 <?php $dOfRetirement = ($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'plain' => true))) ?>
 <?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')) ?>
@@ -187,7 +185,7 @@ in <?= $pOfRetirement ?>
 
 <h4>Schulen/Universitäten</h4>
 <dl>
-<?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml') ?>
+<?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml', array(), array('orderBy' => 'start')) ?>
 </dl>
 
 <h4>Tätigkeiten</h4>
