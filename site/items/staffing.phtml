@@ -1,8 +1,12 @@
 <dt><?= $this->date($this->start) ?> – <?= $this->date($this->ende) ?></dt>
 <dd>
 <a href="<?= htmlentities($this->resourceUri) ?>">
+<?php if ($this->mode == 'person') : ?>
     <?= $this->ort ?>
     <?= $this->bezeichnung ?>
+<?php elseif ($this->mode == 'position') : ?>
+    <?= $this->title ?>
+<?php endif; ?>
 </a>
 <em><?= $this->comment ?></em>
 </dd>

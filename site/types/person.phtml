@@ -107,7 +107,7 @@ $childQuery.= '}' . PHP_EOL;
 <?= $this->literal(array('property' => 'hp:placeOfOrdination', 'tag' => 'span', 'prefix' => ' in ')) ?>
 </dd>
 
-<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml') ?>
+<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
 
 <dt>Emeriterung</dt>
 <dd>
