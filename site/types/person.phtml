@@ -84,37 +84,84 @@ $childQuery.= '}' . PHP_EOL;
 </div>
 
 <dl>
+<?php $dOfBabtism =  $this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'plain' => true)) ?>
+<?php if ($dOfBabtism) : ?>
 <dt>Taufe</dt>
 <dd>
-<?= $this->date($this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'plain' => true))) ?>
+<?= $this->date($dOfBabtism) ?>
+</dd>
+<?php endif; ?>
 
 <?= $this->literal(array('property' => 'hp:placeOfBaptism', 'tag' => 'span', 'prefix' => ' in ')) ?>
 </dd>
-<dt>Beerdigung</dt>
-<dd>
-<?= $this->date($this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'plain' => true))) ?>
-
-<?= $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in ')) ?>
-</dd>
-</dl>
-
 
 <dl>
+<?php $dOfFuneral = $this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'plain' => true));
+$burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in '));
+?>
+<?php if ($dOfFuneral && $burialPlace) : ?>
+<dt>Beerdigung</dt>
+<dd>
+    <?= $dOfFuneral ?> in <?= $burialPlace ?>
+</dd>
+<?php elseif ($dOfFuneral && !$burialPlace) : ?>
+<dd>
+    <?= $this->date($dOfFuneral) ?>
+</dd>
+<?php elseif (!$dOfFuneral && $burialPlace) : ?>
+<dd>
+    in <?= $burialPlace ?>
+</dd>
+<?php endif ?>
+</dl>
+
+<dl>
+<?php $dOfOrdination = ($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'plain' => true))) ;
+$pOfOrdination = $this->literal(array('property' => 'hp:placeOfOrdination', 'tag' => 'span', 'prefix' => ' in ')); ?>
+<?php if ($dOfOrdination && $pOfOrdination) : ?>
 <dt>Ordination</dt>
 <dd>
-<?= $this->date($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'plain' => true))) ?>
-
-<?= $this->literal(array('property' => 'hp:placeOfOrdination', 'tag' => 'span', 'prefix' => ' in ')) ?>
+<?= $this->date($dOfOrdination) ?> in <?= $pOfOrdination ?>
 </dd>
+<?php elseif ($dOfOrdination && !$pOfOrdination) : ?>
+<dt>Ordination</dt>
+<dd>
+<?= $this->date(!$dOfOrdination) ?>
+</dd>
+<?php elseif ($dOfOrdination && $pOfOrdination) : ?>
+<dt>Ordination</dt>
+<dd>
+= in <?= $pOfOrdination ?>
+</dd>
+<?php endif; ?>
 
 <?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
 
+<?php $dOfRetirement = ($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'plain' => true))) ?>
+<?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')) ?>
+<?php if ($dOfRetirement && $pOfRetirement) : ?>
 <dt>Emeriterung</dt>
 <dd>
-<?= $this->date($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'plain' => true))) ?>
-
-<?= $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')) ?>
+<?= $this->date($dOfRetirement) ?> in <?= $pOfRetirement ?>
 </dd>
+<?php elseif ($dOfRetirement && !$pOfRetirement) : ?>
+<dt>Emeriterung</dt>
+<dd>
+<?= $this->date($dOfRetirement) ?>
+</dd>
+<?php elseif (!$dOfRetirement && $pOfRetirement) : ?>
+<dt>Emeriterung</dt>
+<dd>
+in <?= $pOfRetirement ?>
+</dd>
+<?php endif; ?>
+
+<?php if ($pOfRetirement) : ?>
+<dd>
+    in 
+<?= ($pOfRetirement) ?>
+</dd>
+<?php endif; ?>
 </dl>
 </div>
 
@@ -126,10 +173,16 @@ $childQuery.= '}' . PHP_EOL;
 </hr>
 
 <dl>
+<?php $mother = $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person')) ?>
+<?php $father = $this->query(array('where' => '<' . $this->resourceUri . '> hp:father ?resourceUri', 'template' => 'person')) ?>
+<?php if ($father) : ?>
 <dt>Vater</dt>
-<dd><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:father ?resourceUri', 'template' => 'person')) ?></dd>
+<?= $father ?>
+<?php endif ?>
+<?php if ($mother) : ?>
 <dt>Mutter</dt>
-<dd><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person')) ?></dd>
+<?= $mother ?>
+<?php endif ?>
 </dl>
 
 <h4>Schulen/Universitäten</h4>
