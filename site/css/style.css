@@ -1,0 +1,11 @@
+body, p {
+    font-size: 13pt;
+    line-height: 1.2em;
+}
+
+h1 {
+    letter-spacing: 0.4em;
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+}

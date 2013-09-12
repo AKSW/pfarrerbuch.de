@@ -29,6 +29,7 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
 
     <link rel="<?php echo $this->curie('http://xmlns.com/foaf/0.1/primaryTopic') ?>" href="<?php echo $this->resourceUri?>" />
     <link type="text/css" href="<?php echo $this->baseUri ?>/css/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="<?php echo $this->baseUri ?>/css/style.css" rel="stylesheet" />
 
     <!-- jQuery -->
     <script type="text/javascript" src="<?php echo $this->themeUrlBase ?>scripts/libraries/jquery.js"></script>
@@ -55,8 +56,9 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
 
 <body<?php
     foreach ($this->namespaces as $prefix => $ns): ?><?php echo ' xmlns:' . $prefix . '="' . $ns . '"' ?><?php endforeach; ?>>
+<h1><?= $title ?></h1>
+</hr>
 <div class="container">
-    <h1><?= $title ?></h1>
 
     <?= $this->renderx(); ?>
 
