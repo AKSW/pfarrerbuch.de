@@ -11,7 +11,7 @@ foaf:Person     site:classTemplate "person" .
 hp:Place        site:classTemplate "place" .
 hp:School       site:classTemplate "school" .
 hp:Position     site:classTemplate "position" .
-hp:Event        site:classTemplate "event" .
+hp:Search       site:classTemplate "search" .
 
 <http://aksw.org/MarkusHein>        foaf:name "Markus Hein" .
 <http://aksw.org/ThomasRiechert>    foaf:name "Thomas Riechert" .

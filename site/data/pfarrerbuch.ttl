@@ -8,13 +8,24 @@
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix site:   <http://ns.ontowiki.net/SysOnt/Site/> .
 
-<> rdfs:label "Pfarrerbuch" ;
-   cc:attributionName "AKSW & Thologische Fakultät an der Universität Leipzig" .
+<> rdfs:label "Pfarrerbuch Sachsen" ;
+   cc:attributionName "Arbeitsgemeinschaft für Sächsische Kirchengeschichte, Institut für Kirchengeschichte und Institut für Informatik der Universität Leipzig" .
+
+<Suche> a hp:Search .
 
 <About> site:content """
-Das Pfarrerbuch ist eine Datenbank die möglichst alle Pfarrer der Sächsischen Landeskirche, der Kirchenprovinz Sachen und der Evanglisch-Lutherischen Kirche in Thüringen beinhalten soll. Dies entsprichen den heutigen Gebieten den Landeskirche Sachsen, der Evangelischen Kirche in Mitteldeutschland …
+Das Pfarrerbuch Sachsen ist ein Projekt der Arbeitsgemeinschaft für Sächsische Kirchengeschichte, des Instituts für Kirchengeschichte der Universität Leipzig und des Instituts für Informatik der Universität Leipzig.
 
-Es ist dabei möglich z.B. alle Pfarrer die die Universität Leipzig besucht haben aufzulisten:
-{{query where=\"?resourceUri a foaf:Person ; hp:attendedSchool <http://pfarrerbuch.de/school/13> . \" template=\"local/items/person.phtml\"}}
+Projektleiter Kirchengeschichte: **Dr. theol. Markus Hein**
+Theologische Fakultät – Institut für Kirchengeschichte
+Otto-Schill-Straße 2, 04109 Leipzig
+E-Mail: hein(a)uni-leipzig.de
+
+Projektleiter Informatik: **Dr. Thomas Riechert**
+Fakultät für Mathematik und Informatik – Institut für Informatik
+Johannisgasse 26, 04109 Leipzig
+E-Mail: riechert(a)informatik.uni-leipzig.de
+
+Seit ca. 15 Jahren werden in Leipzig Daten zu sämtlichen Pfarrern der sächsischen Landeskirche seit der Reformationszeit für das Gebiet der heutigen Evangelisch-Lutherischen Landeskirche Sachsens in eine Datenbank aufgenommen. Grundlage dafür war zunächst das 1938 von Reinhold Grünberg herausgegebene Sächsische Pfarrerbuch. Hinzu kommen die über Jahrzehnte von Kurt Wartenberg gesammelten Daten, die auf z. T. sehr eng handbeschriebenen Karteiblättern in 16 großen Karteikästen gesammelt und inzwischen zu drei Vierteln eingearbeitet sind. Je nach Zeit- und Geldbudget geschieht diese Aufnahme weiterhin.
 """^^sysont:Markdown ;
 a foaf:Document .
