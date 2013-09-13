@@ -56,9 +56,13 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
 
 <body<?php
     foreach ($this->namespaces as $prefix => $ns): ?><?= ' xmlns:' . $prefix . '="' . $ns . '"' ?><?php endforeach; ?>>
-<h1><?= $title ?></h1>
 </hr>
 <div class="container">
+<h1><?= $title ?></h1>
+<div id="menu">
+<a href="http://pfarrerbuch.de/About">Über das Projekt</a> | 
+<a href="http://pfarrerbuch.de/Suche">Suche</a>
+</div>
 
     <?= $this->renderx(); ?>
 
