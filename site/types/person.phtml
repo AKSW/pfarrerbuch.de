@@ -71,12 +71,18 @@ $childQuery.= '}' . PHP_EOL;
 
 <div>
 *
-<?= $this->date($this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'plain' => true))) ?>
+<?php $dob = $this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'plain' => true)) ?>
+<?php if ($dob) : ?>
+<?= $this->date($dob) ?>
+<?php endif; ?>
 
 <?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
 
 †
-<?= $this->date($this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'plain' => true))) ?>
+<?php $dod = $this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'plain' => true)) ?>
+<?php if ($dod) : ?>
+<?= $this->date($dod) ?>
+<?php endif; ?>
 
 <?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfDeath ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
 </div>
@@ -124,7 +130,7 @@ $pOfOrdination = $this->literal(array('property' => 'hp:placeOfOrdination', 'tag
 <?php elseif ($dOfOrdination && !$pOfOrdination) : ?>
 <dt>Ordination</dt>
 <dd>
-<?= $this->date(!$dOfOrdination) ?>
+<?= $this->date($dOfOrdination) ?>
 </dd>
 <?php elseif ($dOfOrdination && $pOfOrdination) : ?>
 <dt>Ordination</dt>
@@ -164,7 +170,7 @@ in <?= $pOfRetirement ?>
 </div>
 
 <div class="span4">
-<img alt="Foto des Pfarrers" class="size128 img-polaroid" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Gerhardt_p2.jpg" />
+<img alt="Foto des Pfarrers" class="size128 img-polaroid" src="http://pfarrerbuch.de/site/img/Gerhardt.jpg" />
 
 <!-- Abstand -->
 
