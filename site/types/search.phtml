@@ -1,0 +1,55 @@
+<h3>Suche</h3>
+<form method="post">
+<select name="mode">
+<option value="name">Name</option>
+<option value="ort">Ort</option>
+</select>
+<input name="q" type="text" />
+<input type="submit" />
+</form>
+
+<?php
+
+$q = null;
+$m = null;
+if (isset($_POST['q'])) {
+    $q = $_POST['q'];
+}
+if (isset($_POST['mode'])) {
+    $m = $_POST['mode'];
+}
+
+$nameQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$nameQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$nameQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$nameQuery.= 'PREFIX foaf: <http://xmlns.com/foaf/0.1/>' . PHP_EOL;
+$nameQuery.= 'SELECT ?resourceUri' . PHP_EOL;
+$nameQuery.= 'WHERE {' . PHP_EOL;
+$nameQuery.= '  ?resourceUri foaf:name ?name ;' . PHP_EOL;
+$nameQuery.= '               hp:isPastor "1" .' . PHP_EOL;
+$nameQuery.= '  FILTER(regex(?name, "' . $q . '"))' . PHP_EOL;
+$nameQuery.= '}' . PHP_EOL;
+
+$ortQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
+$ortQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$ortQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
+$ortQuery.= 'SELECT ?resourceUri' . PHP_EOL;
+$ortQuery.= 'WHERE {' . PHP_EOL;
+$ortQuery.= '  ?resourceUri hp:nameOfPlace ?name .' . PHP_EOL;
+$ortQuery.= '  FILTER(regex(?name, "' . $q . '"))' . PHP_EOL;
+$ortQuery.= '}' . PHP_EOL;
+?>
+<?php if ($m !== null) : ?>
+<span>Suche nach „<?= $q ?>“</span>
+<?php if ($m == 'name') : ?>
+<ul>
+<?=$this->querylist($nameQuery, 'local/items/resource.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+</ul>
+<?php elseif ($m == 'ort') : ?>
+<ul>
+<?= $this->querylist($ortQuery, 'local/items/resource.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+</ul>
+<?php endif; ?>
+<?php else: ?>
+<span>Bitte wählen Sie die Art der Suche aus und geben Sie ihren Suchtext in das nebenstehende Feld ein.</span>
+<?php endif; ?>
