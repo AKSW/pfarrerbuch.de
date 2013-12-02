@@ -19,7 +19,7 @@ $staffingQuery.= '      OPTIONAL {' . PHP_EOL;
 $staffingQuery.= '          ?event rdfs:comment ?comment .' . PHP_EOL;
 $staffingQuery.= '      }' . PHP_EOL;
 $staffingQuery.= '  }' . PHP_EOL;
-$staffingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+$staffingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 ?>
 <h3><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:place ?resourceUri', 'template' => 'resource')) ?> <?= $this->title ?></h3>
 
@@ -27,7 +27,7 @@ $staffingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 <dt>Liste der Pfarrer die diese Stelle inne hatten</dt>
 <dd>
 <dl>
-<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'position'), array('orderBy' => 'start')) ?>
+<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'position')) ?>
 </dl>
 </dd>
 </dl>

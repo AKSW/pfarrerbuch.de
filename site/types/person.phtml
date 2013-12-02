@@ -22,7 +22,7 @@ $staffingQuery.= '      OPTIONAL {' . PHP_EOL;
 $staffingQuery.= '          ?event rdfs:comment ?comment .' . PHP_EOL;
 $staffingQuery.= '      }' . PHP_EOL;
 $staffingQuery.= '  }' . PHP_EOL;
-$staffingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+$staffingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 
 $attendingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $attendingQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
@@ -47,7 +47,7 @@ $attendingQuery.= '      OPTIONAL {' . PHP_EOL;
 $attendingQuery.= '          ?event rdfs:comment ?comment .' . PHP_EOL;
 $attendingQuery.= '      }' . PHP_EOL;
 $attendingQuery.= '  }' . PHP_EOL;
-$attendingQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+$attendingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 // evtl. noch den schoolType abfragen
 
 $childQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
@@ -139,7 +139,7 @@ $pOfOrdination = $this->literal(array('property' => 'hp:placeOfOrdination', 'tag
 </dd>
 <?php endif; ?>
 
-<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person'), array('orderBy' => 'start')) ?>
+<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
 
 <?php $dOfRetirement = ($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'plain' => true))) ?>
 <?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')) ?>
@@ -191,7 +191,7 @@ in <?= $pOfRetirement ?>
 
 <h4>Schulen/Universitäten</h4>
 <dl>
-<?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml', array(), array('orderBy' => 'start')) ?>
+<?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml') ?>
 </dl>
 
 <h4>Tätigkeiten</h4>
