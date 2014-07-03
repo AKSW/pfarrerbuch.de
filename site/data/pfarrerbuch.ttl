@@ -1,5 +1,5 @@
-@base <http://pfarrerbuch.de/> . 
-@prefix hp:     <http://purl.org/vok/hp/> .
+@base <http://pfarrerbuch.de/> .
+@prefix hp:     <http://purl.org/voc/hp/> .
 @prefix cc:     <http://creativecommons.org/ns#> .
 @prefix sysont: <http://ns.ontowiki.net/SysOnt/> .
 @prefix foaf:   <http://xmlns.com/foaf/0.1/> .

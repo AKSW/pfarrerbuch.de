@@ -1,6 +1,6 @@
 <?php
 $positionQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
-$positionQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$positionQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $positionQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
 $positionQuery.= 'SELECT ?resourceUri ?bezeichnung' . PHP_EOL;
 $positionQuery.= 'WHERE {' . PHP_EOL;
@@ -10,7 +10,7 @@ $positionQuery.= '               hp:positionDesignation ?bezeichnung .' . PHP_EO
 $positionQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 
 $schoolQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
-$schoolQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$schoolQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $schoolQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
 $schoolQuery.= 'SELECT ?resourceUri ?bezeichnung' . PHP_EOL;
 $schoolQuery.= 'WHERE {' . PHP_EOL;

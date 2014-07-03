@@ -1,6 +1,6 @@
 <?php
 $staffingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
-$staffingQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$staffingQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $staffingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
 $staffingQuery.= 'SELECT ?resourceUri ?ort ?bezeichnung ?start ?ende ?comment' . PHP_EOL;
 $staffingQuery.= 'WHERE {' . PHP_EOL;
@@ -25,7 +25,7 @@ $staffingQuery.= '  }' . PHP_EOL;
 $staffingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 
 $attendingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
-$attendingQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$attendingQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $attendingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
 $attendingQuery.= 'SELECT ?resourceUri ?ort ?schulName ?start ?ende ?comment' . PHP_EOL;
 $attendingQuery.= 'WHERE {' . PHP_EOL;
@@ -51,7 +51,7 @@ $attendingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 // evtl. noch den schoolType abfragen
 
 $childQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
-$childQuery.= 'PREFIX hp: <http://purl.org/vok/hp/>' . PHP_EOL;
+$childQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $childQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
 $childQuery.= 'SELECT ?resourceUri' . PHP_EOL;
 $childQuery.= 'WHERE {' . PHP_EOL;
