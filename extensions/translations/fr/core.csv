@@ -3,53 +3,53 @@
 # Encoding:  UTF-8
 # Separator: ;
 #
-Back;Zurück
-Submit;Absenden
-Cancel;Abbrechen
-Save Changes;"Änderungen speichern"
-Reset Form;Formular zurücksetzen
-Edit Instances;Instanzen bearbeiten
-Edit Properties;Eigenschaften bearbeiten
-Add Property;Eigenschaft hinzufügen
+Back;Retour
+Submit;Envoyer
+Cancel;Terminer
+Save Changes;"Sauvegarder les modificitions"
+Reset Form;Reculer formulaire
+Edit Instances;TODO
+Edit Properties;TODO
+Add Property;"Ajouter propriété"
 Rendered in %1$d microseconds using %2$d SPARQL queries.;Gerendert in %1$d Mikrosekunden mit %2$d SPARQL-Anfragen.
 more;mehr
 
-moments ago;gerade eben
-approx. 1 minute ago;vor einer Minute
-approx. %d minutes ago;vor %d Minuten
-approx. 1 hour ago;vor einer Stunde
-approx. %d hours ago;vor %d Stunden
-approx. %d days ago;vor %d Tagen
+moments ago;TODO
+approx. 1 minute ago;il y'a une minute
+approx. %d minutes ago;il y'a %d minutes
+approx. 1 hour ago;il y'a une heure
+approx. %d hours ago;il y'a %d heures
+approx. %d days ago;il y'a %d jours
 
 # test
-page1;Seite 1
-page2;Seite 2
+page1;Page 1
+page2;Page 2
 
 
 # Module
-Search all Knowledge Bases;Alle Wissensbasen durchsuchen
-Search Text;Suchtext
-Knowledge Bases;Wissensbasen
-Create Knowledge Base;Wissensbasis erstellen
-Show Hidden Knowledge Bases;Versteckte Wissensbasen anzeigen
-Hide Hidden Knowledge Bases;Versteckte Wissensbasen verbergen
+Search all Knowledge Bases;Chercher tous les bases de connaissance
+Search Text;TODO
+Knowledge Bases;Bases de connaissance
+Create Knowledge Base;"Créer une base de connaissance"
+Show Hidden Knowledge Bases;"Afficher bases de connaissance cachées"
+Hide Hidden Knowledge Bases;"Cacher bases de connaissance cachées"
 Languages (Tagged Literals);Sprachen (ausgezeichnete Labels)
-none;keine
-Classes;Klassen
-Create Class;Klasse erstellen
-Show Empty Classes;Leere Klassen anzeigen
-Hide Empty Classes;Leere Klassen ausblenden
-Show System Classes;Systemklassen anzeigen
-Hide System Classes;Systemklassen ausblenden
-Show Hidden Classes;Versteckte Klassen anzeigen
-Hide Hidden Classes;Versteckte Klassen ausblenden
+none;aucun
+Classes;Classes
+Create Class;"Créer une classe"
+Show Empty Classes;Afficher des classes vides
+Hide Empty Classes;Cacher des classes vides
+Show System Classes;Afficher des classes TODO
+Hide System Classes;TODO
+Show Hidden Classes;Afficher des classes cachées
+Hide Hidden Classes;Cacher des classes cachées
 Most Popular | Most Active;Populär | Aktiv
-Rec. Changes;"Änderungen"
-Rec. Comments;Kommentare
-Login;Anmeldung
+Rec. Changes;"Modifications"
+Rec. Comments;Commentaires
+Login;Connecter
 No matches.;Keine Entsprechungen.
 Predicates;Prädikate
-Similar Instances;"Ähnliche Instanzen"
+Similar Instances;"Des instances similaires"
 Instances Linking Here;Verlinkte Ressourcen
 Usage as Property;Auftreten als Prädikat
 Not implemented yet.;Noch nicht implementiert.
@@ -60,7 +60,7 @@ Actions; Aktionen
 There are no comments, descriptions or notes on this knowledge base.; Es sind keine Kommentare, Beschreibungen oder Anmerkungen in der Wissensbasis enthalten.
 view all resources; Alle Ressourcen anzeigen
 Search for Resources;Suche nach Ressourcen
-Source;Quellcode
+Source;Code source
 by;von
 Objects;Objekte
 Subjects;Subjekte
@@ -68,27 +68,27 @@ Subjects;Subjekte
 
 # Komponenten
 # TODO: sollten Komponenten ihre Übersetzung selbst verwalten?
-Properties;Eigenschaften
-Instances;Instanzen
-Calendar;Kalender
-History;Versionen
-Map;Karte
+Properties;"Propriétés"
+Instances;Instances
+Calendar;Calendrier
+History;ChangeLog
+Map;Carte
 
 # application menu
-User;Benutzer
-Register New User;Neuen Benutzer registrieren
-Preferences;Einstellungen
-Logout;Abmelden
-View;Ansicht
-Edit;Bearbeiten
+User;Utilisateur
+Register New User;Enregistrer nouvel utilisateur
+Preferences;"Préférences"
+Logout;Annuler
+View;"Aperçu"
+Edit;"Éditer"
 Extras;Extras
 SPARQL Query Editor;SPARQL-Anfrage-Editor
 File Resource Manager;Dateiressourcen-Manager
-News;Neuigkeiten
-Clear Cache;Cache leeren
-Help;Hilfe
-Documentation;Dokumentation
-Bug Report; Fehler melden
+News;Nouvelles
+Clear Cache;Vider cache
+Help;Aide
+Documentation;Documentation
+Bug Report;Fehler melden
 Version Info;Versionsinfo
 About;"Über"
 
@@ -114,11 +114,11 @@ Location;URL zur Datei
 Instances of %1$s;Instanzen von %1$s
 Properties of %1$s;Eigenschaften von %1$s
 
-Register User;Benutzer registrieren
-Username;Benutzername
-Email Address;E-Mail-Adresse
-Password;Kennwort
-Password (repeat);Kennwort (wiederholen)
+Register User;Enregister utilisateur
+Username;Nom d'utilisateur
+Email Address;Adresse e-mail
+Password;Mot de passe
+Password (repeat);"Mot de passe (répéter)"
 Unknown user identifier.;Unbekannte Benutzerkennung.
 Forgot your password?;Passwort vergessen?
 
@@ -132,46 +132,46 @@ Search returned %1$d %2$s.;Die Suche lieferte %1$d %2$s.
 Query execution took %1$d ms.;Die Bearbeitung der Anfrage dauerte %1$d ms.
 
 # Menüs
-View Resource;Ressource ansehen
-Edit Resource;Ressource bearbeiten
-Delete Resource;Ressource löschen
+View Resource;Regarder ressource
+Edit Resource;"Éditer ressource"
+Delete Resource;Effacer ressource
 
-List Instances;Instanzen auflisten
-Create Instance;Instantiieren
-Create Subclass;Unterklasse erstellen
+List Instances;Lister les instances
+Create Instance;"Créer instance"
+Create Subclass;"Créer sous-classe"
 
-Select Knowledge Base;Wissensbasis auswählen
-Configure Knowledge Base;Wissensbasis konfigurieren
-Add Data to Knowledge Base;Daten zur Wissensbasis hinzufügen
-Export Knowledge Base as RDF/XML;Wissensbasis als RDF/XML exportieren
-Export Knowledge Base as RDF/JSON;Wissensbasis als RDF/JSON exportieren
-Export Knowledge Base as RDF/N3;Wissensbasis als RDF/N3 exportieren
-Export Knowledge Base as RDF/JSON (Talis);Wissensbasis als RDF/JSON (Talis) exportieren
-Export Knowledge Base as Turtle;Wissensbasis als Turtle exportieren
-Export Knowledge Base as Notation 3;Wissensbasis als N3 exportieren
-Delete Knowledge Base;Wissensbasis löschen
+Select Knowledge Base;"Sélectionner base de connaissance"
+Configure Knowledge Base;"Configurer base de connaissance"
+Add Data to Knowledge Base;"Ajouter des données à base de connaissance"
+Export Knowledge Base as RDF/XML;Exporter base de connaissance comme RDF/XML
+Export Knowledge Base as RDF/JSON;Exporter base de connaissance comme RDF/JSON
+Export Knowledge Base as RDF/N3;Exorter base de connaissance comme RDF/N3
+Export Knowledge Base as RDF/JSON (Talis);Exporter base de connaisssance comme RDF/JSON (Talis)
+Export Knowledge Base as Turtle;Exporter base de connaissance comme Turtle
+Export Knowledge Base as Notation 3;Exporter base de connaissance comme N3
+Delete Knowledge Base;Supprimer base de connaissance
 
-Toggle show Permalink;Permalink anzeigen/verstecken
-Toggle show Resoure Query;Resource Query anzeigen/verstecken
+Toggle show Permalink;Afficher/cacher Permalien
+Toggle show Resoure Query;Afficher/cacher Resource Query
 
 # Wochentage
-Monday
-Tuesday
-Wednesday
-Thursday
-Friday
-Saturday
-Sunday
+Monday;Lundi
+Tuesday;Mardi
+Wednesday;Mercredi
+Thursday;Jeudi
+Friday;Vendredi
+Saturday;Samedi
+Sunday;Dimance
 
-Add Class;Klasse hinzufügen
-Add Instance;Instanz hinzufügen
+Add Class;Ajouter classe
+Add Instance;Ajouter instance
 
-Show Properties;Eigenschaften anzeigen
+Show Properties;"Afficher propriétés"
 
 Filter;Filter
 Combine Filters (Conjunction);Filter kombinieren (Konjunktion)
 
-Merge;Zusammenführen
+Merge;Fusionner
 Visit resource on the web;Ressource im Netz aufsuchen
 
 Create instances from property value by regexp
@@ -203,15 +203,15 @@ Explore Tags;Schlagwörter / Tag-Wolken
 Reset Explore Tags Box;Modul zurücksetzen
 Reset selected tags;Tag-Auswahl zurücksetzen
 Number of showed tags;Anzahl Tags
-Sort;Sortierung
-by name; nach Name
-by frequency;nach Anzahl
+Sort;Triage
+by name; par nom
+by frequency;"par quantité"
 
 # navigation module
 Number of Elements;Anzahl Ressourcen
 Toggle Elements;Spezielle Elemente
 Reset Navigation;Navigation zurücksetzen
-Add Resource here;Ressource hier anlegen
+Add Resource here;Ajouter ressource ici
 Show Hidden Elements;Versteckte Ressourcen einblenden
 Hide Hidden Elements;Versteckte Ressourcen ausblenden
 
