@@ -71,7 +71,7 @@ $childQuery.= '}' . PHP_EOL;
 
 <div>
 *
-<?php $dob = $this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'plain' => true)) ?>
+<?php $dob = $this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'node' => true)) ?>
 <?php if ($dob) : ?>
 <?= $this->date($dob) ?>
 <?php endif; ?>
@@ -79,7 +79,7 @@ $childQuery.= '}' . PHP_EOL;
 <?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
 
 †
-<?php $dod = $this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'plain' => true)) ?>
+<?php $dod = $this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'node' => true)) ?>
 <?php if ($dod) : ?>
 <?= $this->date($dod) ?>
 <?php endif; ?>
@@ -88,7 +88,7 @@ $childQuery.= '}' . PHP_EOL;
 </div>
 
 <dl>
-<?php $dOfBabtism =  $this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'plain' => true)) ?>
+<?php $dOfBabtism =  $this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'node' => true)) ?>
 <?php if ($dOfBabtism) : ?>
 <dt>Taufe</dt>
 <dd>
@@ -100,7 +100,7 @@ $childQuery.= '}' . PHP_EOL;
 </dd>
 
 <dl>
-<?php $dOfFuneral = $this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'plain' => true));
+<?php $dOfFuneral = $this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'node' => true));
 $burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in '));
 ?>
 <?php if ($dOfFuneral && $burialPlace) : ?>
@@ -120,7 +120,7 @@ $burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'sp
 </dl>
 
 <dl>
-<?php $dOfOrdination = ($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'plain' => true))) ;
+<?php $dOfOrdination = ($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true))) ;
 $pOfOrdination = $this->literal(array('property' => 'hp:placeOfOrdination', 'tag' => 'span', 'prefix' => ' in ')); ?>
 <?php if ($dOfOrdination && $pOfOrdination) : ?>
 <dt>Ordination</dt>
@@ -141,7 +141,7 @@ $pOfOrdination = $this->literal(array('property' => 'hp:placeOfOrdination', 'tag
 
 <?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
 
-<?php $dOfRetirement = ($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'plain' => true))) ?>
+<?php $dOfRetirement = ($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'node' => true))) ?>
 <?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')) ?>
 <?php if ($dOfRetirement && $pOfRetirement) : ?>
 <dt>Emeriterung</dt>
