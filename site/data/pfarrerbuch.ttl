@@ -1,4 +1,4 @@
-@base <http://pfarrerbuch.de/> .
+@base <http://pfarrerbuch.comiles.eu/> .
 @prefix hp:     <http://purl.org/voc/hp/> .
 @prefix cc:     <http://creativecommons.org/ns#> .
 @prefix sysont: <http://ns.ontowiki.net/SysOnt/> .
@@ -8,24 +8,40 @@
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix site:   <http://ns.ontowiki.net/SysOnt/Site/> .
 
-<> rdfs:label "Pfarrerbuch Sachsen" ;
-   cc:attributionName "Arbeitsgemeinschaft für Sächsische Kirchengeschichte, Institut für Kirchengeschichte und Institut für Informatik der Universität Leipzig" .
-
+<> rdfs:label "Pfarrerbuch" ;
+   cc:attributionName "Arbeitsgemeinschaft für Sächsische Kirchengeschichte, Institut für Kirchengeschichte und Institut für Informatik der Universität Leipzig, Institut für Kirchengeschichte an der Evangelisch-Lutherischen Theologischen Universität Budapest.
+Gefördert durch: Evangelisch-Lutherische Landeskirche Sachsens, Institut für Diasporawissenschaft Leipzig, Ottopermille." ;
+   owl:imports <ungarn/>, <sachsen/>, <thueringen/> .
 <Suche> a hp:Search .
 
 <About> site:content """
-Das Pfarrerbuch Sachsen ist ein Projekt der Arbeitsgemeinschaft für Sächsische Kirchengeschichte, des Instituts für Kirchengeschichte der Universität Leipzig und des Instituts für Informatik der Universität Leipzig.
+„Pfarrerbuch“ ist ein Projekt der Arbeitsgemeinschaft für Sächsische Kirchengeschichte, des Instituts für Kirchengeschichte der Universität Leipzig und des Instituts für Informatik der Universität Leipzig sowie des Instituts für Kirchengeschichte an der Evangelisch-Lutherischen Theologischen Universität Budapest.
 
 Projektleiter Kirchengeschichte: **Dr. theol. Markus Hein**
 Theologische Fakultät – Institut für Kirchengeschichte
-Otto-Schill-Straße 2, 04109 Leipzig
+Martin-Luther-Ring 3, 04109 Leipzig, Deutschland
 E-Mail: hein(a)uni-leipzig.de
 
-Projektleiter Informatik: **Dr. Thomas Riechert**
-Fakultät für Mathematik und Informatik – Institut für Informatik
-Johannisgasse 26, 04109 Leipzig
-E-Mail: riechert(a)informatik.uni-leipzig.de
+Projektleiter Informatik: **Prof. Dr. Thomas Riechert**
+Institut für Angewandte Informatik (InfAI), Aninstitut der Universität Leipzig
+Hainstraße 11, 04109 Leipzig, Deutschland
+E-Mail: riechert(a)infai.org
 
-Seit ca. 15 Jahren werden in Leipzig Daten zu sämtlichen Pfarrern der sächsischen Landeskirche seit der Reformationszeit für das Gebiet der heutigen Evangelisch-Lutherischen Landeskirche Sachsens in eine Datenbank aufgenommen. Grundlage dafür war zunächst das 1938 von Reinhold Grünberg herausgegebene Sächsische Pfarrerbuch. Hinzu kommen die über Jahrzehnte von Kurt Wartenberg gesammelten Daten, die auf z. T. sehr eng handbeschriebenen Karteiblättern in 16 großen Karteikästen gesammelt und inzwischen zu drei Vierteln eingearbeitet sind. Je nach Zeit- und Geldbudget geschieht diese Aufnahme weiterhin.
+Projektleiter Ungarn: **Prof. Dr. Zoltán Csepregi**
+Instituts für Kirchengeschichte an der Evangelisch-Lutherischen Theologischen Universität Budapest
+Rózsavölgyi köz 3, H-1141 Budapest, Ungarn
+E-Mail: zoltan.csepregi(a)lutheran.hu
 """^^sysont:Markdown ;
 a foaf:Document .
+
+foaf:Document   site:classTemplate "document" .
+foaf:Person     site:classTemplate "person" .
+hp:Place        site:classTemplate "place" .
+hp:School       site:classTemplate "school" .
+hp:Position     site:classTemplate "position" .
+hp:Search       site:classTemplate "search" .
+
+<http://aksw.org/MarkusHein>        foaf:name "Markus Hein" .
+<http://aksw.org/ThomasRiechert>    foaf:name "Thomas Riechert" .
+<http://aksw.org/NormanRadtke>      foaf:name "Norman Radtke" .
+<http://aksw.org/NatanaelArndt>     foaf:name "Natanael Arndt" .
