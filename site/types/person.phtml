@@ -120,24 +120,13 @@ $burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'sp
 </dl>
 
 <dl>
-<?php $dOfOrdination = ($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true))) ;
-$pOfOrdination = $this->literal(array('property' => 'hp:placeOfOrdination', 'tag' => 'span', 'prefix' => ' in ')); ?>
+<?php $dOfOrdination = ($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true))) ; ?>
 <?php if ($dOfOrdination && $pOfOrdination) : ?>
 <dt>Ordination</dt>
 <dd>
-<?= $this->date($dOfOrdination) ?> in <?= $pOfOrdination ?>
-</dd>
-<?php elseif ($dOfOrdination && !$pOfOrdination) : ?>
-<dt>Ordination</dt>
-<dd>
 <?= $this->date($dOfOrdination) ?>
+<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource', 'prefix' => ' in ')) ?>
 </dd>
-<?php elseif ($dOfOrdination && $pOfOrdination) : ?>
-<dt>Ordination</dt>
-<dd>
-= in <?= $pOfOrdination ?>
-</dd>
-<?php endif; ?>
 
 <?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
 
