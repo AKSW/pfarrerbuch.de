@@ -62,26 +62,33 @@ $childQuery.= '}' . PHP_EOL;
 <div class="container row-fluid">
 <div class="span8">
 
-<h3><?= $this->literal(array('property' => 'foaf:lastName')) ?>, 
-<?= $this->literal(array('property' => 'foaf:firstName')) ?>
-<?= $this->literal(array('property' => 'foaf:birthName', 'prefix' => '(geb. ', 'suffix' => ')')) // hat keiner ?></h3>
+<?php $lastName = $this->literal(array('property' => 'foaf:lastName')); ?>
+<?php $firstName = $this->literal(array('property' => 'foaf:firstName')); ?>
+<?php $name = $this->literal(array('property' => 'foaf:name')); ?>
+<?php $birthName = $this->literal(array('property' => 'foaf:birthName', 'prefix' => ' (geb. ', 'suffix' => ')')) // hat keiner ?></h3>
+<h3>
+<?php if ($lastName || $firstName) : ?>
+<?= $lastName . ', ' . $firstName ?>
+<?php elseif ($name) : ?>
+<?= $name ?>
+<?php endif; ?>
+<?= $birthName ?>
+</h3>
 <div>
 <?= $this->literal(array('property' => 'hp:nameVariant', 'tag' => 'em', 'prefix' => 'Namens Variante: ')) ?>
 </div>
 
 <div>
-*
 <?php $dob = $this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'node' => true)) ?>
 <?php if ($dob) : ?>
-<?= $this->date($dob) ?>
+* <?= $this->date($dob) ?>
 <?php endif; ?>
 
 <?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
 
-†
 <?php $dod = $this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'node' => true)) ?>
 <?php if ($dod) : ?>
-<?= $this->date($dod) ?>
+† <?= $this->date($dod) ?>
 <?php endif; ?>
 
 <?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfDeath ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
@@ -100,52 +107,47 @@ $childQuery.= '}' . PHP_EOL;
 </dd>
 
 <dl>
-<?php $dOfFuneral = $this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'node' => true));
+<?php
+$dOfFuneral = $this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'node' => true));
 $burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in '));
 ?>
-<?php if ($dOfFuneral && $burialPlace) : ?>
+<?php if ($dOfFuneral || $burialPlace) : ?>
 <dt>Beerdigung</dt>
 <dd>
-    <?= $dOfFuneral ?> in <?= $burialPlace ?>
-</dd>
-<?php elseif ($dOfFuneral && !$burialPlace) : ?>
-<dd>
+<?php if ($dOfFuneral) : ?>
     <?= $this->date($dOfFuneral) ?>
+<?php endif; ?>
+<?= $burialPlace ?>
 </dd>
-<?php elseif (!$dOfFuneral && $burialPlace) : ?>
-<dd>
-    in <?= $burialPlace ?>
-</dd>
-<?php endif ?>
+<?php endif; ?>
 </dl>
 
+<?php
+$dOfOrdination = $this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true));
+$pOfOrdination = $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource', 'prefix' => ' in '))
+?>
+<?php if ($dOfOrdination || $pOfOrdination) : ?>
 <dl>
-<?php $dOfOrdination = ($this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true))) ; ?>
-<?php if ($dOfOrdination && $pOfOrdination) : ?>
 <dt>Ordination</dt>
 <dd>
+<?php if ($dOfOrdination) : ?>
 <?= $this->date($dOfOrdination) ?>
-<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource', 'prefix' => ' in ')) ?>
+<?php endif; ?>
+<?= $pOfOrdination ?>
 </dd>
+<?php endif; ?>
 
 <?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
 
-<?php $dOfRetirement = ($this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'node' => true))) ?>
-<?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')) ?>
-<?php if ($dOfRetirement && $pOfRetirement) : ?>
+<?php $dOfRetirement = $this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'node' => true)); ?>
+<?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')); ?>
+<?php if ($dOfRetirement || $pOfRetirement) : ?>
 <dt>Emeriterung</dt>
 <dd>
-<?= $this->date($dOfRetirement) ?> in <?= $pOfRetirement ?>
-</dd>
-<?php elseif ($dOfRetirement && !$pOfRetirement) : ?>
-<dt>Emeriterung</dt>
-<dd>
+<?php if ($dOfRetirement) : ?>
 <?= $this->date($dOfRetirement) ?>
-</dd>
-<?php elseif (!$dOfRetirement && $pOfRetirement) : ?>
-<dt>Emeriterung</dt>
-<dd>
-in <?= $pOfRetirement ?>
+<?php endif; ?>
+<?= $pOfRetirement ?>
 </dd>
 <?php endif; ?>
 
@@ -171,11 +173,11 @@ in <?= $pOfRetirement ?>
 <?php if ($father) : ?>
 <dt>Vater</dt>
 <?= $father ?>
-<?php endif ?>
+<?php endif; ?>
 <?php if ($mother) : ?>
 <dt>Mutter</dt>
 <?= $mother ?>
-<?php endif ?>
+<?php endif; ?>
 </dl>
 
 <h4>Schulen/Universitäten</h4>
