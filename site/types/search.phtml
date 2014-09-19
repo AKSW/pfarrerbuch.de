@@ -27,7 +27,7 @@ $nameQuery.= 'SELECT ?resourceUri' . PHP_EOL;
 $nameQuery.= 'WHERE {' . PHP_EOL;
 $nameQuery.= '  ?resourceUri foaf:name ?name ;' . PHP_EOL;
 $nameQuery.= '               hp:isPastor ?isPastor .' . PHP_EOL;
-$nameQuery.= '  FILTER(?isPastor = true)' . PHP_EOL;
+$nameQuery.= '  FILTER(?isPastor = true || ?isPastor = 1)' . PHP_EOL;
 $nameQuery.= '  FILTER(regex(?name, "' . $q . '"))' . PHP_EOL;
 $nameQuery.= '}' . PHP_EOL;
 
