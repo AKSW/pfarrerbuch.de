@@ -10,6 +10,11 @@
  * example site extension layout template
  */
 
+$owApp = OntoWiki::getInstance();
+//$this->view->headLink()->appendStylesheet( $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/rdform/css/rdform.css' );
+//$rdform = $owApp->extensionManager->getComponentUrl('rdform');
+//var_dump($rdform);
+
 // this is the standard template data
 $templateData   = $this->templateData;
 $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS . 'label', 'plain' => true));
@@ -30,6 +35,7 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
     <link rel="<?= $this->curie('http://xmlns.com/foaf/0.1/primaryTopic') ?>" href="<?= $this->resourceUri?>" />
     <link type="text/css" href="<?= $this->baseUri ?>/css/bootstrap.css" rel="stylesheet" />
     <link type="text/css" href="<?= $this->baseUri ?>/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/rdform/css/rdform.css'; ?>" rel="stylesheet" />
 
     <!-- jQuery -->
     <script type="text/javascript" src="<?= $this->themeUrlBase ?>scripts/libraries/jquery.js"></script>
@@ -58,13 +64,20 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
     foreach ($this->namespaces as $prefix => $ns): ?><?= ' xmlns:' . $prefix . '="' . $ns . '"' ?><?php endforeach; ?>>
 </hr>
 <div class="container">
-<h1><?= $title ?></h1>
-<div id="menu">
-<a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Bearbeiten</a> |
-<a href="<?= $this->modelUri ?>About">Über das Projekt</a> |
-<a href="<?= $this->modelUri ?>Suche">Suche</a>
-</div>
-
+    <h1><?= $title ?></h1>
+    <div id="menu">
+    	<?php
+    	if ( strstr($this->resourceUri, "sachsen/person") !== false ) { // TODO: how to get the current class? ?>
+    		<a id="rdform-edit-btn" href="#">Bearbeiten</a> |
+    		<!-- <a id="rdform-new-btn" href="#">Neu</a> | -->
+    	<?php } else { ?>
+    		<a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Bearbeiten</a> |
+    	<?php } ?>
+        
+		<a href="<?= $this->modelUri ?>About">Über das Projekt</a> |
+        <a href="<?= $this->modelUri ?>Suche">Suche</a>
+    </div>
+    
     <?= $this->renderx(); ?>
 
     <hr>
@@ -80,6 +93,28 @@ $title = $this->literal(array('uri' => $this->modelUri, 'property' => EF_RDFS_NS
 
 <script type="text/javascript" src="<?php echo $this->baseUri ?>/js/jquery.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUri ?>/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/jquery.jsonrpcclient.js/jquery.jsonrpcclient.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/jsonld.js/js/jsonld.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/rdform/js/rdform.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/jsonread.js'; ?>"></script>
+
+<script language="JavaScript">
+    var urlBase = '<?php echo $this->urlBase ?>';
+    var modelIri = '<?= $this->modelUri ?>';
+    var resourceIri = '<?= $this->resourceUri ?>';
+    //alert(urlBase);
+    //alert("<?php echo $this->urlBase ?>");    
+</script>
+
+<script type="text/javascript" src="<?php echo $this->baseUri ?>/js/site.js"></script>
+
+<input type="hidden" id="urlBase" value="<?php echo $this->urlBase ?>" />
+<input type="hidden" id="modelIri" label="model" value="<?php echo $this->modelUri ?>" />
+<input type="hidden" id="resourceIri" label="resource" value="<?php echo $this->resourceUri ?>" />
+<input type="hidden" id="redirectUri" label="redirectUri" value="<?php echo $this->resourceUri ?>" />
+<input type="hidden" id="dataHash" label="dataHash" />
+<input type="hidden" id="editable" disabled="true" />
 
 </body>
 </html>
