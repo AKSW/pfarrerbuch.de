@@ -7,3 +7,6 @@
 [submodule "extensions/site"]
 	path = extensions/site
 	url = git@github.com:AKSW/site.ontowiki.git
+[submodule "extensions/rdform"]
+	path = extensions/rdform
+	url = git@github.com:AKSW/rdform.ontowiki.git
