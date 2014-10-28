@@ -20,10 +20,16 @@ $("#rdform-new-btn").click(function() {
 	$("body").append('<div class="rdform-container"><form class="rdform form-horizontal"</form></div>');
 	$(".rdform-container").hide();
 
-	var con = new OntoWikiConnection(urlBase + 'jsonrpc');
 	$('#editable').prop('checked', true);
+	$('#resourceIri').val('http://pfarrerbuch.comiles.eu/sachsen/person/-9999999999');
+	$('#redirectUri').val('http://pfarrerbuch.comiles.eu/sachsen/person/-9999999999');
+
+	// dataHash kommt aus leerer Resource!
 	$('#dataHash').val('');
-	con.initRDForm( undefined );
+
+	var con = new OntoWikiConnection(urlBase + 'jsonrpc');
+	con.getResource( modelIri, 'http://pfarrerbuch.comiles.eu/sachsen/person/-9999999999' );
+	//con.initRDForm( undefined );
 	$(".rdform-container").show();
 
 	return false;
