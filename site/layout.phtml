@@ -66,25 +66,30 @@ $literalType = basename($this->literal(array('property' => EF_RDF_NS . 'type', '
 
 <body<?php
     foreach ($this->namespaces as $prefix => $ns): ?><?= ' xmlns:' . $prefix . '="' . $ns . '"' ?><?php endforeach; ?>>
-</hr>
 <div class="container">
-    <h1><?= $title ?></h1>
-    <div id="menu">
-    	<?php
+<h1><?= $title ?></h1>
+    <?php
+    $navResource = $this->templateOptions()->getValue('http://rdfs.org/ns/void#rootResource');
+    $navOptions = array(
+        'navResource' => $navResource,
+        //'navId' => 'nav-main',
+        'activeUrl' => $this->resourceUri,
+        'listClass' => 'list-inline',
+        //'navClass' => 'navbar'
+    );
+    ?>
+<div id="menu">
+    <?= $this->navigationList($navOptions) ?>
+    <?php if ( $literalType == "Person" ) : ?>
+                <a id="rdform-edit-btn" href="#">Bearbeiten</a>
+                <!--<a id="rdform-new-btn" href="#">Neu</a> |-->
+        <?php else : ?>
+                <a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Bearbeiten</a>
+        <?php endif; ?>
+</div>
 
 
-    	if ( $literalType == "Person" ) { ?>
-    		<a id="rdform-edit-btn" href="#">Bearbeiten</a> |
-    		<!--<a id="rdform-new-btn" href="#">Neu</a> |-->
-    	<?php } else { ?>
-    		<a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Bearbeiten</a> |
-    	<?php } ?>
-        
-		<a href="<?= $this->modelUri ?>About">Über das Projekt</a> |
-        <a href="<?= $this->modelUri ?>Suche">Suche</a>
-    </div>
-    
-    <?= $this->renderx(); ?>
+    <?= $this->renderx($this->templateData); ?>
 
     <hr>
     <footer>

@@ -20,7 +20,7 @@ $schoolQuery.= '             hp:nameOfSchool ?bezeichnung .' . PHP_EOL;
 $schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 ?>
 <div class="container row-fluid">
-<div class="span8">
+<div class="col-md-8">
 <h3><?= $this->title ?></h3>
 
 <h4>Liste der Pfarrstellen</h4>
@@ -30,7 +30,7 @@ $schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 
 </div>
 
-<div class="span4">
+<div class="col-md-4">
 
 <?php
 /**
@@ -49,7 +49,7 @@ $schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 // prepare module options
 $map = trim($this->module('map', array('noChrome' => true)));
 ?>
-<img alt="Foto des Pfarrers" class="size128 img-polaroid" src="http://pfarrerbuch.de/site/img/Podelwitz.jpg" />
+<img alt="Foto der Kirche" class="img-responsive img-thumbnail" src="<?= $this->wikiBaseUrl ?>site/img/kirche.png" />
 <hr/>
 <?php if (!empty($map)): ?>
 <?= $map; ?>

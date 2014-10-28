@@ -5,9 +5,12 @@ $staffingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EO
 $staffingQuery.= 'SELECT ?resourceUri ?ort ?bezeichnung ?start ?ende ?comment' . PHP_EOL;
 $staffingQuery.= 'WHERE {' . PHP_EOL;
 $staffingQuery.= '  <' . $this->resourceUri . '> hp:hasPosition ?resourceUri .' . PHP_EOL;
-$staffingQuery.= '  ?resourceUri hp:place ?ortRes ;' . PHP_EOL;
-$staffingQuery.= '               hp:positionDesignation ?bezeichnung .' . PHP_EOL;
-$staffingQuery.= '  ?ortRes hp:nameOfPlace ?ort .' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$staffingQuery.= '  ?resourceUri hp:place ?ortRes .' . PHP_EOL;
+$staffingQuery.= '  OPTIONAL {' . PHP_EOL;
+$staffingQuery.= '      { ?resourceUri rdfs:label ?bezeichnung . }' . PHP_EOL;
+$staffingQuery.= '      UNION { ?resourceUri hp:positionDesignation ?bezeichnung . }' . PHP_EOL;
+$staffingQuery.= '  }' . PHP_EOL;
+$staffingQuery.= '  ?ortRes rdfs:label ?ort .' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
 $staffingQuery.= '  OPTIONAL {' . PHP_EOL;
 $staffingQuery.= '      ?event rdf:subject <' . $this->resourceUri . '> ;' . PHP_EOL;
 $staffingQuery.= '             rdf:predicate hp:hasPosition ;' . PHP_EOL;
@@ -32,7 +35,8 @@ $attendingQuery.= 'WHERE {' . PHP_EOL;
 $attendingQuery.= '  <' . $this->resourceUri . '> hp:attendedSchool ?resourceUri .' . PHP_EOL;
 $attendingQuery.= '  ?resourceUri hp:place ?ortRes ;' . PHP_EOL;
 $attendingQuery.= '               hp:nameOfSchool ?schulName .' . PHP_EOL;
-$attendingQuery.= '  ?ortRes hp:nameOfPlace ?ort .' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$attendingQuery.= '  { ?ortRes rdfs:label ?ort . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$attendingQuery.= '  UNION {?ortRes hp:nameOfPlace ?ort . }' . PHP_EOL;
 $attendingQuery.= '  OPTIONAL {' . PHP_EOL;
 $attendingQuery.= '      ?event rdf:subject <' . $this->resourceUri . '> ;' . PHP_EOL;
 $attendingQuery.= '             rdf:predicate hp:attendedSchool ;' . PHP_EOL;
@@ -60,7 +64,7 @@ $childQuery.= '}' . PHP_EOL;
 ?>
 
 <div class="container row">
-	<div class="col-xs-8">
+	<div class="col-md-8">
 
 	<?php $lastName = $this->literal(array('property' => 'foaf:lastName')); ?>
 	<?php $firstName = $this->literal(array('property' => 'foaf:firstName')); ?>
@@ -160,8 +164,8 @@ $childQuery.= '}' . PHP_EOL;
 	</dl>
 	</div>
 
-	<div class="col-xs-4">
-	<img alt="Foto des Pfarrers" class="size128 img-polaroid" src="http://pfarrerbuch.de/site/img/Gerhardt.jpg" />
+	<div class="col-md-4">
+        <img alt="Foto des Pfarrers" class="img-responsive img-thumbnail" src="<?= $this->wikiBaseUrl ?>site/img/pfarrer.png" />
 
 	<!-- Abstand -->
 
