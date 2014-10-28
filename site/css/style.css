@@ -32,6 +32,7 @@ h1 {
 }
 .rdform {
     max-width: 800px;
+    min-width: 600px;
     position: absolute;
     top: 100px;
     left: 50%;
@@ -41,4 +42,10 @@ h1 {
     box-shadow: 5px 5px 5px gray;
     border-radius: 10px;
     padding: 30px;
+}
+.rdform-edit-class-resource {
+    display: none !important;
+}
+.rdform-class-group legend small {
+    display: none;
 }
