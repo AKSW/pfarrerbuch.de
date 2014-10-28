@@ -5,8 +5,9 @@ $positionQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EO
 $positionQuery.= 'SELECT ?resourceUri ?bezeichnung' . PHP_EOL;
 $positionQuery.= 'WHERE {' . PHP_EOL;
 $positionQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_EOL;
-$positionQuery.= '               a hp:Position ;' . PHP_EOL;
-$positionQuery.= '               hp:positionDesignation ?bezeichnung .' . PHP_EOL;
+$positionQuery.= '               a hp:Position .' . PHP_EOL;
+$positionQuery.= '  {?resourceUri hp:positionDesignation ?bezeichnung }' . PHP_EOL;
+$positionQuery.= '  UNION {?resourceUri rdfs:label ?bezeichnung }' . PHP_EOL;
 $positionQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 
 $schoolQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
@@ -16,7 +17,8 @@ $schoolQuery.= 'SELECT ?resourceUri ?bezeichnung' . PHP_EOL;
 $schoolQuery.= 'WHERE {' . PHP_EOL;
 $schoolQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_EOL;
 $schoolQuery.= '             a hp:School ;' . PHP_EOL;
-$schoolQuery.= '             hp:nameOfSchool ?bezeichnung .' . PHP_EOL;
+$schoolQuery.= '  {?resourceUri hp:nameOfSchool ?bezeichnung }' . PHP_EOL;
+$schoolQuery.= '  UNION {?resourceUri rdfs:label ?bezeichnung }' . PHP_EOL;
 $schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
 ?>
 <div class="container row-fluid">
