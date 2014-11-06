@@ -1,6 +1,7 @@
 $("#rdform-edit-btn").click(function() {
 
-	$("body").append('<div class="rdform-container"><form class="rdform form-horizontal"</form></div>');
+	//$("body").append('<div><form class="test-form"><input type="text" /><input type="submit" /></form></div>');
+	$("body").append('<div class="rdform-container"><form class="rdform form-horizontal" onsubmit="return false;"></form></div>');
 	$(".rdform").prepend('<p><button class="btn btn-sm btn-close pull-right" alt="Close title="Close">x</button></p>');	
 	$(".rdform-container").hide();
 
@@ -21,10 +22,11 @@ $("#rdform-new-btn").click(function() {
 	$(".rdform-container").hide();
 
 	$('#editable').prop('checked', true);
+	// TODO: generate resourceId
 	$('#resourceIri').val('http://pfarrerbuch.comiles.eu/sachsen/person/-9999999999');
 	$('#redirectUri').val('http://pfarrerbuch.comiles.eu/sachsen/person/-9999999999');
 
-	// dataHash kommt aus leerer Resource!
+	// TODO: dataHash kommt aus leerer Resource!
 	$('#dataHash').val('');
 
 	var con = new OntoWikiConnection(urlBase + 'jsonrpc');
