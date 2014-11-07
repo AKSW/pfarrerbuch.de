@@ -30,9 +30,10 @@ h1 {
     top: 0;
     background:rgba(255,255,255,0.5);
 }
-.rdform {
+.rdform-container > .rdform {
+    width: 50%;
     max-width: 800px;
-    min-width: 600px;
+    min-width: 600px;    
     position: absolute;
     top: 100px;
     left: 50%;
@@ -48,4 +49,7 @@ h1 {
 }
 .rdform-class-group legend small {
     display: none;
+}
+.rdform-resource-group .rdform {
+    margin-left: -35px;
 }
