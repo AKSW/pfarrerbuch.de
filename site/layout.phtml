@@ -81,8 +81,8 @@ $literalType = basename($this->literal(array('property' => EF_RDF_NS . 'type', '
 <div id="menu">
     <?= $this->navigationList($navOptions) ?>
     <?php if ( $literalType == "Person" ) : ?>
-                <a id="rdform-edit-btn" href="#">Bearbeiten</a>
-                <!--<a id="rdform-new-btn" href="#">Neu</a> |-->
+                <a id="rdform-edit-btn" href="#" data-resourceIri="<?= $this->resourceUri ?>">Bearbeiten</a>
+                <!--| <a id="rdform-new-btn" href="#">Neu</a>-->
         <?php else : ?>
                 <a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Bearbeiten</a>
         <?php endif; ?>
@@ -111,25 +111,20 @@ $literalType = basename($this->literal(array('property' => EF_RDF_NS . 'type', '
 <script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/rdform/js/rdform.js'; ?>"></script>
 
 <script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/jsonread.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/owrdform.js'; ?>"></script>
 
 <script language="JavaScript">
     var urlBase = '<?php echo $this->urlBase ?>';
     var modelIri = '<?= $this->modelUri ?>';
-    var resourceIri = '<?= $this->resourceUri ?>';
-    //alert(urlBase);
-    //alert("<?php echo $this->urlBase ?>");    
 </script>
 
 <script type="text/javascript" src="<?php echo $this->baseUri ?>/js/site.js"></script>
 
+<!--
 <input type="hidden" id="literalType" label="literalType" value="<?php echo $literalType; ?>" />
+-->
 <input type="hidden" id="urlBase" value="<?php echo $this->urlBase ?>" />
 <input type="hidden" id="modelIri" label="model" value="<?php echo $this->modelUri ?>" />
-<input type="hidden" id="resourceIri" label="resource" value="<?php echo $this->resourceUri ?>" />
-<input type="hidden" id="resourceId" label="resource" value="<?php echo abs( basename($this->resourceUri) ) ?>" />
-<input type="hidden" id="redirectUri" label="redirectUri" value="<?php echo $this->resourceUri ?>" />
-<input type="hidden" id="dataHash" label="dataHash" />
-<input type="hidden" id="editable" disabled="true" />
 
 </body>
 </html>
