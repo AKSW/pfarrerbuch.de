@@ -82,7 +82,7 @@ $literalType = basename($this->literal(array('property' => EF_RDF_NS . 'type', '
     <?= $this->navigationList($navOptions) ?>
     <?php if ( $literalType == "Person" ) : ?>
                 <a id="rdform-edit-btn" href="#" data-resourceIri="<?= $this->resourceUri ?>">Bearbeiten</a>
-                <!--| <a id="rdform-new-btn" href="#">Neu</a>-->
+                | <a id="rdform-new-btn" href="#">Neu</a>
         <?php else : ?>
                 <a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Bearbeiten</a>
         <?php endif; ?>
