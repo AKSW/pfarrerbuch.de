@@ -81,6 +81,7 @@ help-test:
 custom:
 	rm -f extensions/site/sites/local
 	cd extensions/site/sites/ && ln -s ../../../site local
+	cd extensions/rdform/ && make deploy
 
 # top level target
 
