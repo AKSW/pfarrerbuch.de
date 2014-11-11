@@ -5,23 +5,27 @@ var owCon = new OntoWikiConnection(urlBase + 'jsonrpc');
 // click edit btn
 $("#rdform-edit-btn").click(function() {
 		var container = $('<div class="rdform-container"></div>');
-		$("body").append(container);
+		var template = "form_pfarrerbuch-" + $(this).attr("data-resourceTemplate") + ".html";
 		var resourceIri = $(this).attr("data-resourceIri");
-		
+
+		$("body").append(container);
+
 		owCon.getResource( modelIri, resourceIri, function( resData ) {
 			var hash = resData.dataHash;
-			var owRdform = new OntoWikiRDForm();
-			owRdform.$container = container;
-			
-			owRdform.initForm(resourceIri, resData, function( result ) {
-				//var hash = owRdform.$elem.children('#dataHash').val();
-                
-                owCon.updateResource( modelIri, resourceIri, hash, result, function( updateResult ) {
-                	window.location.href = decodeURIComponent(resourceIri);
-                } );
+			var owRdform = new OntoWikiRDForm({
+				$container: container,
+				template: template,
+				hooks: "hooks_pfarrerbuch.js",
+				data: resData.data
 			});
-			owRdform.$elem.prepend('<p><button class="btn btn-sm close-rdform-btn pull-right" alt="Close title="Close">x</button></p>');	
-		});
+			owRdform.init( function(result){ 
+				owCon.updateResource( modelIri, resourceIri, hash, result, function( updateResult ) {
+					window.location.href = decodeURIComponent(result["@id"]);
+				});
+			});
+			owRdform.settings.$elem.data("resourceIri", resourceIri);
+			owRdform.settings.$elem.prepend('<p><button class="btn btn-sm close-rdform-btn pull-right" alt="Close title="Close">x</button></p>');
+		});			
 		
 		return false;
 });
@@ -29,36 +33,28 @@ $("#rdform-edit-btn").click(function() {
 // click new btn
 $("#rdform-new-btn").click(function() {
 		var container = $('<div class="rdform-container"></div>');
+		var template = "form_pfarrerbuch-" + $(this).attr("data-resourceTemplate") + ".html";
+
 		$("body").append(container);
 
-		var now = new Date();
-		var pID = now.getTime();
-		var resourceIri = 'http://pfarrerbuch.comiles.eu/sachsen/person/-'+pID;
-
-		owCon.getResource( modelIri, resourceIri, function( resData ) {
-			var hash = resData.dataHash;
-			var owRdform = new OntoWikiRDForm();
-			owRdform.$container = container;
-			owRdform.template = "Person";
-			
-			owRdform.initForm(resourceIri, resData, function( result ) {					
-				var resultId = result["@id"];
-	            
-	            owCon.updateResource( modelIri, resourceIri, hash, result, function( updateResult ) {
-	            	window.location.href = decodeURIComponent(resourceIri);
-	            } );
-			});
-			owRdform.$elem.prepend('<p><button class="btn btn-sm close-rdform-btn pull-right" alt="Close title="Close">x</button></p>');	
+		var owRdform = new OntoWikiRDForm({
+			$container: container,
+			template: template,
+			hooks: "hooks_pfarrerbuch.js"
 		});
+		owRdform.init( function(result){ 
+			var hash = '40cd750bba9870f18aada2478b24840a';
+			owCon.updateResource( modelIri, result["@id"], hash, result, function( updateResult ) {
+				window.location.href = decodeURIComponent(result["@id"]);
+			});
+		});
+		owRdform.settings.$elem.prepend('<p><button class="btn btn-sm close-rdform-btn pull-right" alt="Close title="Close">x</button></p>');
 		
 		return false;
 });
 
 // close the current form window
 $("body").on("click", ".close-rdform-btn", function() {
-	//reload window to re-initial all files
-	//var redirectUri = $("#redirectUri").val();
-	//window.location.href = decodeURIComponent(redirectUri);
 	$(this).parentsUntil(".rdform-container").parent().remove();
 	return false;
 })
