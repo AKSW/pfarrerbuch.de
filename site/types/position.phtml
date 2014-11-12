@@ -2,7 +2,7 @@
 $staffingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $staffingQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $staffingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
-$staffingQuery.= 'SELECT ?resourceUri ?start ?ende ?comment' . PHP_EOL;
+$staffingQuery.= 'SELECT DISTINCT ?resourceUri ?event ?start ?ende ?comment' . PHP_EOL;
 $staffingQuery.= 'WHERE {' . PHP_EOL;
 $staffingQuery.= '  ?resourceUri hp:hasPosition <' . $this->resourceUri . '> .' . PHP_EOL;
 $staffingQuery.= '  OPTIONAL {' . PHP_EOL;
