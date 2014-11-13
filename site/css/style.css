@@ -54,3 +54,8 @@ h1 {
     margin-left: -35px;
     margin-top: 2px;
 }
+
+.form-control.input-sm {
+    display: inline-block;
+    width: 70%;
+}
