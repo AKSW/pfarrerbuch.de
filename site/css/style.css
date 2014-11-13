@@ -59,3 +59,13 @@ h1 {
     display: inline-block;
     width: 70%;
 }
+.form-control.input-sm.rdform-datepicker {
+    display: block;
+    width: 100%;
+}
+
+
+.rdform p .close-rdform-btn {
+    margin-right: -45px;
+    margin-top: -45px;   
+}
