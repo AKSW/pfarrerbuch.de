@@ -24,7 +24,8 @@ $("#rdform-edit-btn").click(function() {
 				});
 			});
 			owRdform.settings.$elem.data("resourceIri", resourceIri);
-			owRdform.settings.$elem.prepend('<p><button class="btn btn-sm close-rdform-btn pull-right" alt="Close title="Close">x</button></p>');
+			owRdform.settings.$elem.prepend('<p><button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button></p>');
+			owRdform.settings.$elem.find(".rdform-submit-btn-group div").prepend('<button type="reset" class="btn btn-default close-rdform-btn">Abbrechen</button>  ');
 		});			
 		
 		return false;
@@ -49,7 +50,8 @@ $("#rdform-new-btn").click(function() {
 				window.location.href = decodeURIComponent(result["@id"]);
 			});
 		});
-		owRdform.settings.$elem.prepend('<p><button class="btn btn-sm close-rdform-btn pull-right" alt="Close title="Close">x</button></p>');
+		owRdform.settings.$elem.prepend('<p><button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button></p>');
+		owRdform.settings.$elem.find(".rdform-submit-btn-group div").prepend('<button type="reset" class="btn btn-default close-rdform-btn">Abbrechen</button>  ');
 		
 		return false;
 });
