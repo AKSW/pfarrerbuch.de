@@ -1,5 +1,4 @@
 
-
 var owCon = new OntoWikiConnection(urlBase + 'jsonrpc');
 
 // click edit btn
@@ -16,6 +15,7 @@ $("#rdform-edit-btn").click(function() {
 				$container: container,
 				template: template,
 				hooks: "hooks_pfarrerbuch.js",
+				lang: "pfarrerbuch_de.js",
 				data: resData.data
 			});
 			owRdform.init( function(result){ 
@@ -40,7 +40,8 @@ $("#rdform-new-btn").click(function() {
 		var owRdform = new OntoWikiRDForm({
 			$container: container,
 			template: template,
-			hooks: "hooks_pfarrerbuch.js"
+			hooks: "hooks_pfarrerbuch.js",
+			lang: "pfarrerbuch_de.js",
 		});
 		owRdform.init( function(result){ 
 			var hash = '40cd750bba9870f18aada2478b24840a';
@@ -55,6 +56,19 @@ $("#rdform-new-btn").click(function() {
 
 // close the current form window
 $("body").on("click", ".close-rdform-btn", function() {
-	$(this).parentsUntil(".rdform-container").parent().remove();
+	var form = $(this).parentsUntil(".rdform-container");
+	form.hide( "fast", function() {
+					form.parent().remove();
+				});
+	return false;
+})
+
+// close a subform
+$("body").on("click", ".close-subrdform-btn", function() {
+	var form = $(this).parentsUntil(".rdform");
+	$(this).parentsUntil(".rdform").parent().parentsUntil(".col-xs-9").parent().find("input,button").show();
+	form.hide( "fast", function() {
+					form.parent().remove();
+				});	
 	return false;
 })
