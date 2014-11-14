@@ -101,7 +101,6 @@ function drop(event) {
 function drag_init() {
 	var dm = document.getElementsByTagName("form")[0];
 	$(dm).attr("draggable", "true");
-	console.log(dm);
 	dm.addEventListener('dragstart',drag_start,false); 
 	document.body.addEventListener('dragover',drag_over,false); 
 	document.body.addEventListener('drop',drop,false);
