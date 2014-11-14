@@ -26,7 +26,9 @@ $("#rdform-edit-btn").click(function() {
 			owRdform.settings.$elem.data("resourceIri", resourceIri);
 			owRdform.settings.$elem.prepend('<p><button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button></p>');
 			owRdform.settings.$elem.find(".rdform-submit-btn-group div").prepend('<button type="reset" class="btn btn-default close-rdform-btn">Abbrechen</button>  ');
-		});			
+
+			drag_init();	
+		});				
 		
 		return false;
 });
@@ -52,6 +54,8 @@ $("#rdform-new-btn").click(function() {
 		});
 		owRdform.settings.$elem.prepend('<p><button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button></p>');
 		owRdform.settings.$elem.find(".rdform-submit-btn-group div").prepend('<button type="reset" class="btn btn-default close-rdform-btn">Abbrechen</button>  ');
+
+		drag_init();
 		
 		return false;
 });
@@ -74,3 +78,31 @@ $("body").on("click", ".close-subrdform-btn", function() {
 				});	
 	return false;
 })
+
+
+// drag and drop functionality for the root form
+function drag_start(event) {
+    var style = window.getComputedStyle(event.target, null);
+    event.dataTransfer.setData("text/plain",
+    (parseInt(style.getPropertyValue("left"),10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY));
+} 
+function drag_over(event) { 
+    event.preventDefault(); 
+    return false; 
+} 
+function drop(event) { 
+    var offset = event.dataTransfer.getData("text/plain").split(',');
+    var dm = document.getElementsByTagName("form")[0];
+    dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+    dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+    event.preventDefault();
+    return false;
+}
+function drag_init() {
+	var dm = document.getElementsByTagName("form")[0];
+	$(dm).attr("draggable", "true");
+	console.log(dm);
+	dm.addEventListener('dragstart',drag_start,false); 
+	document.body.addEventListener('dragover',drag_over,false); 
+	document.body.addEventListener('drop',drop,false);
+}
