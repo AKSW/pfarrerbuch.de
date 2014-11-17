@@ -208,7 +208,10 @@ $childQuery.= '}' . PHP_EOL;
 
 <hr/>
 <h4>Bemerkungen</h4>
-<?= $this->literals(array('tag' => 'div', 'class' => 'content')) ?>
+<?= $this->literals(array('property' => 'rdfs:comment', 'tag' => 'div', 'class' => 'content')) ?>
+
+<h4>Bearbeitungs Bemerkungen</h4>
+<?= $this->literals(array('property' => 'hp:editorsComment', 'tag' => 'div', 'class' => 'content')) ?>
 
 <h4>Quellen und Literatur</h4>
-…
+<?= $this->literals(array('property' => 'hp:source', 'tag' => 'div', 'class' => 'content')) ?>
