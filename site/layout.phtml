@@ -82,10 +82,13 @@ $literalTemplate = basename($this->literal(array('property' => EF_RDF_NS . 'type
     <?= $this->navigationList($navOptions) ?>
     <a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Admin-Ansicht</a><!-- should always be displayed -->
     <?php 
-    //if ( $literalTemplate == "Person" || $literalTemplate == "Place" ) : ?>
+    if ( $literalTemplate == "Person" || 
+    	 $literalTemplate == "Place" || 
+    	 $literalTemplate == "Position" ||
+    	 $literalTemplate == "School" ) : ?>
         | <a id="rdform-edit-btn" href="#" data-resourceIri="<?= $this->resourceUri ?>" data-resourceTemplate="<?= $literalTemplate ?>">Bearbeiten</a>
         | <a id="rdform-new-btn" href="#" data-resourceTemplate="<?= $literalTemplate ?>" >Neu</a>
-    <?php // endif; ?>
+    <?php endif; ?>
 </div>
 
 
