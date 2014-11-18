@@ -8,7 +8,7 @@ $positionQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_
 $positionQuery.= '               a hp:Position .' . PHP_EOL;
 $positionQuery.= '  {?resourceUri hp:positionDesignation ?bezeichnung }' . PHP_EOL;
 $positionQuery.= '  UNION {?resourceUri rdfs:label ?bezeichnung }' . PHP_EOL;
-$positionQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+$positionQuery.= '} ORDER BY ?bezeichnung' . PHP_EOL;
 
 $schoolQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $schoolQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
@@ -19,7 +19,7 @@ $schoolQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_EO
 $schoolQuery.= '             a hp:School .' . PHP_EOL;
 $schoolQuery.= '  {?resourceUri hp:nameOfSchool ?bezeichnung }' . PHP_EOL;
 $schoolQuery.= '  UNION {?resourceUri rdfs:label ?bezeichnung }' . PHP_EOL;
-$schoolQuery.= '} ORDER BY ?start ?ende' . PHP_EOL;
+$schoolQuery.= '} ORDER BY ?bezeichnung' . PHP_EOL;
 ?>
 <div class="container row-fluid">
 <div class="col-md-8">
