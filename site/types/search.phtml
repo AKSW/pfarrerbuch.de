@@ -14,7 +14,7 @@ if (isset($_POST['mode'])) {
 <h3>Suche</h3>
 <form method="post">
     <select name="mode">
-        <option value="name" <?= ($m=='name')?'selected':'' ?>>Name</option>
+        <option value="person" <?= ($m=='person')?'selected':'' ?>>Person</option>
         <option value="ort" <?= ($m=='ort')?'selected':'' ?>>Ort</option>
     </select>
     <input name="q" type="text" value="<?= $searchText ?>"/>
@@ -37,9 +37,11 @@ $query->addPrefix($rdfsPrefix);
 $store = Erfurt_App::getInstance()->getStore();
 $resourceUriVar  = new Erfurt_Sparql_Query2_Var('resourceUri');
 
-if ($m == 'name') {
-    $nameVar  = new Erfurt_Sparql_Query2_IriRef('name', $foafPrefix);
-    $elements = $store->getSearchPatternWithNode($searchText, $nameVar);
+$template = 'resource';
+
+if ($m == 'person') {
+    $nameRef  = new Erfurt_Sparql_Query2_IriRef('name', $foafPrefix);
+    $elements = $store->getSearchPatternWithNode($searchText, $nameRef);
 
     $pVar  = new Erfurt_Sparql_Query2_IriRef('isPastor', $hpPrefix);
     $oVar  = new Erfurt_Sparql_Query2_Var('isPastor');
@@ -52,24 +54,52 @@ if ($m == 'name') {
             )
         )
     );
-    $query->addElements($elements);
 
+    // build optional for order by lastname
+    $lastnameRef  = new Erfurt_Sparql_Query2_IriRef('lastName', $foafPrefix);
+    $lastnameVar  = new Erfurt_Sparql_Query2_Var('lastname');
+    $lastnameOption = new Erfurt_Sparql_Query2_OptionalGraphPattern();
+    $lastnameOption->addElement(new Erfurt_Sparql_Query2_Triple($resourceUriVar, $lastnameRef, $lastnameVar));
+    $elements[] = $lastnameOption;
+
+    // build optional for order by firstname
+    $firstnameRef  = new Erfurt_Sparql_Query2_IriRef('firstName', $foafPrefix);
+    $firstnameVar  = new Erfurt_Sparql_Query2_Var('firstname');
+    $firstnameOption = new Erfurt_Sparql_Query2_OptionalGraphPattern();
+    $firstnameOption->addElement(new Erfurt_Sparql_Query2_Triple($resourceUriVar, $firstnameRef, $firstnameVar));
+    $elements[] = $firstnameOption;
+
+    $query->addElements($elements);
+    $query->getOrder()->add($lastnameVar);
+    $query->getOrder()->add($firstnameVar);
+
+    $template = 'person';
 } else if ($m == 'ort') {
     $nameOfPlaceOption = new Erfurt_Sparql_Query2_GroupGraphPattern();
-    $nameOfPlaceVar  = new Erfurt_Sparql_Query2_IriRef('nameOfPlace', $hpPrefix);
-    $nameOfPlaceOption->addElements($store->getSearchPatternWithNode($searchText, $nameOfPlaceVar));
+    $nameOfPlaceRef  = new Erfurt_Sparql_Query2_IriRef('nameOfPlace', $hpPrefix);
+    $nameOfPlaceOption->addElements($store->getSearchPatternWithNode($searchText, $nameOfPlaceRef));
 
     $typePlaceOption = new Erfurt_Sparql_Query2_GroupGraphPattern();
-    $typeVar  = new Erfurt_Sparql_Query2_IriRef('Place', $hpPrefix);
-    $rdfsLabelVar  = new Erfurt_Sparql_Query2_IriRef('label', $rdfsPrefix);
+    $typeRef  = new Erfurt_Sparql_Query2_IriRef('Place', $hpPrefix);
+    $rdfsLabelRef  = new Erfurt_Sparql_Query2_IriRef('label', $rdfsPrefix);
     $a = new Erfurt_Sparql_Query2_A();
-    $typePlaceOption->addElement(new Erfurt_Sparql_Query2_Triple($resourceUriVar, $a, $typeVar));
-    $typePlaceOption->addElements($store->getSearchPatternWithNode($searchText, $rdfsLabelVar));
+    $typePlaceOption->addElement(new Erfurt_Sparql_Query2_Triple($resourceUriVar, $a, $typeRef));
+    $typePlaceOption->addElements($store->getSearchPatternWithNode($searchText, $rdfsLabelRef));
 
     $unionPattern = new Erfurt_Sparql_Query2_GroupOrUnionGraphPattern();
     $unionPattern->addElement($nameOfPlaceOption);
     $unionPattern->addElement($typePlaceOption);
     $query->addElement($unionPattern);
+
+    // build optional for order by firstname
+    $nameOfPlaceVar  = new Erfurt_Sparql_Query2_Var('nameofplace');
+    $nameOfPlaceOption = new Erfurt_Sparql_Query2_OptionalGraphPattern();
+    $nameOfPlaceOption->addElement(new Erfurt_Sparql_Query2_Triple($resourceUriVar, $nameOfPlaceRef, $nameOfPlaceVar));
+    $query->addElement($nameOfPlaceOption);
+
+    $query->getOrder()->add($nameOfPlaceVar);
+
+    $template = 'place';
 }
 
 $query->addProjectionVar($resourceUriVar);
@@ -79,7 +109,7 @@ $query->setDistinct();
 <?php if ($m !== null) : ?>
     <span>Suche nach „<?= $searchText ?>“</span>
     <ul>
-        <?= $this->querylist($query, 'local/items/resource.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
+        <?= $this->querylist($query, 'local/items/' . $template . '.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
     </ul>
 <?php else: ?>
     <span>Bitte wählen Sie die Art der Suche aus und geben Sie ihren Suchtext in das nebenstehende Feld ein.</span>

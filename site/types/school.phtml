@@ -22,13 +22,13 @@ $studentQuery.= '  ?resourceUri hp:attendedSchool <' . $this->resourceUri . '> .
 $studentQuery.= '} LIMIT 20' . PHP_EOL;
 ?>
 
-<h4>Liste der Personen die an dieser Universität/Schule gelehrt haben</h4>
+<h4>Liste der Personen, die an dieser Universität/Schule gelehrt haben</h4>
 <ul>
 <?= $this->querylist($teacherQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
 </ul>
 
 
-<h4>Liste der Personen die an dieser Universität/Schule gelernt haben</h4>
+<h4>Liste der Personen, die an dieser Universität/Schule gelernt haben</h4>
 <ul>
 <?= $this->querylist($studentQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
 </ul>

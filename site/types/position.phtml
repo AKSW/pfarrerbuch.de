@@ -24,7 +24,7 @@ $staffingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 <h3><?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:place ?resourceUri', 'template' => 'resource')) ?> <?= $this->title ?></h3>
 
 <dl>
-<dt>Liste der Pfarrer die diese Stelle inne hatten</dt>
+<dt>Liste der Pfarrer, die diese Stelle inne hatten</dt>
 <dd>
 <dl>
 <?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'position')) ?>
