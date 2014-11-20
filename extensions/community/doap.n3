@@ -11,7 +11,7 @@
 :community a doap:Project ;
   doap:name "community" ;
   owconfig:privateNamespace <https://github.com/AKSW/community/raw/master/doap.n3#> ;
-  owconfig:enabled "true"^^xsd:boolean ;
+  owconfig:enabled "false"^^xsd:boolean ;
   owconfig:templates "templates" ;
   owconfig:languages "languages/" ;
   owconfig:defaultAction "list" ;
