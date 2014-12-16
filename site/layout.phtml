@@ -107,6 +107,8 @@ $literalTemplate = basename($this->literal(array('property' => EF_RDF_NS . 'type
 
 <script type="text/javascript" src="<?php echo $this->baseUri ?>/js/jquery.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUri ?>/js/bootstrap.js"></script>
+<!-- include promise for IE compatibility -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/g/es6-promise@1.0.0"></script>
 
 <script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/jquery.jsonrpcclient.js/jquery.jsonrpcclient.js'; ?>"></script>
 <script type="text/javascript" src="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/jsonld.js/js/jsonld.js'; ?>"></script>
