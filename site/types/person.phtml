@@ -89,14 +89,16 @@ $childQuery.= '}' . PHP_EOL;
 	* <?= $this->date($dob) ?>
 	<?php endif; ?>
 
-	<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
+	<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource')) ?>
+
+        –
 
 	<?php $dod = $this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'node' => true)) ?>
 	<?php if ($dod) : ?>
 	† <?= $this->date($dod) ?>
 	<?php endif; ?>
 
-	<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfDeath ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')')) ?>
+	<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfDeath ?resourceUri', 'template' => 'resource')) ?>
 	</div>
 
 	<dl>
@@ -129,7 +131,8 @@ $childQuery.= '}' . PHP_EOL;
 
 	<?php
 	$dOfOrdination = $this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true));
-	$pOfOrdination = $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource', 'prefix' => ' in '))
+	$pOfOrdination = $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource'));
+	$ordinator = $this->query(array('where' => '<' . $this->resourceUri . '> hp:ordinator ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')'));
 	?>
 	<?php if ($dOfOrdination || $pOfOrdination) : ?>
 	<dl>
@@ -138,7 +141,8 @@ $childQuery.= '}' . PHP_EOL;
 	<?php if ($dOfOrdination) : ?>
 	<?= $this->date($dOfOrdination) ?>
 	<?php endif; ?>
-	<?= $pOfOrdination ?>
+        <?= $pOfOrdination ?>
+        <?= $ordinator ?>
 	</dd>
 	<?php endif; ?>
 
