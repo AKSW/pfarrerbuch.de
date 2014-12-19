@@ -25,7 +25,7 @@ $schoolQuery.= '} ORDER BY ?bezeichnung' . PHP_EOL;
 <div class="col-md-8">
 <h3><?= $this->title ?></h3>
 
-<h4>Liste der Pfarrstellen</h4>
+<h4><?= $this->_('place_list_positions') ?></h4>
 <ul>
 <?= $this->querylist($positionQuery, 'local/items/resource.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
 </ul>
@@ -57,11 +57,11 @@ $map = trim($this->module('map', array('noChrome' => true)));
 <?= $map; ?>
 <?php else: ?>
 <div class="alert alert-info">
-Es wurden keine Kartendaten für diesen Ort hinterlegt
+<?= $this->_('place_no_map_notice') ?>
 </div>
 <?php endif; ?>
 <hr/>
-<h5>Liste der Schulen und Universitäten</h5>
+<h5><?= $this->_('place_list_schools') ?></h5>
 <ul>
 <?= $this->querylist($schoolQuery, 'local/items/resource.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
 </ul>

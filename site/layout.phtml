@@ -80,15 +80,16 @@ $literalTemplate = basename($this->literal(array('property' => EF_RDF_NS . 'type
     ?>
 <div id="menu">
     <?= $this->navigationList($navOptions) ?>
-    <a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>">Admin-Ansicht</a><!-- should always be displayed -->
+    <a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>"><?= $this->_('backend') ?></a><!-- should always be displayed -->
     <?php 
     if ( $literalTemplate == "Person" || 
     	 $literalTemplate == "Place" || 
     	 $literalTemplate == "Position" ||
     	 $literalTemplate == "School" ) : ?>
-        | <a id="rdform-edit-btn" href="#" data-resourceIri="<?= $this->resourceUri ?>" data-resourceTemplate="<?= $literalTemplate ?>">Bearbeiten</a>
-        | <a id="rdform-new-btn" href="#" data-resourceTemplate="<?= $literalTemplate ?>" >Neu</a>
-    <?php endif; ?>
+        | <a id="rdform-edit-btn" href="#" data-resourceIri="<?= $this->resourceUri ?>" data-resourceTemplate="<?= $literalTemplate ?>"><?= $this->_('edit') ?></a>
+        | <a id="rdform-new-btn" href="#" data-resourceTemplate="<?= $literalTemplate ?>" ><?= $this->_('new') ?></a>
+    <?php endif; ?>|
+    <?= $this->_('language') ?>: <a href="?lang=de">de</a>|<a href="?lang=hu">hu</a>
 </div>
 
 

@@ -11,14 +11,14 @@ if (isset($_POST['mode'])) {
 
 ?>
 
-<h3>Suche</h3>
+<h3><?= $this->_('search_title') ?></h3>
 <form method="post">
     <select name="mode">
-        <option value="person" <?= ($m=='person')?'selected':'' ?>>Person</option>
-        <option value="ort" <?= ($m=='ort')?'selected':'' ?>>Ort</option>
+        <option value="person" <?= ($m=='person')?'selected':'' ?>><?= $this->_('search_person') ?></option>
+        <option value="ort" <?= ($m=='ort')?'selected':'' ?>><?= $this->_('search_place') ?></option>
     </select>
     <input name="q" type="text" value="<?= $searchText ?>"/>
-    <input type="submit"/>
+    <input type="submit" value="<?= $this->_('search_search') ?>"/>
 </form>
 
 <?php
@@ -107,10 +107,10 @@ $query->setDistinct();
 
 ?>
 <?php if ($m !== null) : ?>
-    <span>Suche nach „<?= $searchText ?>“</span>
+    <span><?= sprintf($this->_('search_search_for'), $searchText) ?></span>
     <ul>
         <?= $this->querylist($query, 'local/items/' . $template . '.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
     </ul>
 <?php else: ?>
-    <span>Bitte wählen Sie die Art der Suche aus und geben Sie ihren Suchtext in das nebenstehende Feld ein.</span>
+    <span><?= $this->_('search_explanation') ?></span>
 <?php endif; ?>

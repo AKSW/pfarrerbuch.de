@@ -1,10 +1,20 @@
 <dt>
-<?php if ($this->start && $this->ende) : ?>
-<?= $this->date($this->start) ?> – <?= $this->date($this->ende) ?>
-<?php elseif ($this->start && !$this->ende): ?>
-<?= $this->date($this->start) ?> – 
-<?php elseif (!$this->start && $this->ende) : ?>
- – <?= $this->date($this->ende) ?>
+<?php
+$start = false;
+$ende = false;
+?>
+<?php if ($this->start) : ?>
+    <?php $start = $this->literal(array('uri' => $this->event, 'property' => 'hp:start', 'tag' => 'span', 'node' => true)) ?>
+<?php endif ?>
+<?php if ($this->ende) : ?>
+    <?php $ende = $this->literal(array('uri' => $this->event, 'property' => 'hp:end', 'tag' => 'span', 'node' => true)) ?>
+<?php endif ?>
+<?php if ($start && $ende) : ?>
+<?= $this->date($start) ?> – <?= $this->date($ende) ?>
+<?php elseif ($start && !$ende): ?>
+<?= $this->date($start) ?> – 
+<?php elseif (!$start && $ende) : ?>
+ – <?= $this->date($ende) ?>
 <?php else : ?>
  – 
 <?php endif ?>

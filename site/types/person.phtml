@@ -5,12 +5,13 @@ $staffingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EO
 $staffingQuery.= 'SELECT DISTINCT ?resourceUri ?event ?ort ?bezeichnung ?start ?ende ?comment' . PHP_EOL;
 $staffingQuery.= 'WHERE {' . PHP_EOL;
 $staffingQuery.= '  <' . $this->resourceUri . '> hp:hasPosition ?resourceUri .' . PHP_EOL;
-$staffingQuery.= '  ?resourceUri hp:place ?ortRes .' . PHP_EOL;
 $staffingQuery.= '  OPTIONAL {' . PHP_EOL;
 $staffingQuery.= '      { ?resourceUri rdfs:label ?bezeichnung . }' . PHP_EOL;
 $staffingQuery.= '      UNION { ?resourceUri hp:positionDesignation ?bezeichnung . }' . PHP_EOL;
 $staffingQuery.= '  }' . PHP_EOL;
-$staffingQuery.= '  ?ortRes rdfs:label ?ort .' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$staffingQuery.= '  OPTIONAL {?resourceUri hp:place ?ortRes .' . PHP_EOL;
+$staffingQuery.= '  { ?ortRes rdfs:label ?ort . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$staffingQuery.= '  UNION {?ortRes hp:nameOfPlace ?ort . }}' . PHP_EOL;
 $staffingQuery.= '  OPTIONAL {' . PHP_EOL;
 $staffingQuery.= '      ?event rdf:subject <' . $this->resourceUri . '> ;' . PHP_EOL;
 $staffingQuery.= '             rdf:predicate hp:hasPosition ;' . PHP_EOL;
@@ -30,14 +31,14 @@ $staffingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 $attendingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $attendingQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $attendingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
-$attendingQuery.= 'SELECT DISTINCT ?resourceUri ?ort ?schulName ?start ?ende ?comment' . PHP_EOL;
+$attendingQuery.= 'SELECT DISTINCT ?resourceUri ?event ?ort ?schulName ?start ?ende ?comment' . PHP_EOL;
 $attendingQuery.= 'WHERE {' . PHP_EOL;
 $attendingQuery.= '  <' . $this->resourceUri . '> hp:attendedSchool ?resourceUri .' . PHP_EOL;
-$attendingQuery.= '  ?resourceUri hp:place ?ortRes .' . PHP_EOL;
-$attendingQuery.= '  { ?resourceUri rdfs:label ?schulName . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
-$attendingQuery.= '  UNION { ?resourceUri hp:nameOfSchool ?schulName . }' . PHP_EOL;
+$attendingQuery.= '  OPTIONAL {{ ?resourceUri rdfs:label ?schulName . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
+$attendingQuery.= '  UNION { ?resourceUri hp:nameOfSchool ?schulName . }}' . PHP_EOL;
+$attendingQuery.= '  OPTIONAL {?resourceUri hp:place ?ortRes .' . PHP_EOL;
 $attendingQuery.= '  { ?ortRes rdfs:label ?ort . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
-$attendingQuery.= '  UNION {?ortRes hp:nameOfPlace ?ort . }' . PHP_EOL;
+$attendingQuery.= '  UNION {?ortRes hp:nameOfPlace ?ort . }}' . PHP_EOL;
 $attendingQuery.= '  OPTIONAL {' . PHP_EOL;
 $attendingQuery.= '      ?event rdf:subject <' . $this->resourceUri . '> ;' . PHP_EOL;
 $attendingQuery.= '             rdf:predicate hp:attendedSchool ;' . PHP_EOL;
@@ -104,7 +105,7 @@ $childQuery.= '}' . PHP_EOL;
 	<dl>
 	<?php $dOfBabtism =  $this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'node' => true)) ?>
 	<?php if ($dOfBabtism) : ?>
-	<dt>Taufe</dt>
+	<dt><?= $this->_('babtism') ?></dt>
 	<dd>
 	<?= $this->date($dOfBabtism) ?>
 	</dd>
@@ -119,7 +120,7 @@ $childQuery.= '}' . PHP_EOL;
 	$burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in '));
 	?>
 	<?php if ($dOfFuneral || $burialPlace) : ?>
-	<dt>Beerdigung</dt>
+	<dt><?= $this->_('funeral') ?></dt>
 	<dd>
 	<?php if ($dOfFuneral) : ?>
 	    <?= $this->date($dOfFuneral) ?>
@@ -136,7 +137,7 @@ $childQuery.= '}' . PHP_EOL;
 	?>
 	<?php if ($dOfOrdination || $pOfOrdination) : ?>
 	<dl>
-	<dt>Ordination</dt>
+	<dt><?= $this->_('ordination') ?></dt>
 	<dd>
 	<?php if ($dOfOrdination) : ?>
 	<?= $this->date($dOfOrdination) ?>
@@ -151,7 +152,7 @@ $childQuery.= '}' . PHP_EOL;
 	<?php $dOfRetirement = $this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'node' => true)); ?>
 	<?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')); ?>
 	<?php if ($dOfRetirement || $pOfRetirement) : ?>
-	<dt>Emeriterung</dt>
+	<dt><?= $this->_('retirement') ?></dt>
 	<dd>
 	<?php if ($dOfRetirement) : ?>
 	<?= $this->date($dOfRetirement) ?>
@@ -180,16 +181,16 @@ $childQuery.= '}' . PHP_EOL;
 	<?php $mother = $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person')) ?>
 	<?php $father = $this->query(array('where' => '<' . $this->resourceUri . '> hp:father ?resourceUri', 'template' => 'person')) ?>
 	<?php if ($father) : ?>
-	<dt>Vater</dt>
+        <dt><?= $this->_('father') ?></dt>
 	<?= $father ?>
 	<?php endif; ?>
 	<?php if ($mother) : ?>
-	<dt>Mutter</dt>
+	<dt><?= $this->_('mother') ?></dt>
 	<?= $mother ?>
 	<?php endif; ?>
 	</dl>
 
-	<h4>Bildungsweg</h4>
+	<h4><?= $this->_('education') ?></h4>
 	<dl>
 	<?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml') ?>
 	</dl>
@@ -203,7 +204,7 @@ $childQuery.= '}' . PHP_EOL;
 //-->
 
 	<hr />
-	<h4>Kinder</h4>
+	<h4><?= $this->_('children') ?></h4>
 	<ul>
 	<?= $this->querylist($childQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>' )) ?>
 	</ul>
@@ -211,11 +212,11 @@ $childQuery.= '}' . PHP_EOL;
 </div>
 
 <hr/>
-<h4>Bemerkungen</h4>
+<h4><?= $this->_('comments') ?></h4>
 <?= $this->literals(array('property' => 'rdfs:comment', 'tag' => 'div', 'class' => 'content')) ?>
 
-<h4>Bearbeitungs Bemerkungen</h4>
+<h4><?= $this->_('editor_comments') ?></h4>
 <?= $this->literals(array('property' => 'hp:editorsComment', 'tag' => 'div', 'class' => 'content')) ?>
 
-<h4>Quellen und Literatur</h4>
+<h4><?= $this->_('sources_literature') ?></h4>
 <?= $this->literals(array('property' => 'hp:source', 'tag' => 'div', 'class' => 'content')) ?>
