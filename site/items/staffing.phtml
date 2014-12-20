@@ -12,7 +12,7 @@ $ende = false;
 <?php if ($start && $ende) : ?>
 <?= $this->date($start) ?> – <?= $this->date($ende) ?>
 <?php elseif ($start && !$ende): ?>
-<?= $this->date($this->start) ?> – 
+<?= $this->date($start) ?> – 
 <?php elseif (!$start && $ende) : ?>
  – <?= $this->date($ende) ?>
 <?php else : ?>
