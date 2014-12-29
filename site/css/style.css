@@ -44,6 +44,15 @@ h1 {
     border-radius: 10px;
     padding: 30px;
 }
+#rdform-drag-header {
+    height: 30px;
+    position: relative;
+    width: 105%;
+    margin: -40px 30px 0px -30px;
+}
+#rdform-drag-header:hover {
+    /*cursor: move;*/
+}
 .rdform-edit-class-resource {
     display: none !important;
 }

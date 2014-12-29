@@ -24,6 +24,7 @@ $("#rdform-edit-btn").click(function() {
 				});
 			});
 			owRdform.settings.$elem.data("resourceIri", resourceIri);
+			owRdform.settings.$elem.prepend('<div id="rdform-drag-header"></div>');
 			owRdform.settings.$elem.prepend('<p><button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button></p>');
 			owRdform.settings.$elem.find(".rdform-submit-btn-group div").prepend('<button type="reset" class="btn btn-default close-rdform-btn">Abbrechen</button>  ');
 
@@ -52,6 +53,7 @@ $("#rdform-new-btn").click(function() {
 				window.location.href = decodeURIComponent(result["@id"]);
 			});
 		});
+		owRdform.settings.$elem.prepend('<div id="rdform-drag-header"></div>');
 		owRdform.settings.$elem.prepend('<p><button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button></p>');
 		owRdform.settings.$elem.find(".rdform-submit-btn-group div").prepend('<button type="reset" class="btn btn-default close-rdform-btn">Abbrechen</button>  ');
 
@@ -93,15 +95,24 @@ function drag_over(event) {
 function drop(event) { 
     var offset = event.dataTransfer.getData("text/plain").split(',');
     var dm = document.getElementsByTagName("form")[0];
-    dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
-    dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+    
+    var dm1 = document.getElementById("rdform-drag-header");
+    
+    //console.log(event.clientX, event.dataTransfer.getData("text/plain"), parseInt(offset[0],10));
+    //dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+    dm.style.left = (event.clientX + 470 - Math.abs( ( parseInt(offset[0],10) ) + event.clientX ) ) + 'px';
+    //dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+    dm.style.top = (event.clientY) + 'px';
     event.preventDefault();
     return false;
 }
 function drag_init() {
-	var dm = document.getElementsByTagName("form")[0];
+	return false;
+	//var dm = document.getElementsByTagName("form")[0];
+	var dm = document.getElementById("rdform-drag-header");
 	$(dm).attr("draggable", "true");
 	dm.addEventListener('dragstart',drag_start,false); 
 	document.body.addEventListener('dragover',drag_over,false); 
 	document.body.addEventListener('drop',drop,false);
 }
+
