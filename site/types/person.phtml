@@ -2,13 +2,9 @@
 $staffingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $staffingQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $staffingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
-$staffingQuery.= 'SELECT DISTINCT ?resourceUri ?event ?ort ?bezeichnung ?start ?ende ?comment' . PHP_EOL;
+$staffingQuery.= 'SELECT DISTINCT ?resourceUri ?event ?ort ?start ?ende ?comment' . PHP_EOL;
 $staffingQuery.= 'WHERE {' . PHP_EOL;
 $staffingQuery.= '  <' . $this->resourceUri . '> hp:hasPosition ?resourceUri .' . PHP_EOL;
-$staffingQuery.= '  OPTIONAL {' . PHP_EOL;
-$staffingQuery.= '      { ?resourceUri rdfs:label ?bezeichnung . }' . PHP_EOL;
-$staffingQuery.= '      UNION { ?resourceUri hp:positionDesignation ?bezeichnung . }' . PHP_EOL;
-$staffingQuery.= '  }' . PHP_EOL;
 $staffingQuery.= '  OPTIONAL {?resourceUri hp:place ?ortRes .' . PHP_EOL;
 $staffingQuery.= '  { ?ortRes rdfs:label ?ort . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
 $staffingQuery.= '  UNION {?ortRes hp:nameOfPlace ?ort . }}' . PHP_EOL;
@@ -31,11 +27,9 @@ $staffingQuery.= '} ORDER BY ASC(?start) ASC(?ende)' . PHP_EOL;
 $attendingQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $attendingQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $attendingQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
-$attendingQuery.= 'SELECT DISTINCT ?resourceUri ?event ?ort ?schulName ?start ?ende ?comment' . PHP_EOL;
+$attendingQuery.= 'SELECT DISTINCT ?resourceUri ?event ?ort ?start ?ende ?comment' . PHP_EOL;
 $attendingQuery.= 'WHERE {' . PHP_EOL;
 $attendingQuery.= '  <' . $this->resourceUri . '> hp:attendedSchool ?resourceUri .' . PHP_EOL;
-$attendingQuery.= '  OPTIONAL {{ ?resourceUri rdfs:label ?schulName . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
-$attendingQuery.= '  UNION { ?resourceUri hp:nameOfSchool ?schulName . }}' . PHP_EOL;
 $attendingQuery.= '  OPTIONAL {?resourceUri hp:place ?ortRes .' . PHP_EOL;
 $attendingQuery.= '  { ?ortRes rdfs:label ?ort . }' . PHP_EOL; // Diese Zeile könnte man auch mit dem Titlehelper machen
 $attendingQuery.= '  UNION {?ortRes hp:nameOfPlace ?ort . }}' . PHP_EOL;
@@ -175,7 +169,7 @@ $childQuery.= '}' . PHP_EOL;
 
 	<!-- Abstand -->
 
-	</hr>
+	<hr/>
 
 	<dl>
 	<?php $mother = $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person')) ?>
