@@ -60,149 +60,154 @@ $childQuery.= '}' . PHP_EOL;
 ?>
 
 <div class="container row">
-	<div class="col-md-8">
+    <div class="col-md-8">
 
-	<?php $lastName = $this->literal(array('property' => 'foaf:lastName')); ?>
-	<?php $firstName = $this->literal(array('property' => 'foaf:firstName')); ?>
-	<?php $name = $this->literal(array('property' => 'foaf:name')); ?>
-	<?php $birthName = $this->literal(array('property' => 'foaf:birthName', 'prefix' => ' (geb. ', 'suffix' => ')')) // hat keiner ?></h3>
-	<h3>
-	<?php if ($lastName || $firstName) : ?>
-	<?= $lastName . ', ' . $firstName ?>
-	<?php elseif ($name) : ?>
-	<?= $name ?>
-	<?php endif; ?>
-	<?= $birthName ?>
-	</h3>
-	<div>
-	<?= $this->literal(array('property' => 'hp:nameVariant', 'tag' => 'em', 'prefix' => 'Namens Variante: ')) ?>
-	</div>
+        <?php
+            $lastName = $this->literal(array('property' => 'foaf:lastName'));
+            $firstName = $this->literal(array('property' => 'foaf:firstName'));
+            $name = $this->literal(array('property' => 'foaf:name'));
+            $birthName = $this->literal(array('property' => 'foaf:birthName', 'prefix' => ' (geb. ', 'suffix' => ')')) // hat keiner
+        ?>
+        <h3>
+            <?php if ($lastName || $firstName) : ?>
+            <?= $lastName . ', ' . $firstName ?>
+            <?php elseif ($name) : ?>
+            <?= $name ?>
+            <?php endif; ?>
+            <?= $birthName ?>
+        </h3>
+        <div>
+            <?= $this->literal(array('property' => 'hp:nameVariant', 'tag' => 'em', 'prefix' => 'Namens Variante: ')) ?>
+        </div>
 
-	<div>
-	<?php $dob = $this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'node' => true)) ?>
-	<?php if ($dob) : ?>
-	* <?= $this->date($dob) ?>
-	<?php endif; ?>
+        <div>
+            <?php $dob = $this->literal(array('property' => 'hp:birthDate', 'tag' => 'span', 'node' => true)) ?>
+            <?php if ($dob) : ?>
+            * <?= $this->date($dob) ?>
+            <?php endif; ?>
 
-	<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource')) ?>
+            <?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:birthPlace ?resourceUri', 'template' => 'resource')) ?>
 
-        –
+            –
 
-	<?php $dod = $this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'node' => true)) ?>
-	<?php if ($dod) : ?>
-	† <?= $this->date($dod) ?>
-	<?php endif; ?>
+            <?php $dod = $this->literal(array('property' => 'hp:dateOfDeath', 'tag' => 'span', 'node' => true)) ?>
+            <?php if ($dod) : ?>
+            † <?= $this->date($dod) ?>
+            <?php endif; ?>
 
-	<?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfDeath ?resourceUri', 'template' => 'resource')) ?>
-	</div>
+            <?= $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfDeath ?resourceUri', 'template' => 'resource')) ?>
+        </div>
 
-	<dl>
-	<?php $dOfBabtism =  $this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'node' => true)) ?>
-	<?php if ($dOfBabtism) : ?>
-	<dt><?= $this->_('babtism') ?></dt>
-	<dd>
-	<?= $this->date($dOfBabtism) ?>
-	</dd>
-	<?php endif; ?>
+        <dl>
+            <?php
+                $dOfBabtism =  $this->literal(array('property' => 'hp:dayOfBaptism', 'tag' => 'span', 'node' => true));
+                $placeOfBabtism = $this->literal(array('property' => 'hp:placeOfBaptism', 'tag' => 'span', 'prefix' => ' in '));
+            ?>
+            <?php if ($dOfBabtism || $placeOfBabtism) : ?>
+            <dt><?= $this->_('babtism') ?></dt>
+            <dd>
+            <?php if ($dOfBabtism) : ?>
+            <?= $this->date($dOfBabtism) ?>
+            <?php endif; ?>
+            <?= $placeOfBabtism ?>
+            </dd>
+            <?php endif; ?>
 
-	<?= $this->literal(array('property' => 'hp:placeOfBaptism', 'tag' => 'span', 'prefix' => ' in ')) ?>
-	</dd>
+            <?php
+                $dOfFuneral = $this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'node' => true));
+                $burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in '));
+            ?>
+            <?php if ($dOfFuneral || $burialPlace) : ?>
+            <dt><?= $this->_('funeral') ?></dt>
+            <dd>
+            <?php if ($dOfFuneral) : ?>
+            <?= $this->date($dOfFuneral) ?>
+            <?php endif; ?>
+            <?= $burialPlace ?>
+            </dd>
+            <?php endif; ?>
+        </dl>
+        <dl>
+            <?php
+            $dOfOrdination = $this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true));
+            $pOfOrdination = $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource'));
+            $ordinator = $this->query(array('where' => '<' . $this->resourceUri . '> hp:ordinator ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')'));
+            ?>
+            <?php if ($dOfOrdination || $pOfOrdination) : ?>
+            <dt><?= $this->_('ordination') ?></dt>
+            <dd>
+            <?php if ($dOfOrdination) : ?>
+            <?= $this->date($dOfOrdination) ?>
+            <?php endif; ?>
+            <?= $pOfOrdination ?>
+            <?= $ordinator ?>
+            </dd>
+            <?php endif; ?>
 
-	<dl>
-	<?php
-	$dOfFuneral = $this->literal(array('property' => 'hp:dayOfFuneral', 'tag' => 'span', 'node' => true));
-	$burialPlace = $this->literal(array('property' => 'hp:burialPlace', 'tag' => 'span', 'prefix' => ' in '));
-	?>
-	<?php if ($dOfFuneral || $burialPlace) : ?>
-	<dt><?= $this->_('funeral') ?></dt>
-	<dd>
-	<?php if ($dOfFuneral) : ?>
-	    <?= $this->date($dOfFuneral) ?>
-	<?php endif; ?>
-	<?= $burialPlace ?>
-	</dd>
-	<?php endif; ?>
-	</dl>
+            <?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
 
-	<?php
-	$dOfOrdination = $this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true));
-	$pOfOrdination = $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource'));
-	$ordinator = $this->query(array('where' => '<' . $this->resourceUri . '> hp:ordinator ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')'));
-	?>
-	<?php if ($dOfOrdination || $pOfOrdination) : ?>
-	<dl>
-	<dt><?= $this->_('ordination') ?></dt>
-	<dd>
-	<?php if ($dOfOrdination) : ?>
-	<?= $this->date($dOfOrdination) ?>
-	<?php endif; ?>
-        <?= $pOfOrdination ?>
-        <?= $ordinator ?>
-	</dd>
-	<?php endif; ?>
+            <?php $dOfRetirement = $this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'node' => true)); ?>
+            <?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')); ?>
+            <?php if ($dOfRetirement || $pOfRetirement) : ?>
+            <dt><?= $this->_('retirement') ?></dt>
+            <dd>
+            <?php if ($dOfRetirement) : ?>
+            <?= $this->date($dOfRetirement) ?>
+            <?php endif; ?>
+            <?= $pOfRetirement ?>
+            </dd>
+            <?php endif; ?>
 
-	<?= $this->querylist($staffingQuery, 'local/items/staffing.phtml', array('mode' => 'person')) ?>
+            <?php if ($pOfRetirement) : ?>
+            <dd>
+                in 
+            <?= ($pOfRetirement) ?>
+            </dd>
+            <?php endif; ?>
+        </dl>
+    </div>
 
-	<?php $dOfRetirement = $this->literal(array('property' => 'hp:dateOfRetirement', 'tag' => 'span', 'node' => true)); ?>
-	<?php $pOfRetirement = $this->literal(array('property' => 'hp:placeOfRetirement', 'tag' => 'span', 'prefix' => ' in ')); ?>
-	<?php if ($dOfRetirement || $pOfRetirement) : ?>
-	<dt><?= $this->_('retirement') ?></dt>
-	<dd>
-	<?php if ($dOfRetirement) : ?>
-	<?= $this->date($dOfRetirement) ?>
-	<?php endif; ?>
-	<?= $pOfRetirement ?>
-	</dd>
-	<?php endif; ?>
-
-	<?php if ($pOfRetirement) : ?>
-	<dd>
-	    in 
-	<?= ($pOfRetirement) ?>
-	</dd>
-	<?php endif; ?>
-	</dl>
-	</div>
-
-	<div class="col-md-4">
+    <div class="col-md-4">
         <img alt="Foto des Pfarrers" class="img-responsive img-thumbnail" src="<?= $this->wikiBaseUrl ?>site/img/pfarrer.png" />
 
-	<!-- Abstand -->
+        <!-- Abstand -->
 
-	<hr/>
+        <hr/>
 
-	<dl>
-	<?php $mother = $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person')) ?>
-	<?php $father = $this->query(array('where' => '<' . $this->resourceUri . '> hp:father ?resourceUri', 'template' => 'person')) ?>
-	<?php if ($father) : ?>
-        <dt><?= $this->_('father') ?></dt>
-	<?= $father ?>
-	<?php endif; ?>
-	<?php if ($mother) : ?>
-	<dt><?= $this->_('mother') ?></dt>
-	<?= $mother ?>
-	<?php endif; ?>
-	</dl>
-
-	<h4><?= $this->_('education') ?></h4>
-	<dl>
-	<?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml') ?>
-	</dl>
-
-<!--//
-	<h4>Tätigkeiten</h4>
-	<dl>
-	 <dt>1. Februar 1250 – 24. Dezember 1714</dt>
-	 <dd>Hilfslehrer …</dd>
+        <dl>
+            <?php
+                $mother = $this->query(array('where' => '<' . $this->resourceUri . '> hp:mother ?resourceUri', 'template' => 'person'));
+                $father = $this->query(array('where' => '<' . $this->resourceUri . '> hp:father ?resourceUri', 'template' => 'person'));
+            ?>
+            <?php if ($father) : ?>
+            <dt><?= $this->_('father') ?></dt>
+            <?= $father ?>
+            <?php endif; ?>
+            <?php if ($mother) : ?>
+            <dt><?= $this->_('mother') ?></dt>
+            <?= $mother ?>
+            <?php endif; ?>
         </dl>
-//-->
 
-	<hr />
-	<h4><?= $this->_('children') ?></h4>
-	<ul>
-	<?= $this->querylist($childQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>' )) ?>
-	</ul>
-	</div>
+        <h4><?= $this->_('education') ?></h4>
+        <dl>
+        <?= $this->querylist($attendingQuery, 'local/items/attendingSchool.phtml') ?>
+        </dl>
+
+    <!--//
+        <h4>Tätigkeiten</h4>
+        <dl>
+         <dt>1. Februar 1250 – 24. Dezember 1714</dt>
+         <dd>Hilfslehrer …</dd>
+        </dl>
+    //-->
+
+        <hr />
+        <h4><?= $this->_('children') ?></h4>
+        <ul>
+        <?= $this->querylist($childQuery, 'local/items/person.phtml', array(), array('prefix' => '<li>', 'suffix' => '</li>' )) ?>
+        </ul>
+    </div>
 </div>
 
 <hr/>
