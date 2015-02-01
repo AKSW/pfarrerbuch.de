@@ -53,12 +53,6 @@ h1 {
 #rdform-drag-header:hover {
     /*cursor: move;*/
 }
-.rdform-edit-class-resource {
-    display: none !important;
-}
-.rdform-class-group legend small {
-    display: none;
-}
 .rdform-resource-group .rdform {
     margin-left: -35px;
     margin-top: 2px;
