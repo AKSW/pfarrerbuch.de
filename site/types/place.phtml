@@ -2,7 +2,7 @@
 $positionQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $positionQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $positionQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
-$positionQuery.= 'SELECT DISTINCT ?resourceUri ?bezeichnung' . PHP_EOL;
+$positionQuery.= 'SELECT DISTINCT ?resourceUri' . PHP_EOL;
 $positionQuery.= 'WHERE {' . PHP_EOL;
 $positionQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_EOL;
 $positionQuery.= '               a hp:Position .' . PHP_EOL;
@@ -13,7 +13,7 @@ $positionQuery.= '} ORDER BY ?bezeichnung' . PHP_EOL;
 $schoolQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' . PHP_EOL;
 $schoolQuery.= 'PREFIX hp: <http://purl.org/voc/hp/>' . PHP_EOL;
 $schoolQuery.= 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>' . PHP_EOL;
-$schoolQuery.= 'SELECT DISTINCT ?resourceUri ?bezeichnung' . PHP_EOL;
+$schoolQuery.= 'SELECT DISTINCT ?resourceUri' . PHP_EOL;
 $schoolQuery.= 'WHERE {' . PHP_EOL;
 $schoolQuery.= '  ?resourceUri hp:place <' . $this->resourceUri . '> ;' . PHP_EOL;
 $schoolQuery.= '             a hp:School .' . PHP_EOL;

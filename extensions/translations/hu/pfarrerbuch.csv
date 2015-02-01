@@ -5,36 +5,36 @@
 #
 
 # Allgemein
-new;neu
-edit;bearbeiten
-backend;Admin-Ansicht
-language;Sprache
+new;új
+edit;szerkesztés
+backend;admin-nézet
+language;nyelv
 
 # Personenansicht
 father;apa
 mother;anya
-babtism;Taufe
-funeral;Beerdigung
-education;Bildungsweg
-ordination;ordináció
-retirement;Emeriterung
-children;Kinder
-comments;megjegyzések
-editor_comments;"Bearbeitungs Bemerkungen"
-sources_literature;"Quellen und Literatur"
+babtism;keresztelő
+funeral;temetés
+education;tanulmányok
+ordination;ordinĂĄciĂł
+retirement;nyugdíjazás
+children;gyerekek
+comments;megjegyzĂŠsek
+editor_comments;"szerkesztési megjegyzések"
+sources_literature;"források és irodalom"
 
 # Suchansicht
-search_title;Suche
-search_search;suchen
-search_person;Person
-search_place;Ort
-search_explanation;"Bitte wählen Sie die Art der Suche aus und geben Sie ihren Suchtext in das nebenstehende Feld ein."
-search_search_for;"Suche nach „%s“"
+search_title;keresés
+search_search;keres
+search_person;személy
+search_place;hely
+search_explanation;"Válassza ki a keresési típust és adja meg a keresési kifejezést a szomszédos mezőben!"
+search_search_for;"ezt keresi:"
 
 # Ortsansicht
-place_list_positions;"Liste der Pfarrstellen"
-place_no_map_notice;"Es wurden keine Kartendaten für diesen Ort hinterlegt"
-place_list_schools;"Liste der Schulen und Universitäten"
+place_list_positions;"lelkészi állások listája"
+place_no_map_notice;"Ehhez a helyhez nem tartozik térkép."
+place_list_schools;"iskolák és egyetemek listája"
 
 # Stellenansicht
-position_list_pastors;"Liste der Pfarrer, die diese Stelle inne hatten"
+position_list_pastors;"ezen állást betöltő lelkészek listája"
