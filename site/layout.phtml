@@ -78,6 +78,15 @@ $literalTemplate = basename($this->literal(array('property' => EF_RDF_NS . 'type
         //'navClass' => 'navbar'
     );
     ?>
+
+    <div class="pull-right">
+        <form class="search pull-right" action="<?php echo $this->urlBase ?>Suche.html" method="POST" role="search">
+            <input name="mode" type="hidden" value="person" />
+            <input name="q" class="search-field form-control" role="search" data-value="<?php if (isset($_POST['q'])) echo $_POST['q'] ?>" type="text" placeholder="<?= $this->_('search_search') ?> ..." />
+        </form>
+    </div>
+
+
 <div id="menu">
     <?= $this->navigationList($navOptions) ?>
     <a href="<?= $this->Url(array('uri' => $this->resourceUri, 'stayOnSite' => false)) ?>"><?= $this->_('backend') ?></a><!-- should always be displayed -->
@@ -126,6 +135,7 @@ $literalTemplate = basename($this->literal(array('property' => EF_RDF_NS . 'type
     var resourceUri = '<?php echo $this->resourceUri ?>';
 </script>
 
+<script type="text/javascript" src="<?php echo $this->baseUri ?>/js/browser.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUri ?>/js/site.js"></script>
 
 <input type="hidden" id="urlBase" value="<?php echo $this->urlBase ?>" />
