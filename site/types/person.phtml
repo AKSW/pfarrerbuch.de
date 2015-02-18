@@ -131,7 +131,7 @@ $childQuery.= '}' . PHP_EOL;
             <?php
             $dOfOrdination = $this->literal(array('property' => 'hp:dateOfOrdination', 'tag' => 'span', 'node' => true));
             $pOfOrdination = $this->query(array('where' => '<' . $this->resourceUri . '> hp:placeOfOrdination ?resourceUri', 'template' => 'resource'));
-            $ordinator = $this->query(array('where' => '<' . $this->resourceUri . '> hp:ordinator ?resourceUri', 'template' => 'resource', 'prefix' => '(', 'suffix' => ')'));
+            $ordinator = $this->query(array('where' => '<' . $this->resourceUri . '> hp:ordinator ?resourceUri', 'template' => 'person'));
             ?>
             <?php if ($dOfOrdination || $pOfOrdination) : ?>
             <dt><?= $this->_('ordination') ?></dt>
