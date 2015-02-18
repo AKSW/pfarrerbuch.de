@@ -1,10 +1,14 @@
 var owCon = new OntoWikiConnection(urlBase + 'jsonrpc');
 var urlBaseWebsafe = urlBase.replace(/[^a-z0-9-_.]/gi,'');
-
+/*
+New RDForm
+*/
 function createForm( owData ) {
-	var template = "form_" + urlBaseWebsafe + "." + resourceTemplate + ".html";
 	var container = $('<div class="rdform-container"></div>');
-	$("body").append(container);
+	var template = "form_" + urlBaseWebsafe + "." + resourceTemplate + ".html";
+	var langFile = "de.js";
+
+	$("body").append( $('<div class="rdform-popup-layer"></div>').append(container));
 
 	var hash = '40cd750bba9870f18aada2478b24840a';
 	var data = null;
@@ -15,11 +19,16 @@ function createForm( owData ) {
 		data = owData.data;
 		editResource = true;
 	}
+
+	if ( modelIri.search(/ungarn/) != -1 ) {
+		langFile = "hu.js";
+	}
 		
 	var owRdform = new OntoWikiRDForm({
 		$container: container,
 		template: template,
-		lang: "de.js",
+		hooks: "owrdform_hooks.js",
+		lang: langFile,
 		data: data
 	});
 	owRdform.init( function(result){ 
@@ -42,8 +51,9 @@ function createForm( owData ) {
 		
 	});
 
+	//owRdform.settings.$elem.data("resourceUri", resourceUri);
 	owRdform.settings.$elem.prepend('<div id="rdform-drag-header"></div>');
-	owRdform.settings.$elem.prepend('<p><button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button></p>');
+	$(container).prepend('<button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button>');
 	window.scrollTo(0,0);
 	drag_init();
 }
@@ -64,7 +74,7 @@ $(".rdform-new-btn").click(function() {
 
 // close the current form window
 $("body").on("click", ".close-rdform-btn", function() {
-	var form = $(this).parentsUntil(".rdform-container");
+	var form = $(this).parentsUntil(".rdform-popup-layer");
 	form.hide( "fast", function() {
 					form.parent().remove();
 				});
