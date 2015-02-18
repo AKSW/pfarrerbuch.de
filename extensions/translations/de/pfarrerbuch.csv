@@ -38,3 +38,7 @@ place_list_schools;"Liste der Schulen und Universitäten"
 
 # Stellenansicht
 position_list_pastors;"Liste der Pfarrer, die diese Stelle inne hatten"
+
+# Schule
+school_list_teacher;"Liste der Personen, die an dieser Universität/Schule gelehrt haben"
+school_list_pupil;"Liste der Personen, die an dieser Universität/Schule gelernt haben"
