@@ -12,6 +12,7 @@ if (isset($_POST['mode'])) {
 ?>
 
 <h3><?= $this->_('search_title') ?></h3>
+<!--
 <form method="post">
     <select name="mode">
         <option value="person" <?= ($m=='person')?'selected':'' ?>><?= $this->_('search_person') ?></option>
@@ -20,9 +21,11 @@ if (isset($_POST['mode'])) {
     <input name="q" type="text" value="<?= $searchText ?>"/>
     <input type="submit" value="<?= $this->_('search_search') ?>"/>
 </form>
+-->
+<div class="browser"></div>
 
 <?php
-
+/*
 $query = new Erfurt_Sparql_Query2();
 $foafIri = new Erfurt_Sparql_Query2_IriRef('http://xmlns.com/foaf/0.1/');
 $hpIri = new Erfurt_Sparql_Query2_IriRef('http://purl.org/voc/hp/');
@@ -113,4 +116,5 @@ $query->setDistinct();
     </ul>
 <?php else: ?>
     <span><?= $this->_('search_explanation') ?></span>
-<?php endif; ?>
+<?php endif; 
+*/ ?>

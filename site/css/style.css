@@ -30,7 +30,7 @@ h1 {
     padding-left: 20px;
 }
 .loading:after {
-    content: "lädt...";
+    content: "loading...";
 }
 .rdform-popup-layer {
     position: absolute;    
