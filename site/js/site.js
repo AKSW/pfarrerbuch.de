@@ -81,6 +81,54 @@ $("body").on("click", ".close-rdform-btn", function() {
 	return false;
 })
 
+ /*
+Autocomplete Search
+*/
+// create custom autoconmplete item with resource uri as href
+$.widget("custom.autocompleteLinkItem", $.ui.autocomplete, {
+	_renderItem: function( ul, item ) {
+		return $( "<li>" )
+		.attr( "data-value", item.value )
+		.append( '<a onclick="return false" href="' + item.value + '">' + item.label + "</a>" )
+		.appendTo( ul );
+		}
+});
+$("input.search-field").on("focus", function() {
+	var queryEndpoint = urlBase + "sparql";	
+	var apitype = "sparql";
+	var queryDataType = "json";
+	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . ?item foaf:name ?label . FILTER( ?isPastor = 1 ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . ?item rdfs:label ?label . } FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
+
+	$(this).autocompleteLinkItem().autocompleteLinkItem({
+		source: function( request, response ) {		
+			var query = queryStr.replace(/%s/g, "'" + request.term + "'");
+			$.ajax({
+				url: queryEndpoint,
+				dataType: queryDataType,
+				data: {
+					query: query,
+					format: "json"
+				},
+				success: function( data ) {
+					response( $.map( data.results.bindings, function( item ) {
+						return {
+							label: item.label.value, // wird angezeigt
+							value: item.item.value
+						}
+	            	}));
+	            },
+	            error: function(err) {
+	            	console.log( 'Error on autocomplete: ', err );
+	            }
+			});
+	  	},
+	  	select : function( event, ui ) {
+	  		window.location.href = decodeURIComponent( ui.item.value );	
+	  	},
+		minLength: 2
+	});
+});
+
 // add browser.js 
 if ( $(".browser").length > 0 ) {
 	var browserArg = {
