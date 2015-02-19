@@ -1,5 +1,6 @@
 var owCon = new OntoWikiConnection(urlBase + 'jsonrpc');
 var urlBaseWebsafe = urlBase.replace(/[^a-z0-9-_.]/gi,'');
+
 /*
 New RDForm
 */
@@ -20,8 +21,8 @@ function createForm( owData ) {
 		editResource = true;
 	}
 
-	if ( modelIri.search(/ungarn/) != -1 ) {
-		langFile = "hu.js";
+	if ( location.href.search(/lang=hu/) != -1 ) {
+		langFile = "lang_hu.js";
 	}
 		
 	var owRdform = new OntoWikiRDForm({
@@ -51,7 +52,6 @@ function createForm( owData ) {
 		
 	});
 
-	//owRdform.settings.$elem.data("resourceUri", resourceUri);
 	owRdform.settings.$elem.prepend('<div id="rdform-drag-header"></div>');
 	$(container).prepend('<button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button>');
 	window.scrollTo(0,0);
@@ -81,68 +81,22 @@ $("body").on("click", ".close-rdform-btn", function() {
 	return false;
 })
 
-// classes for search and browser
-var browseClasses = {
-    "Pfarrer" : ["http://xmlns.com/foaf/0.1/Person"],
-    "Orte" :[ "http://purl.org/voc/hp/Place" ]
-  };
-
- /*
-Autocomplete Search
-*/
-// create custom autoconmplete item with resource uri as href
-$.widget("custom.autocompleteLinkItem", $.ui.autocomplete, {
-	_renderItem: function( ul, item ) {
-		return $( "<li>" )
-		.attr( "data-value", item.value )
-		.append( '<a onclick="return false" href="' + item.value + '">' + item.label + "</a>" )
-		.appendTo( ul );
-		}
-});
-$("input.search-field").on("focus", function() {
-	var queryEndpoint = urlBase + "sparql";	
-	var apitype = "sparql";
-	var queryDataType = "json";
-	var filterClasses = [];
-	$.each( browseClasses, function(key, value) {
-		$.merge(filterClasses,value);
-	});
-	var filter = "?body = <" + filterClasses.join("> || ?body = <") + ">";
-	var queryStr = "SELECT DISTINCT * WHERE { ?item <http://www.w3.org/2000/01/rdf-schema#label> ?label . ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?body . FILTER ( ( " + filter + " ) && regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
-
-	$(this).autocompleteLinkItem().autocompleteLinkItem({
-		source: function( request, response ) {		
-			var query = queryStr.replace(/%s/g, "'" + request.term + "'");
-			$.ajax({
-				url: queryEndpoint,
-				dataType: queryDataType,
-				data: {
-					query: query,
-					format: "json"
-				},
-				success: function( data ) {
-					response( $.map( data.results.bindings, function( item ) {
-						return {
-							label: item.label.value, // wird angezeigt
-							value: item.item.value
-						}
-	            	}));
-	            },
-	            error: function(err) {
-	            	console.log( 'Error on autocomplete: ', err );
-	            }
-			});
-	  	},
-	  	select : function( event, ui ) {
-	  		window.location.href = decodeURIComponent( ui.item.value );	
-	  	},
-		minLength: 2
-	});
-});
-
 // add browser.js 
 if ( $(".browser").length > 0 ) {
-	$(".browser").Browser(browseClasses);
+	var browserArg = {
+		"model" : [ "http://pfarrerbuch.comiles.eu/sachsen/", "http://pfarrerbuch.comiles.eu/ungarn/" ],
+		"browse" : {
+			"Pfarrer" : {
+				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . FILTER ( ?isPastor = 1 ) } ORDER BY ?label ?resourceUri",
+				"classes" : ["http://xmlns.com/foaf/0.1/Person"]
+			},
+			"Orte" : {
+				"query" : "SELECT DISTINCT * WHERE { ?resourceUri rdf:type ?body . ?resourceUri rdfs:label ?label  FILTER ( ?body = <http://purl.org/voc/hp/Place> ) } ORDER BY ?label ?resourceUri",
+				"classes" : ["http://purl.org/voc/hp/Place"]
+			}
+		}
+	};
+	$(".browser").Browser( browserArg );
 }
 
 
