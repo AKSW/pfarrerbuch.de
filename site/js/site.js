@@ -5,11 +5,11 @@ var urlBaseWebsafe = urlBase.replace(/[^a-z0-9-_.]/gi,'');
 New RDForm
 */
 function createForm( owData ) {
+	var popupContainer = $('<div class="rdform-popup-layer"></div>');
 	var container = $('<div class="rdform-container"></div>');
 	var template = "form_" + urlBaseWebsafe + "." + resourceTemplate + ".html";
 	var langFile = "de.js";
-
-	$("body").append( $('<div class="rdform-popup-layer"></div>').append(container));
+	$("body").append(popupContainer.append(container));
 
 	var hash = '40cd750bba9870f18aada2478b24840a';
 	var data = null;
@@ -46,7 +46,7 @@ function createForm( owData ) {
 			});
 		} else {
 			container.hide( "fast", function() { 
-				container.remove(); 
+				popupContainer.remove(); 
 			});
 		}
 		
@@ -97,7 +97,7 @@ $("input.search-field").on("focus", function() {
 	var queryEndpoint = urlBase + "sparql";	
 	var apitype = "sparql";
 	var queryDataType = "json";
-	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . ?item foaf:name ?label . FILTER( ?isPastor = 1 ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . ?item rdfs:label ?label . } FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
+	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . ?item foaf:name ?label . FILTER( ?isPastor = 1 || ?isPastor = '1' ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . ?item rdfs:label ?label . } FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
 
 	$(this).autocompleteLinkItem().autocompleteLinkItem({
 		source: function( request, response ) {		
@@ -135,7 +135,7 @@ if ( $(".browser").length > 0 ) {
 		"model" : [ "http://pfarrerbuch.comiles.eu/sachsen/", "http://pfarrerbuch.comiles.eu/ungarn/" ],
 		"browse" : {
 			"Pfarrer" : {
-				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . FILTER ( ?isPastor = 1 ) } ORDER BY ?label ?resourceUri",
+				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . FILTER ( ?isPastor = 1 || ?isPastor = '1' ) } ORDER BY ?label ?resourceUri",
 				"classes" : ["http://xmlns.com/foaf/0.1/Person"]
 			},
 			"Orte" : {
