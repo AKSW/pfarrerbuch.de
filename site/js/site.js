@@ -135,7 +135,7 @@ if ( $(".browser").length > 0 ) {
 		"model" : [ "http://pfarrerbuch.comiles.eu/sachsen/", "http://pfarrerbuch.comiles.eu/ungarn/" ],
 		"browse" : {
 			"Pfarrer" : {
-				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . FILTER ( ?isPastor = 1 || ?isPastor = '1' ) } ORDER BY ?label ?resourceUri",
+				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . OPTIONAL { ?resourceUri foaf:lastName ?lastName . } FILTER ( ?isPastor = 1 || ?isPastor = '1' ) } ORDER BY ?lastName ?label ?resourceUri",
 				"classes" : ["http://xmlns.com/foaf/0.1/Person"]
 			},
 			"Orte" : {
