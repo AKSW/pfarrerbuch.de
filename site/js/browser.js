@@ -7,34 +7,43 @@ List Professors with simple navigation and search
 		this.browse = null;
 		this.model = null;
 		this.selection = null;
-		this.offset = 0;
+		this.offset = null;
 		this.limit = 15;
 		this.list = [];
+		this.filteredList = null;
 		this.prefixes = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n';
 		return this;
 	}
 
 	Browser.prototype = {
-		init : function() {
+		init : function(callback) {			
 			var _this = this;	
+			if ( typeof callback === 'undefined' ) { callback = function() {}; }
 			if ( _this.selection == null ) { // set init selection
 				for (var prop in _this.browse) {
 					_this.selection = prop;
 					break;
-				}				
+				}
 			}
-			_this.offset = 0;
+			if ( _this.offset == null ) {
+				_this.offset = 0;
+			}
+			_this.printNewResBtn();				
 			_this.$elem.find(".panel-footer").addClass("loading");
 			_this.fetch(function(list) {
 				_this.list = list;
-				_this.printPage(_this.list);
+				_this.printPage();
 				_this.$elem.find(".panel-footer").removeClass("loading");
 
 				if ( $(".search-field").attr("data-value") != "" ) {
 					$(".browser-search").val( $(".search-field").attr("data-value") ).trigger("keyup");
-				} 
+				}
+				callback(true);
 			});
-			_this.printNewResBtn();
+
+			window.onpopstate = function(event) {
+  				_this.execHistory( event.state )  				
+			};
 		},		
 
 		printClassNavigation : function() {
@@ -42,21 +51,23 @@ List Professors with simple navigation and search
 			var navContainer = $('<ul class="browser-class-nav nav nav-tabs"></ul>');
 			var i = 0;
 			$.each(_this.browse, function(label,classes) {
-				var element = $( '<li><a href="#" data-item="'+label+'">'+label+'</a></li>' );
+				var element = $( '<li><a href="#'+label+'" data-item="'+label+'">'+label+'</a></li>' );
 				$(navContainer).append( element );
 			});
 			_this.$elem.append( navContainer );
 
 			$(navContainer).children().first().addClass("active");
 
-			$(navContainer).find("a").click(function() {
+			$(navContainer).find("a").click(function() { // select other class
 				$(this).parent().siblings().removeClass("active");
 				$(this).parent().addClass("active");
 				$(".browser-list").html("");
 				$(".browser-nav").html("");
 				$(".browser-counter").html("");
-				_this.selection = $(this).attr("data-item");				
+				_this.selection = $(this).attr("data-item");
+				_this.offset = 0;
 				_this.init();
+				_this.addHistoryEntry();
 				return false;
 			});
 		},
@@ -73,10 +84,10 @@ List Professors with simple navigation and search
 			_this.$elem.append( browser );
 			
 			searchField.keyup(function() {
-				var filtered = _this.filter( $(this).val() );
-				_this.offset = 0;
-				_this.printPage(filtered);
-				
+				_this.filteredList = _this.filter( $(this).val() );
+				_this.offset = 0;				
+				_this.printPage();
+				_this.addHistoryEntry();
 			});			
 		},
 
@@ -119,7 +130,7 @@ List Professors with simple navigation and search
 			
 			$container.append( $dropdown );
 
-			$("a", $dropdown).click(function(e) {
+			$("a", $dropdown).click(function(e) { // create new form from dropdown
 				var template = $(this).attr("data-class-uri").split("/").reverse()[0];
 				$("#resourceTemplate").val( template );
 				resourceTemplate = template;
@@ -130,11 +141,13 @@ List Professors with simple navigation and search
 			});
 		},
 
-		printPage : function(list) {
+		printPage : function() {
 			var _this = this;
 			var $list = $(".browser-list").html("");
 			var $nav = $(".browser-nav").html("");
 			var $counter = $(".browser-counter").html("");
+
+			var list = (_this.filteredList != null) ? _this.filteredList : _this.list;
 			
 			for (var i = _this.offset; i < list.length; i++) {
 				if (i >= (_this.offset + _this.limit) ) { break; }
@@ -156,16 +169,21 @@ List Professors with simple navigation and search
 				$nav.append(nextBtn);
 			}
 
-			$counter.text("gesamt: " + list.length);
+			if ( list.length > 0 ) {
+				$nav.append("<div class='pull-left' style='margin:3px 7px'><small>Seite "+(1+(_this.offset/_this.limit))+" von "+Math.ceil((list.length/_this.limit))+"</small></div>");
+				$counter.text("gesamt: " + list.length);
+			}			
 
 			nextBtn.click(function() {
 				_this.offset = _this.offset + _this.limit;
-				_this.printPage(_this.list);
+				_this.printPage();
+				_this.addHistoryEntry();
 				return false;
 			});
 			prevBtn.click(function() {
 				_this.offset = _this.offset - _this.limit;
-				_this.printPage(_this.list);
+				_this.printPage();
+				_this.addHistoryEntry();
 				return false;
 			});			
 		},
@@ -201,9 +219,42 @@ List Professors with simple navigation and search
 					callback(data.results.bindings);
 				},
 				error: function(e) {
-					console.log( 'Error on fetch list: ', e );
 					callback([]);
 				},
+			});
+		},		
+
+		addHistoryEntry : function() {
+			var _this = this;			
+			var stateObj = { selection: _this.selection, offset: _this.offset, search: $(".browser-search").val() };
+			history.pushState(stateObj, "Suche", "Suche.html");
+				
+		},
+
+		execHistory : function( state ) {
+			var _this = this;			
+
+			if ( state == null ) {				
+				state = {};
+				for (var prop in _this.browse) {
+					state.selection = prop;
+					break;
+				}
+				state.offset = 0;
+				state.search = "";				
+			}
+
+			_this.selection = state.selection;
+			_this.offset = state.offset;
+			$(".browser-class-nav li").removeClass("active");
+			$('.browser-class-nav a[data-item="'+state.selection+'"]').parent().addClass("active");
+			
+			_this.init( function() {
+				if ( state.search != "" ) {
+					$(".browser-search").val( state.search );
+					_this.filteredList = _this.filter( state.search );
+					_this.printPage();
+				}
 			});
 		}
 	};
@@ -216,7 +267,12 @@ List Professors with simple navigation and search
 			browser.model = settings["model"];
 			browser.printClassNavigation();
 			browser.printBrowser();
-			browser.init();
+
+			if ( history.state != null ) {
+				browser.execHistory( history.state );
+			} else {
+				browser.init();
+			}
 		});		
 	};
 })(jQuery);
