@@ -36,6 +36,7 @@ RDForm_OntoWiki_Hooks.prototype = {
 			} else if ( $(this).val().search(/.*-01T00:00:00.*/) != -1 ) {
 				$(this).val( $(this).val().substring(0,7) );
 			}
+			$(this).val( $(this).val().replace(/\W$/, '') );
 		});
 	},
 
@@ -108,17 +109,28 @@ RDForm_OntoWiki_Hooks.prototype = {
 		var _this = this;
 		var resultUri = result["@id"];
 		var resourceLabel = "";
-		var resContainer = $(resource).parentsUntil(".form-group").parent();
+		var resContainer = $(resource).parentsUntil(".form-group").parent();		
 
-		// add location to hasPositions link label
-		if ( result["@type"][0] == "http://purl.org/voc/hp/Position" ) {
-			resourceLabel = result['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
-			_this.hooks.getResourceData( result["http://purl.org/voc/hp/place"][0]["@id"], function( dataNew ){
-				resourceLabel = dataNew[0]['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] + " " + resourceLabel;
-				$(resContainer).find('p.'+_this.rdform._ID_+'-resource-uri-container').remove();
+		// add place to hasPositions link label
+		if ( result.hasOwnProperty("@type") && result["@type"][0] == "http://purl.org/voc/hp/Position" ) {
 
-				$(resource).after('<p class="'+_this.rdform._ID_+'-resource-uri-container"><a href="'+resultUri+'" class="'+_this.rdform._ID_+'-resource-uri">'+resourceLabel+'</a></p>');
-			});
+			if ( result.hasOwnProperty('http://www.w3.org/2000/01/rdf-schema#label') ) {
+				resourceLabel = result['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
+			} else {
+				resourceLabel = resultUri.split("/").reverse()[0];
+			}
+
+			if ( result.hasOwnProperty('http://purl.org/voc/hp/place') ) {
+				_this.hooks.getResourceData( result["http://purl.org/voc/hp/place"][0]["@id"], function( dataNew ){
+
+					if ( dataNew[0].hasOwnProperty('http://www.w3.org/2000/01/rdf-schema#label') ) {
+						resourceLabel = resourceLabel + ", " + dataNew[0]['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
+					}
+					
+					$(resContainer).find('p.'+_this.rdform._ID_+'-resource-uri-container').remove();
+					$(resource).after('<p class="'+_this.rdform._ID_+'-resource-uri-container"><a href="'+resultUri+'" class="'+_this.rdform._ID_+'-resource-uri">'+resourceLabel+'</a></p>');
+				});
+			}
 		}
 	},
 
