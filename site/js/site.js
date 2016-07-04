@@ -97,7 +97,7 @@ $("input.search-field").on("focus", function() {
 	var queryEndpoint = urlBase + "sparql";	
 	var apitype = "sparql";
 	var queryDataType = "json";
-	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . ?item foaf:name ?label . FILTER( ?isPastor = 1 || ?isPastor = '1' ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . ?item rdfs:label ?label . } FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
+	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . FILTER( ?isPastor = 1 || ?isPastor = '1' ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . } ?item rdfs:label ?label . FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
 
 	$(this).autocompleteLinkItem().autocompleteLinkItem({
 		source: function( request, response ) {		
