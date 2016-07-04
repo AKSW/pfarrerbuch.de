@@ -25,6 +25,16 @@ $schoolQuery.= '} ORDER BY ?bezeichnung' . PHP_EOL;
 <div class="col-md-8">
 <h3><?= $this->title ?></h3>
 
+<dl class="dl-horizontal">
+    <?= $this->literal(array('property' => 'hp:district', 'tag' => 'dd', 'prefix' => '<dt>Kreis:</dt>')) ?>
+    <?= $this->literal(array('property' => 'hp:district1952', 'tag' => 'dd', 'prefix' => '<dt>Kreis (1952):</dt>')) ?>
+    <?= $this->literal(array('property' => 'hp:community', 'tag' => 'dd', 'prefix' => '<dt>Gemeinde:</dt>')) ?>
+    <?= $this->literal(array('property' => 'hp:nearby', 'tag' => 'dd', 'prefix' => '<dt>In der Nähe von:</dt>')) ?>
+    <?= $this->literal(array('property' => 'hp:geographicalLocation', 'tag' => 'dd', 'prefix' => '<dt>geograph. Lage:</dt>')) ?>
+    <?= $this->literal(array('property' => 'hp:ah1875', 'tag' => 'dd', 'prefix' => '<dt>AH (1875):</dt>')) ?>
+    <?= $this->literal(array('property' => 'hp:hovID', 'tag' => 'dd', 'prefix' => '<dt>Hist. Ortsregister:</dt>')) ?>
+</dl>
+
 <h4><?= $this->_('place_list_positions') ?></h4>
 <ul>
 <?= $this->querylist($positionQuery, 'local/items/resource.phtml', array('ort' => $this->title), array('prefix' => '<li>', 'suffix' => '</li>')) ?>
