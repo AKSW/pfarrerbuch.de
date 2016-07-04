@@ -24,7 +24,7 @@ function createForm( owData ) {
 	if ( location.href.search(/lang=hu/) != -1 ) {
 		langFile = "lang_hu.js";
 	}
-		
+
 	var owRdform = new OntoWikiRDForm({
 		$container: container,
 		template: template,
@@ -32,24 +32,24 @@ function createForm( owData ) {
 		lang: langFile,
 		data: data
 	});
-	owRdform.init( function(result){ 
+	owRdform.init( function(result){
 		if ( result ) {
 			if ( ! editResource ) {
 				resourceUri = result["@id"];
 			}
 			owCon.updateResource( modelIri, resourceUri, hash, result, function( updateResult ) {
 				if ( updateResult == true ) {
-					window.location.href = decodeURIComponent(result["@id"]);	
+					window.location.href = decodeURIComponent(result["@id"]);
 				} else {
 					alert(updateResult);
 				}
 			});
 		} else {
-			container.hide( "fast", function() { 
-				popupContainer.remove(); 
+			container.hide( "fast", function() {
+				popupContainer.remove();
 			});
 		}
-		
+
 	});
 
 	owRdform.settings.$elem.prepend('<div id="rdform-drag-header"></div>');
@@ -94,13 +94,13 @@ $.widget("custom.autocompleteLinkItem", $.ui.autocomplete, {
 		}
 });
 $("input.search-field").on("focus", function() {
-	var queryEndpoint = urlBase + "sparql";	
+	var queryEndpoint = urlBase + "sparql";
 	var apitype = "sparql";
 	var queryDataType = "json";
 	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . FILTER( ?isPastor = 1 || ?isPastor = '1' ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . } ?item rdfs:label ?label . FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
 
 	$(this).autocompleteLinkItem().autocompleteLinkItem({
-		source: function( request, response ) {		
+		source: function( request, response ) {
 			var query = queryStr.replace(/%s/g, "'" + request.term + "'");
 			$.ajax({
 				url: queryEndpoint,
@@ -123,13 +123,13 @@ $("input.search-field").on("focus", function() {
 			});
 	  	},
 	  	select : function( event, ui ) {
-	  		window.location.href = decodeURIComponent( ui.item.value );	
+	  		window.location.href = decodeURIComponent( ui.item.value );
 	  	},
 		minLength: 2
 	});
 });
 
-// add browser.js 
+// add browser.js
 if ( $(".browser").length > 0 ) {
 	var browserArg = {
 		"model" : [ "http://pfarrerbuch.comiles.eu/sachsen/", "http://pfarrerbuch.comiles.eu/ungarn/" ],
@@ -153,17 +153,17 @@ function drag_start(event) {
     var style = window.getComputedStyle(event.target, null);
     event.dataTransfer.setData("text/plain",
     (parseInt(style.getPropertyValue("left"),10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY));
-} 
-function drag_over(event) { 
-    event.preventDefault(); 
-    return false; 
-} 
-function drop(event) { 
+}
+function drag_over(event) {
+    event.preventDefault();
+    return false;
+}
+function drop(event) {
     var offset = event.dataTransfer.getData("text/plain").split(',');
     var dm = document.getElementsByTagName("form")[0];
-    
+
     var dm1 = document.getElementById("rdform-drag-header");
-    
+
     //console.log(event.clientX, event.dataTransfer.getData("text/plain"), parseInt(offset[0],10));
     //dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
     dm.style.left = (event.clientX + 470 - Math.abs( ( parseInt(offset[0],10) ) + event.clientX ) ) + 'px';
@@ -177,8 +177,7 @@ function drag_init() {
 	//var dm = document.getElementsByTagName("form")[0];
 	var dm = document.getElementById("rdform-drag-header");
 	$(dm).attr("draggable", "true");
-	dm.addEventListener('dragstart',drag_start,false); 
-	document.body.addEventListener('dragover',drag_over,false); 
+	dm.addEventListener('dragstart',drag_start,false);
+	document.body.addEventListener('dragover',drag_over,false);
 	document.body.addEventListener('drop',drop,false);
 }
-
