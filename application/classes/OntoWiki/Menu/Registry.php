@@ -2,7 +2,7 @@
 /**
  * This file is part of the {@link http://ontowiki.net OntoWiki} project.
  *
- * @copyright Copyright (c) 2013, {@link http://aksw.org AKSW}
+ * @copyright Copyright (c) 2009-2016, {@link http://aksw.org AKSW}
  * @license   http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
 
@@ -280,8 +280,7 @@ class OntoWiki_Menu_Registry
         }
 
         // can user delete models?
-        if (
-            $owApp->erfurt->getAc()->isModelAllowed('edit', $model)
+        if ($owApp->erfurt->getAc()->isModelAllowed('edit', $model)
             && $owApp->erfurt->getAc()->isActionAllowed('ModelManagement')
         ) {
 
@@ -408,8 +407,7 @@ class OntoWiki_Menu_Registry
             $typeArray[] = $row['type'];
         }
 
-        if (
-            in_array(EF_RDFS_CLASS, $typeArray)
+        if (in_array(EF_RDFS_CLASS, $typeArray)
             || in_array(EF_OWL_CLASS, $typeArray)
             || $hasInstances
         ) {

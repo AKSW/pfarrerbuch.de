@@ -2,7 +2,7 @@
 /**
  * This file is part of the {@link http://ontowiki.net OntoWiki} project.
  *
- * @copyright Copyright (c) 2012, {@link http://aksw.org AKSW}
+ * @copyright Copyright (c) 2011-2016, {@link http://aksw.org AKSW}
  * @license   http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
 
@@ -94,8 +94,7 @@ class DatagatheringPlugin extends OntoWiki_Plugin
 
         // We only add entries to the menu, if all params are given and the
         // model is editable.
-        if (
-            (null === $resource) || (null === $model) || !$model->isEditable()
+        if ((null === $resource) || (null === $model) || !$model->isEditable()
             || !$owApp->erfurt->getAc()->isModelAllowed('edit', $owApp->selectedModel)
         ) {
             return;
@@ -301,7 +300,7 @@ class DatagatheringPlugin extends OntoWiki_Plugin
 
             require_once 'Erfurt/Sparql/SimpleQuery.php';
             $query = new Erfurt_Sparql_SimpleQuery();
-            $query->setProloguePart('SELECT ?s ?o');
+            $query->setSelectClause('SELECT ?s ?o');
             $query->addFrom($this->_syncModelUri);
             $query->setWherePart(
                 'WHERE {
@@ -345,7 +344,7 @@ class DatagatheringPlugin extends OntoWiki_Plugin
 
             require_once 'Erfurt/Sparql/SimpleQuery.php';
             $query = new Erfurt_Sparql_SimpleQuery();
-            $query->setProloguePart('SELECT ?s');
+            $query->setSelectClause('SELECT ?s');
             $query->addFrom($this->_syncModelUri);
             $query->setWherePart(
                 'WHERE {
@@ -404,7 +403,7 @@ class DatagatheringPlugin extends OntoWiki_Plugin
 
             require_once 'Erfurt/Sparql/SimpleQuery.php';
             $query = new Erfurt_Sparql_SimpleQuery();
-            $query->setProloguePart('SELECT ?s ?p ?o');
+            $query->setSelectClause('SELECT ?s ?p ?o');
             $query->addFrom($this->_syncModelUri);
             $where
                 = 'WHERE {
@@ -474,7 +473,7 @@ class DatagatheringPlugin extends OntoWiki_Plugin
 
             require_once 'Erfurt/Sparql/SimpleQuery.php';
             $query = new Erfurt_Sparql_SimpleQuery();
-            $query->setProloguePart('SELECT ?s ?p ?o');
+            $query->setSelectClause('SELECT ?s ?p ?o');
             $query->addFrom($this->_syncModelUri);
             $where
                 = 'WHERE {

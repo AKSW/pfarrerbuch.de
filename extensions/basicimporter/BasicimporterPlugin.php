@@ -2,7 +2,7 @@
 /**
  * This file is part of the {@link http://ontowiki.net OntoWiki} project.
  *
- * @copyright Copyright (c) 2013, {@link http://aksw.org AKSW}
+ * @copyright Copyright (c) 2013-2016, {@link http://aksw.org AKSW}
  * @license   http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
 
@@ -66,7 +66,7 @@ class BasicimporterPlugin extends OntoWiki_Plugin
         return $event;
     }
 
-    private function importModels ()
+    private function importModels()
     {
         // read config for models to import
         $owApp = OntoWiki::getInstance();

@@ -2,7 +2,7 @@
 /**
  * This file is part of the {@link http://ontowiki.net OntoWiki} project.
  *
- * @copyright Copyright (c) 2012, {@link http://aksw.org AKSW}
+ * @copyright Copyright (c) 2011-2016, {@link http://aksw.org AKSW}
  * @license   http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
 
@@ -89,8 +89,7 @@ class PingbackPlugin extends OntoWiki_Plugin
     public function onDeleteMultipleStatements($event)
     {
         // If pingOnDelete is configured, we also ping on statement delete, otherwise we skip.
-        if (
-            !isset($this->_privateConfig->pingOnDelete)
+        if (!isset($this->_privateConfig->pingOnDelete)
             || ((boolean)$this->_privateConfig->pingOnDelete === false)
         ) {
 

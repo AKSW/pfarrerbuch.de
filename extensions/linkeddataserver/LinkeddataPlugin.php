@@ -2,7 +2,7 @@
 /**
  * This file is part of the {@link http://ontowiki.net OntoWiki} project.
  *
- * @copyright Copyright (c) 2013, {@link http://aksw.org AKSW}
+ * @copyright Copyright (c) 2011-2016, {@link http://aksw.org AKSW}
  * @license   http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
 
@@ -36,6 +36,7 @@ class LinkeddataPlugin extends OntoWiki_Plugin
             'application/rdf+xml'   => 'rdf',
             'text/n3'               => 'n3',
             'text/turtle'           => 'ttl',
+            'application/rdf+json'  => 'json',
             'application/json'      => 'json',
             'application/xml'       => 'html' // TODO: should this be xhtml or rdf?
         );
@@ -71,7 +72,10 @@ class LinkeddataPlugin extends OntoWiki_Plugin
         $request  = Zend_Controller_Front::getInstance()->getRequest();
         $response = Zend_Controller_Front::getInstance()->getResponse();
 
-        $uri = $event->uri;
+        $aliascheck = new Erfurt_Event('onResolveDomainAliasInput');
+        $aliascheck->uri = $event->uri;
+        $aliascheck->trigger();
+        $uri = $aliascheck->uri;
 
         try {
             // Check for a supported type by investigating the suffix of the URI or by

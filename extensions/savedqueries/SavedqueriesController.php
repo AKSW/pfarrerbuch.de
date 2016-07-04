@@ -2,7 +2,7 @@
 /**
  * This file is part of the {@link http://ontowiki.net OntoWiki} project.
  *
- * @copyright Copyright (c) 2012, {@link http://aksw.org AKSW}
+ * @copyright Copyright (c) 2011-2016, {@link http://aksw.org AKSW}
  * @license   http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
 
@@ -65,7 +65,7 @@ class SavedqueriesController extends OntoWiki_Controller_Component
 
         $header = array();
         try {
-            if (is_array($queryResult) && isset ($queryResult[0]) && is_array($queryResult[0])) {
+            if (is_array($queryResult) && isset($queryResult[0]) && is_array($queryResult[0])) {
                 $header = array_keys($queryResult[0]);
             } else {
                 if (is_bool($queryResult)) {

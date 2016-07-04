@@ -2,7 +2,7 @@
 /**
  * This file is part of the {@link http://ontowiki.net OntoWiki} project.
  *
- * @copyright Copyright (c) 2014, {@link http://aksw.org AKSW}
+ * @copyright Copyright (c) 2014-2016, {@link http://aksw.org AKSW}
  * @license   http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
 
@@ -110,30 +110,6 @@ class ResourceJsonrpcAdapter
     }
 
     /**
-     * @desc add all input statements to the model
-     *
-     * @param string $modelIri
-     * @param string $inputModel
-     *
-     * @return bool
-     */
-    public function add($modelIri, $inputModel)
-    {
-        $model                     = $this->_store->getModel($modelIri);
-        $versioning                = $this->_erfurt->getVersioning();
-        $actionSpec                = array();
-        $actionSpec['type']        = 80201;
-        $actionSpec['modeluri']    = (string)$model;
-        $actionSpec['resourceuri'] = (string)$model;
-
-        $versioning->startAction($actionSpec);
-        $model->addMultipleStatements($inputModel);
-        $versioning->endAction();
-
-        return true;
-    }
-
-    /**
      * @desc create a new knowledge base
      *
      * @param string $modelIri
@@ -169,7 +145,7 @@ class ResourceJsonrpcAdapter
      *
      * @return string with the hash value
      */
-    private function _getCurrentResourceHash ($modelIri, $resourceIri)
+    private function _getCurrentResourceHash($modelIri, $resourceIri)
     {
         $resource = $this->_store->getModel($modelIri)->getResource($resourceIri);
         $statements = $resource->getDescription();
