@@ -14,30 +14,21 @@ RDForm_OntoWiki_Hooks.prototype = {
 		//set model baseIri (important to set baseIri for ungarn!)
 		_this.rdform.MODEL[0]["@context"]["@base"] = modelIri;
 		
-		// get hidden birthYear and deathYear for the label
-		_this.$elem.on("keyup", 'input[name="http://purl.org/voc/hp/birthDate"]', function() {
-			var bYear = $(this).val().slice(0, 4);
-			_this.$elem.find('input[name="birthDate"]').val( bYear ).trigger("keyup");
-		});
-		_this.$elem.on("keyup", 'input[name="http://purl.org/voc/hp/dateOfDeath"]', function() {
-			var dYear = $(this).val().slice(0, 4);
-			_this.$elem.find('input[name="deathDate"]').val( dYear ).trigger("keyup");
-		});
+		// dirty hack to fix dates
+		if ( _this.rdform.data != null ) {
+			$.each( _this.rdform.data[0], function( key, value ) {
+				if ( value[0].hasOwnProperty("@type") && value[0]["@type"] == "http://www.w3.org/2001/XMLSchema#gYear" ) {
+					_this.rdform.data[0][key][0]["@value"] = value[0]["@value"].slice(0, 4);
+				} else if ( value[0].hasOwnProperty("@type") && value[0]["@type"] == "http://www.w3.org/2001/XMLSchema#gYearMonth" ) {
+					_this.rdform.data[0][key][0]["@value"] = value[0]["@value"].slice(0, 7);
+				}
+			})
+		}
 	},
 
 	// after instert existing data into the form
 	__afterInsertData : function() {
 		var _this = this;
-
-		// autocorrect wrong gYear dates (XXXX-01-01T00:00:00Z)
-		_this.$elem.find( 'input[datatype="xsd:date"]' ).each(function() {
-			if ( $(this).val().search(/.*-01-01T00:00:00.*/) != -1 ) {
-				$(this).val( $(this).val().substring(0,4) );
-			} else if ( $(this).val().search(/.*-01T00:00:00.*/) != -1 ) {
-				$(this).val( $(this).val().substring(0,7) );
-			}
-			$(this).val( $(this).val().replace(/\W$/, '') );
-		});
 	},
 
 	// after adding a property
