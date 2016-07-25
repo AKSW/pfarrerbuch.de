@@ -16,12 +16,14 @@ RDForm_OntoWiki_Hooks.prototype = {
 		
 		// dirty hack to fix dates
 		if ( _this.rdform.data != null ) {
-			$.each( _this.rdform.data[0], function( key, value ) {
-				if ( value[0].hasOwnProperty("@type") && value[0]["@type"] == "http://www.w3.org/2001/XMLSchema#gYear" ) {
-					_this.rdform.data[0][key][0]["@value"] = value[0]["@value"].slice(0, 4);
-				} else if ( value[0].hasOwnProperty("@type") && value[0]["@type"] == "http://www.w3.org/2001/XMLSchema#gYearMonth" ) {
-					_this.rdform.data[0][key][0]["@value"] = value[0]["@value"].slice(0, 7);
-				}
+			$.each( _this.rdform.data[0], function( resKey, resVals ) {
+				$.each( resVals, function( valKey, value ) {
+					if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYear" ) {
+						_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 4);
+					} else if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYearMonth" ) {
+						_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 7);
+					}
+				});				
 			})
 		}
 	},
