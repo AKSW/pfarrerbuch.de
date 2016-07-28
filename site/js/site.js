@@ -2,86 +2,6 @@ var owCon = new OntoWikiConnection(urlBase + 'jsonrpc');
 var urlBaseWebsafe = urlBase.replace(/[^a-z0-9-_.]/gi,'');
 
 /*
-New RDForm
-*/
-function createForm( owData ) {
-	var popupContainer = $('<div class="rdform-popup-layer"></div>');
-	var container = $('<div class="rdform-container"></div>');
-	var template = "form_" + urlBaseWebsafe + "." + resourceTemplate + ".html";
-	var langFile = "de.js";
-	$("body").append(popupContainer.append(container));
-
-	var hash = '40cd750bba9870f18aada2478b24840a';
-	var data = null;
-	var editResource = false;
-
-	if ( typeof owData !== "undefined" ) {
-		hash = owData.dataHash;
-		data = owData.data;
-		editResource = true;
-	}
-
-	if ( location.href.search(/lang=hu/) != -1 ) {
-		langFile = "lang_hu.js";
-	}
-
-	var owRdform = new OntoWikiRDForm({
-		$container: container,
-		template: template,
-		hooks: "owrdform_hooks.js",
-		lang: langFile,
-		data: data
-	});
-	owRdform.init( function(result){
-		if ( result ) {
-			if ( ! editResource ) {
-				resourceUri = result["@id"];
-			}
-			owCon.updateResource( modelIri, resourceUri, hash, result, function( updateResult ) {
-				if ( updateResult == true ) {
-					window.location.href = decodeURIComponent(result["@id"]);
-				} else {
-					alert(updateResult);
-				}
-			});
-		} else {
-			container.hide( "fast", function() {
-				popupContainer.remove();
-			});
-		}
-
-	});
-
-	owRdform.settings.$elem.prepend('<div id="rdform-drag-header"></div>');
-	$(container).prepend('<button class="btn btn-default close-rdform-btn pull-right" alt="Close title="Close"><span class="glyphicon glyphicon-remove"></span></button>');
-	window.scrollTo(0,0);
-	drag_init();
-}
-
-// click edit btn
-$(".rdform-edit-btn").click(function() {
-	owCon.getResource( modelIri, resourceUri, function( resData ) {
-		createForm( resData );
-	});
-	return false;
-});
-
-// click new btn
-$(".rdform-new-btn").click(function() {
-		createForm();
-		return false;
-});
-
-// close the current form window
-$("body").on("click", ".close-rdform-btn", function() {
-	var form = $(this).parentsUntil(".rdform-popup-layer");
-	form.hide( "fast", function() {
-					form.parent().remove();
-				});
-	return false;
-})
-
- /*
 Autocomplete Search
 */
 // create custom autoconmplete item with resource uri as href
@@ -147,7 +67,7 @@ if ( $(".browser").length > 0 ) {
 	$(".browser").Browser( browserArg );
 }
 
-
+/*
 // drag and drop functionality for the root form
 function drag_start(event) {
     var style = window.getComputedStyle(event.target, null);
@@ -181,3 +101,4 @@ function drag_init() {
 	document.body.addEventListener('dragover',drag_over,false);
 	document.body.addEventListener('drop',drop,false);
 }
+*/
