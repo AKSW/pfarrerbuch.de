@@ -1,7 +1,7 @@
 <form base="http://pfarrerbuch.comiles.eu/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
 	<legend>Stelle</legend>
 	<div typeof="http://purl.org/voc/hp/Position" resource="stelle/{id}">
-		<input name="id" type="hidden" value="" />
+		<input name="id" type="hidden" value="{http://www.w3.org/2000/01/rdf-schema#label}" />
 		
 		<label>Label</label>
 		<input name="http://www.w3.org/2000/01/rdf-schema#label" value="{http://purl.org/voc/hp/positionDesignation}" type="literal" readonly="" hidden />
