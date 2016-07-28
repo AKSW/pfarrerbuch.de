@@ -34,34 +34,13 @@ $literalTemplate = basename($this->literal(array('property' => EF_RDF_NS . 'type
     <link type="text/css" href="<?= $this->baseUri ?>/css/bootstrap.css" rel="stylesheet" />
     <link type="text/css" href="<?= $this->baseUri ?>/css/style.css" rel="stylesheet" />
     <link type="text/css" href="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/rdform/css/rdform.css'; ?>" rel="stylesheet" />
-    <link type="text/css" href="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/rdform/css/smoothness/jquery-ui.custom.min.css'; ?>" rel="stylesheet" />
-
-    <!-- jQuery -->
-    <script type="text/javascript" src="<?= $this->themeUrlBase ?>scripts/libraries/jquery-1.9.1.js"></script>
-
-    <style type="text/css">
-      body {
-        padding-top: 20px;
-        padding-bottom: 40px;
-      }
-      @font-face{
-		font-family:'Glyphicons Halflings';
-		src:url(<?= $owApp->extensionManager->getComponentUrl('rdform') ?>public/fonts/glyphicons-halflings-regular.eot);
-		src:url(<?= $owApp->extensionManager->getComponentUrl('rdform') ?>public/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),url(<?= $owApp->extensionManager->getComponentUrl('rdform') ?>public/fonts/glyphicons-halflings-regular.woff) format('woff'),url(<?= $owApp->extensionManager->getComponentUrl('rdform') ?>public/fonts/glyphicons-halflings-regular.ttf) format('truetype'),url(<?= $owApp->extensionManager->getComponentUrl('rdform') ?>public/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
-		}
-    </style>
+    <link type="text/css" href="<?php echo $owApp->extensionManager->getComponentUrl('rdform') . 'js/lib/rdform/css/smoothness/jquery-ui.custom.min.css'; ?>" rel="stylesheet" />    
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-<?php
-    // includes the GA header script
-    // includes the exhibit header links
-    // other head scripts
-    $this->headScript();
-?>
 </head>
 
 <body<?php
@@ -159,7 +138,8 @@ $literalTemplate = basename($this->literal(array('property' => EF_RDF_NS . 'type
     </footer>
 </div> <!-- /container -->
 
-<script type="text/javascript" src="<?php echo $this->baseUri ?>/js/jquery.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="<?= $this->themeUrlBase ?>scripts/libraries/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUri ?>/js/bootstrap.js"></script>
 <!-- include promise for IE compatibility -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/g/es6-promise@1.0.0"></script>
