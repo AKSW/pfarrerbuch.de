@@ -131,12 +131,10 @@ List Professors with simple navigation and search
 			$container.append( $dropdown );
 
 			$("a", $dropdown).click(function(e) { // create new form from dropdown
+				modelIri = $(this).attr("data-model-uri");
 				var template = $(this).attr("data-class-uri").split("/").reverse()[0];
-				$("#resourceTemplate").val( template );
-				resourceTemplate = template;
-				$("#modelIri").val( $(this).attr("data-model-uri") );
-				modelIri =  $(this).attr("data-model-uri");
-				createForm();
+				resourceTemplate = template.toLowerCase(); // TODO: this is not the real template! Its the rdf:type, but rdform uses http://ns.ontowiki.net/SysOnt/Site/classTemplate ...
+				createRDForm();
 				e.preventDefault();
 			});
 		},
