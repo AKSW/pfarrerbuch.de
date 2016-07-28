@@ -2,6 +2,10 @@
     line-height: normal;
     box-sizing: border-box;
 }
+body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
 body, p {
     font-size: 13pt;
     line-height: normal;
