@@ -13,17 +13,19 @@ RDForm_OntoWiki_Hooks.prototype = {
 
 		//set model baseIri (important to set baseIri for ungarn!)
 		_this.rdform.MODEL[0]["@context"]["@base"] = modelIri;
-		
+
 		// dirty hack to fix dates
 		if ( _this.rdform.data != null ) {
 			$.each( _this.rdform.data[0], function( resKey, resVals ) {
-				$.each( resVals, function( valKey, value ) {
-					if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYear" ) {
-						_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 4);
-					} else if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYearMonth" ) {
-						_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 7);
-					}
-				});				
+				if (Array.isArray(resVals)) {
+					$.each( resVals, function( valKey, value ) {
+						if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYear" ) {
+							_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 4);
+						} else if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYearMonth" ) {
+							_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 7);
+						}
+					});
+				}
 			})
 		}
 	},
@@ -86,7 +88,7 @@ RDForm_OntoWiki_Hooks.prototype = {
 			} else {
 				item.label.value = item.label.value + ", " + item.schoolType.value;
 			}
-			
+
 		}
 		else if ( item.hasOwnProperty("lastName") ) {
 			item.label.value = item.lastName.value + ", " + item.label.value;
@@ -102,7 +104,7 @@ RDForm_OntoWiki_Hooks.prototype = {
 		var _this = this;
 		var resultUri = result["@id"];
 		var resourceLabel = "";
-		var resContainer = $(resource).parentsUntil(".form-group").parent();		
+		var resContainer = $(resource).parentsUntil(".form-group").parent();
 
 		// add place to hasPositions link label
 		if ( result.hasOwnProperty("@type") && result["@type"][0] == "http://purl.org/voc/hp/Position" ) {
@@ -119,7 +121,7 @@ RDForm_OntoWiki_Hooks.prototype = {
 					if ( dataNew[0].hasOwnProperty('http://www.w3.org/2000/01/rdf-schema#label') ) {
 						resourceLabel = resourceLabel + ", " + dataNew[0]['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
 					}
-					
+
 					$(resContainer).find('p.'+_this.rdform._ID_+'-resource-uri-container').remove();
 					$(resource).after('<p class="'+_this.rdform._ID_+'-resource-uri-container"><a href="'+resultUri+'" class="'+_this.rdform._ID_+'-resource-uri">'+resourceLabel+'</a></p>');
 				});
