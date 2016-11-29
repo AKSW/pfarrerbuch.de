@@ -1,4 +1,4 @@
-/*
+ /*
 RDForm Hooks-File - to hook in on certain points of application execution
 
 Variables:
@@ -13,21 +13,6 @@ RDForm_OntoWiki_Hooks.prototype = {
 
 		//set model baseIri (important to set baseIri for ungarn!)
 		_this.rdform.MODEL[0]["@context"]["@base"] = modelIri;
-
-		// dirty hack to fix dates
-		if ( _this.rdform.data != null ) {
-			$.each( _this.rdform.data[0], function( resKey, resVals ) {
-				if (Array.isArray(resVals)) {
-					$.each( resVals, function( valKey, value ) {
-						if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYear" ) {
-							_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 4);
-						} else if ( value.hasOwnProperty("@type") && value["@type"] == "http://www.w3.org/2001/XMLSchema#gYearMonth" ) {
-							_this.rdform.data[0][resKey][valKey]["@value"] = value["@value"].slice(0, 7);
-						}
-					});
-				}
-			})
-		}
 	},
 
 	// after instert existing data into the form
