@@ -1,4 +1,4 @@
-<form base="http://pfarrerbuch.comiles.eu/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
+<form base="http://pfarrerbuch.aksw.org/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
 	<legend>Person Plain</legend>
 	<div typeof="foaf:Person" resource="person/{id}">
 		<input name="id" type="hidden" value="{foaf:name}" />
@@ -8,7 +8,7 @@
 		<label>ist Pfarrer/Pfarrerin</label>
 		<input type="literal" boolean name="hp:isPastor" datatype="xsd:boolean" />
 
-		<input name="rdfs:label" value="{foaf:name} (*{birthDate} †{deathDate})" type="literal" readonly="" hidden="" />		
+		<input name="rdfs:label" value="{foaf:name} (*{birthDate} †{deathDate})" type="literal" readonly="" hidden="" />
 
 		<input name="foaf:name" value="{foaf:firstName} {foaf:lastName}" type="literal" readonly="" hidden />
 
@@ -28,8 +28,8 @@
 		<input name="hp:birthDate" type="literal" datatype="xsd:date" placeholder="JJJJ-MM-TT" />
 
 		<label>Geburtsort</label>
-		<input type="resource" external name="hp:birthPlace" typeof="hp:Place" autocomplete 
-			query-endpoint="http://pfarrerbuch.comiles.eu/sparql" query-apitype="sparql" query-datatype="json"
+		<input type="resource" external name="hp:birthPlace" typeof="hp:Place" autocomplete
+			query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
         />
 
@@ -38,9 +38,9 @@
 
 		<label>Sterbeort</label>
 		<input type="resource" external name="hp:placeOfDeath" typeof="hp:Place" autocomplete
-			query-endpoint="http://pfarrerbuch.comiles.eu/sparql" query-apitype="sparql" query-datatype="json"
+			query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
-		/>		
+		/>
 
 		<label>Bemerkungen</label>
 		<input name="rdfs:comment" textarea type="literal" additional />
