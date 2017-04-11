@@ -1,3 +1,7 @@
+###########################
+# Professor Mapping
+###########################
+
 <#PersonTriplesMap>
 	<http://www.w3.org/ns/r2rml#logicalTable>
 			[ 
@@ -162,8 +166,12 @@
 				<http://www.w3.org/ns/r2rml#template>	"http://pfarrerbuch.aksw.org/kps/person/{\"ID\"}"
 			] .
 
+###########################
+# Places Mapping
+###########################
+
 <#Places1TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-select distinct Geb_Ort as ort from BioTabelle1;
+select distinct Geb_Ort from BioTabelle1;
 """.
 <#Places1TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places1TableView>;
@@ -187,9 +195,9 @@ select distinct Geb_Ort as ort from BioTabelle1;
     ].
 
 <#Places2TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-Select distinct Ordination_Ort as ort from BioTabelle1;
+Select distinct Ordination_Ort from BioTabelle1;
 """.
-<#Places3TriplesMap>
+<#Places2TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places2TableView>;
     <http://www.w3.org/ns/r2rml#subjectMap> [
         <http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/ort/{\"Ordination_Ort\"}";
@@ -209,9 +217,9 @@ Select distinct Ordination_Ort as ort from BioTabelle1;
 			<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
 		];
     ].
-
+	
 <#Places3TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-select distinct Berufung1_Ort as ort from BioTabelle1;
+select distinct Berufung1_Ort from BioTabelle1;
 """.
 <#Places3TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places3TableView>;
@@ -235,7 +243,7 @@ select distinct Berufung1_Ort as ort from BioTabelle1;
     ].
 
 <#Places4TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-Select distinct Berufung2_Ort as ort from BioTabelle1;
+Select distinct Berufung2_Ort from BioTabelle1;
 """.
 <#Places4TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places4TableView>;
@@ -259,7 +267,7 @@ Select distinct Berufung2_Ort as ort from BioTabelle1;
     ].
 
 <#Places5TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-select distinct Berufung3_Ort as ort from BioTabelle1;
+select distinct Berufung3_Ort from BioTabelle1;
 """.
 <#Places5TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places5TableView>;
@@ -283,7 +291,7 @@ select distinct Berufung3_Ort as ort from BioTabelle1;
     ].
 
 <#Places6TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-Select distinct Berufung4_Ort as ort from BioTabelle1;
+Select distinct Berufung4_Ort from BioTabelle1;
 """.
 <#Places6TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places6TableView>;
@@ -307,7 +315,7 @@ Select distinct Berufung4_Ort as ort from BioTabelle1;
     ].
 
 <#Places7TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-Select distinct Berufung5_Ort as ort from BioTabelle1;
+Select distinct Berufung5_Ort from BioTabelle1;
 """.
 <#Places7TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places7TableView>;
@@ -331,7 +339,7 @@ Select distinct Berufung5_Ort as ort from BioTabelle1;
     ].
 
 <#Places8TableView> <http://www.w3.org/ns/r2rml#sqlQuery> """
-Select Berufung6_Ort as ort from BioTabelle1;
+Select distinct Berufung6_Ort from BioTabelle1;
 """.
 <#Places8TriplesMap>
     <http://www.w3.org/ns/r2rml#logicalTable> <#Places8TableView>;
@@ -353,71 +361,11 @@ Select Berufung6_Ort as ort from BioTabelle1;
 			<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
 		];
     ].
-	
-<#SchoolTableView> <http://www.w3.org/ns/r2rml#sqlQuery> """Select distinct school from (Select IIf(InStr(Ausbildung, ";")>0, left(Ausbildung,InStr(Ausbildung, ";")-1), Ausbildung) as school from BioTabelle1) UNION ( 
-Select IIf(NOT InStr(Ausbildung, ";")=0, Mid(Ausbildung, InStr(Ausbildung, ";")+2, IIf(NOT InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")=0, InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")-InStr(Ausbildung, ";")-2, Len(Ausbildung))), NULL) as school from BioTabelle1) UNION (
-Select IIf(NOT InStr(Ausbildung, ";")=0, IIf(NOT InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")=0, Mid(Ausbildung, InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")+2, IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";") -  InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")-2, Len(Ausbildung))), NULL), NULL) as school from BioTabelle1) UNION (
-Select IIf(NOT InStr(Ausbildung, ";")=0, IIf(NOT InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")=0,IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, Mid(Ausbildung, InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+2, IIf(NOT InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";") =0,InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";") -  InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")-2, Len(Ausbildung))), NULL), NULL), NULL) as school from BioTabelle1) UNION (
-Select IIf(NOT InStr(Ausbildung, ";")=0, IIf(NOT InStr(InStr(Ausbildung, ";") + 1, Ausbildung, ";")=0,IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, IIf(NOT InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")=0, Mid(Ausbildung, InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+2, IIf(NOT InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")=0, InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";") -  InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";") + 1, Ausbildung, ";")-1, Len(Ausbildung))), NULL), NULL), NULL), NULL) as school from BioTabelle1) UNION (
-Select IIf(NOT InStr(Ausbildung, ";")=0, 
-	IIf(NOT InStr(InStr(Ausbildung, ";") + 1, Ausbildung, ";")=0,
-		IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, 
-			IIf(NOT InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")=0, 
-				IIf(NOT InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")=0, 
-					Mid(Ausbildung, InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1 , Ausbildung, ";")+2, 
-						IIf(NOT InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")=0, 
-							InStr(InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";") - InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")-1, Len(Ausbildung))), NULL), NULL), NULL), NULL), NULL) as school from BioTabelle1);
-""".
 
-<#SchoolsTriplesMap>
-    <http://www.w3.org/ns/r2rml#logicalTable> <#SchoolTableView>;
-    <http://www.w3.org/ns/r2rml#subjectMap> [ 
-        <http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/schule/{\"school\"}";
-        <http://www.w3.org/ns/r2rml#class> <http://purl.org/voc/hp/School>;
-    ];
-    <http://www.w3.org/ns/r2rml#predicateObjectMap> [
-        <http://www.w3.org/ns/r2rml#predicate> <http://purl.org/voc/hp/nameOfSchool>;
-        <http://www.w3.org/ns/r2rml#objectMap> [
-			<http://www.w3.org/ns/r2rml#column> "\"school\"";
-			<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
-		];
-    ];
-	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
-        <http://www.w3.org/ns/r2rml#predicate> <http://www.w3.org/2000/01/rdf-schema#label>;
-        <http://www.w3.org/ns/r2rml#objectMap> [
-			<http://www.w3.org/ns/r2rml#column> "\"school\"";
-			<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
-		];
-    ].
-	
-<#SchoolPersonTableView> <http://www.w3.org/ns/r2rml#sqlQuery> """select * from (Select distinct id, school from (Select id, IIf(InStr(Ausbildung, ";")>0, left(Ausbildung,InStr(Ausbildung, ";")-1), Ausbildung) as school from BioTabelle1) UNION ( 
-Select id, IIf(NOT InStr(Ausbildung, ";")=0, Mid(Ausbildung, InStr(Ausbildung, ";")+2, IIf(NOT InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")=0, InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")-InStr(Ausbildung, ";")-2, Len(Ausbildung))), NULL) as school from BioTabelle1) UNION (
-Select id, IIf(NOT InStr(Ausbildung, ";")=0, IIf(NOT InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")=0, Mid(Ausbildung, InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")+2, IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";") -  InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")-2, Len(Ausbildung))), NULL), NULL) as school from BioTabelle1) UNION (
-Select id, IIf(NOT InStr(Ausbildung, ";")=0, IIf(NOT InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";")=0,IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, Mid(Ausbildung, InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+2, IIf(NOT InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";") =0,InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";") -  InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")-2, Len(Ausbildung))), NULL), NULL), NULL) as school from BioTabelle1) UNION (
-Select id, IIf(NOT InStr(Ausbildung, ";")=0, IIf(NOT InStr(InStr(Ausbildung, ";") + 1, Ausbildung, ";")=0,IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, IIf(NOT InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")=0, Mid(Ausbildung, InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+2, IIf(NOT InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")=0, InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";") -  InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";") + 1, Ausbildung, ";")-1, Len(Ausbildung))), NULL), NULL), NULL), NULL) as school from BioTabelle1) UNION (
-Select id, IIf(NOT InStr(Ausbildung, ";")=0, 
-	IIf(NOT InStr(InStr(Ausbildung, ";") + 1, Ausbildung, ";")=0,
-		IIf(NOT InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")=0, 
-			IIf(NOT InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")=0, 
-				IIf(NOT InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")=0, 
-					Mid(Ausbildung, InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1 , Ausbildung, ";")+2, 
-						IIf(NOT InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")=0, 
-							InStr(InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";")+1, Ausbildung, ";") - InStr(InStr(InStr(InStr(InStr(Ausbildung, ";")+1, Ausbildung, ";") + 1, Ausbildung, ";") + 1, Ausbildung, ";")+1, Ausbildung, ";")-1, Len(Ausbildung))), NULL), NULL), NULL), NULL), NULL) as school from BioTabelle1)) as s where s.school is not null;
-""".
-
-<#SchoolsPersonTriplesMap>
-<http://www.w3.org/ns/r2rml#logicalTable> <#SchoolPersonTableView>;
-<http://www.w3.org/ns/r2rml#subjectMap> [
-	<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/person/{\"ID\"}";
-];
-<http://www.w3.org/ns/r2rml#predicateObjectMap> [
-	<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/attendedSchool>;
-	<http://www.w3.org/ns/r2rml#objectMap> [
-		<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/schule/{\"school\"}";
-	];
-].
-
-<#VaterTableView> <http://www.w3.org/ns/r2rml#sqlQuery> """select id, vater from BioTabelle1 where vater is not null;
+###########################
+# Father Mapping
+###########################
+<#VaterTableView> <http://www.w3.org/ns/r2rml#sqlQuery> """select id, vater from BioTabelle1;
 """.
 
 <#VaterTriplesMap>
@@ -442,8 +390,12 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 		] ;
 		<http://www.w3.org/ns/r2rml#predicate>	<http://pfarrerbuch.aksw.org/hp/parent>
 	] .
-
-<#MutterTableView> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, mutter from BioTabelle1 where mutter is not null;
+	
+###########################
+# Mother Mapping
+###########################
+	
+<#MutterTableView> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, mutter from BioTabelle1;
 							""".
 
 <#MutterTriplesMap>
@@ -468,6 +420,10 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 		] ;
 		<http://www.w3.org/ns/r2rml#predicate>	<http://pfarrerbuch.aksw.org/hp/parent>
 	] .
+	
+###########################
+# Father/Professor Mapping
+###########################
 
 <#ParentVaterTriplesMap>
 	<http://www.w3.org/ns/r2rml#logicalTable> <#VaterTableView>;
@@ -488,6 +444,10 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 				<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/person/{\"id\"}";
 			];
 	].
+	
+###########################
+# Mother/Professor Mapping
+###########################
 
 <#ParentMutterTriplesMap>
 	<http://www.w3.org/ns/r2rml#logicalTable> <#MutterTableView>;
@@ -509,7 +469,11 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 			];
 	].
 	
-<#PositionTableView1> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung1_Als as position, Berufung1_Ort as address, Berufung1_Zeit as zeit from BioTabelle1 where position is not null;
+###########################
+# Position Mapping 1
+###########################
+	
+<#PositionTableView1> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung1_Als as position, Berufung1_Ort as address, Berufung1_Zeit as zeit from BioTabelle1;
 """.
 
 <#PositionTriplesMap1>
@@ -530,13 +494,13 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 				<http://www.w3.org/ns/r2rml#column> "\"position\"";
 				<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/place>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
 				<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/position/{\"address\"}";
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/period>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
@@ -544,6 +508,11 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 			];
 	]
 	.
+
+	
+###########################
+# Position/Professor Mapping 1
+###########################
 
 <#PersonPositionTriplesMap1>
 	<http://www.w3.org/ns/r2rml#logicalTable> <#PositionTableView1>;
@@ -557,8 +526,12 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 			];
 	];
 	.
-	
-<#PositionTableView2> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung2_Als as position, Berufung2_Ort as address, Berufung2_Zeit as zeit from BioTabelle1 where position is not null;
+
+###########################
+# Position Mapping 2
+###########################
+
+<#PositionTableView2> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung2_Als as position, Berufung2_Ort as address, Berufung2_Zeit as zeit from BioTabelle1;
 """.
 	
 <#PositionTriplesMap2>
@@ -579,13 +552,13 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 				<http://www.w3.org/ns/r2rml#column> "\"position\"";
 				<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/place>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
 				<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/position/{\"address\"}";
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/period>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
@@ -593,6 +566,10 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 			];
 	]
 	.
+	
+###########################
+# Position/Professor Mapping 2
+###########################
 
 <#PersonPositionTriplesMap2>
 	<http://www.w3.org/ns/r2rml#logicalTable> <#PositionTableView2>;
@@ -607,7 +584,11 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 	];
 	.
 	
-<#PositionTableView3> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung3_Als as position, Berufung3_Ort as address, Berufung3_Zeit as zeit from BioTabelle1 where position is not null;
+###########################
+# Position Mapping 3
+###########################
+	
+<#PositionTableView3> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung3_Als as position, Berufung3_Ort as address, Berufung3_Zeit as zeit from BioTabelle1;
 """.
 	
 <#PositionTriplesMap3>
@@ -628,13 +609,13 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 				<http://www.w3.org/ns/r2rml#column> "\"position\"";
 				<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/place>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
 				<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/position/{\"address\"}";
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/period>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
@@ -642,6 +623,10 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 			];
 	]
 	.
+	
+###########################
+# Position/Professor Mapping 3
+###########################
 
 <#PersonPositionTriplesMap3>
 	<http://www.w3.org/ns/r2rml#logicalTable> <#PositionTableView3>;
@@ -655,8 +640,12 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 			];
 	];
 	.
-	
-<#PositionTableView4> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung4_Als as position, Berufung4_Ort as address, Berufung4_Zeit as zeit from BioTabelle1 where position is not null;
+
+###########################
+# Position Mapping 4
+###########################
+
+<#PositionTableView4> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung4_Als as position, Berufung4_Ort as address, Berufung4_Zeit as zeit from BioTabelle1;
 """.
 	
 <#PositionTriplesMap4>
@@ -677,13 +666,13 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 				<http://www.w3.org/ns/r2rml#column> "\"position\"";
 				<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/place>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
 				<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/position/{\"address\"}";
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/period>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
@@ -691,6 +680,10 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 			];
 	]
 	.
+
+###########################
+# Position/Professor Mapping 4
+###########################
 
 <#PersonPositionTriplesMap4>
 	<http://www.w3.org/ns/r2rml#logicalTable> <#PositionTableView4>;
@@ -705,7 +698,11 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 	];
 .
 
-<#PositionTableView5> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung5_Als as position, Berufung5_Ort as address, Berufung5_Zeit as zeit from BioTabelle1 where position is not null;
+###########################
+# Position Mapping 5
+###########################
+
+<#PositionTableView5> <http://www.w3.org/ns/r2rml#sqlQuery> """Select id, Berufung5_Als as position, Berufung5_Ort as address, Berufung5_Zeit as zeit from BioTabelle1;
 """.
 	
 <#PositionTriplesMap5>
@@ -726,21 +723,25 @@ Select id, IIf(NOT InStr(Ausbildung, ";")=0,
 				<http://www.w3.org/ns/r2rml#column> "\"position\"";
 				<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/place>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
 				<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/position/{\"address\"}";
 			];
-	]
+	];
 	<http://www.w3.org/ns/r2rml#predicateObjectMap> [
 			<http://www.w3.org/ns/r2rml#predicate> <http://pfarrerbuch.aksw.org/hp/period>;
 			<http://www.w3.org/ns/r2rml#objectMap> [
 				<http://www.w3.org/ns/r2rml#template> "http://pfarrerbuch.aksw.org/kps/position/{\"zeit\"}";
 			];
-	]
+	];
 	.
 
+###########################
+# Position/Professor Mapping 5
+###########################
+	
 <#PersonPositionTriplesMap5>
 	<http://www.w3.org/ns/r2rml#logicalTable> <#PositionTableView5>;
 	<http://www.w3.org/ns/r2rml#subjectMap> [
