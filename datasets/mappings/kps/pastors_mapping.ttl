@@ -35,7 +35,7 @@
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#template> "\"{Nachname}\", \"{Vornamen}\"" ;
+					<http://www.w3.org/ns/r2rml#template> "{Nachname}, {Vornamen}" ;
 					<http://www.w3.org/ns/r2rml#termType> <http://www.w3.org/ns/r2rml#Literal>;
 				] ;
 				<http://www.w3.org/ns/r2rml#predicate> <http://xmlns.com/foaf/0.1/name>
@@ -53,8 +53,7 @@
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#column> "\"Geb_Datum\"";
-					 <http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/2001/XMLSchema#date>
+					<http://www.w3.org/ns/r2rml#column> "\"Geb_Datum\""
 				] ;
 				<http://www.w3.org/ns/r2rml#predicate> <http://purl.org/vok/hp/birthDate>
 			] ;
@@ -62,17 +61,16 @@
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#column> "\"Sterb_Datum\"" ;
-					<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/2001/XMLSchema#date>
+					<http://www.w3.org/ns/r2rml#column> "\"Sterb_Datum\""
 				] ;
+
 				<http://www.w3.org/ns/r2rml#predicate> <http://purl.org/vok/hp/dateOfDeath>
 			] ;
 	<http://www.w3.org/ns/r2rml#predicateObjectMap>
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#column> "\"Quellen\"" ;
-					<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
+					<http://www.w3.org/ns/r2rml#column> "\"Quellen\""
 				] ;
 				<http://www.w3.org/ns/r2rml#predicate> <http://purl.org/dc/elements/1.1/source>
 			] ;
@@ -80,8 +78,7 @@
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#column> "\"Bemerkung\"";
-					<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
+					<http://www.w3.org/ns/r2rml#column> "\"Bemerkung\""
 				] ;
 				<http://www.w3.org/ns/r2rml#predicate> <http://www.w3.org/2000/01/rdf-schema#comment>
 			] ;
@@ -89,8 +86,7 @@
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#column> "\"Kinder\"";
-					<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
+					<http://www.w3.org/ns/r2rml#column> "\"Kinder\""
 				] ;
 				<http://www.w3.org/ns/r2rml#predicate> <http://purl.org/vok/hp/childComment>
 			] ;
@@ -114,8 +110,7 @@
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#column> "\"Sort_Nr\"" ;
-					<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/ns/r2rml#Literal>
+					<http://www.w3.org/ns/r2rml#column> "\"Sort_Nr\""
 				] ;
 				<http://www.w3.org/ns/r2rml#predicate>	<http://purl.org/vok/hp/registrySort>
 			] ;
@@ -147,8 +142,7 @@
 			[
 				<http://www.w3.org/ns/r2rml#objectMap>
 				[
-					<http://www.w3.org/ns/r2rml#column>	"\"Ordination_Zeit\"" ;
-					<http://www.w3.org/ns/r2rml#datatype> <http://www.w3.org/2001/XMLSchema#date>
+					<http://www.w3.org/ns/r2rml#column>	"\"Ordination_Zeit\""
 				] ;
 				<http://www.w3.org/ns/r2rml#predicate> <http://purl.org/vok/hp/dateOfOrdination>
 			] ;
