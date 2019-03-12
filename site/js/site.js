@@ -17,7 +17,7 @@ $("input.search-field").on("focus", function() {
 	var queryEndpoint = urlBase + "sparql";
 	var apitype = "sparql";
 	var queryDataType = "json";
-	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . FILTER( ?isPastor = 1 || ?isPastor = '1' ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . } ?item rdfs:label ?label . FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
+	var queryStr = "SELECT DISTINCT * WHERE { { ?item <http://purl.org/voc/hp/isPastor> ?isPastor . FILTER( ?isPastor = 1 || ?isPastor = '1' || ?isPastor = true ) } UNION { ?item rdf:type <http://purl.org/voc/hp/Place> . } ?item rdfs:label ?label . FILTER ( regex(?label,%s,'i') ) } ORDER BY ?label LIMIT 20";
 
 	$(this).autocompleteLinkItem().autocompleteLinkItem({
 		source: function( request, response ) {
@@ -55,7 +55,7 @@ if ( $(".browser").length > 0 ) {
 		"model" : [ "http://pfarrerbuch.comiles.eu/sachsen/", "http://pfarrerbuch.comiles.eu/ungarn/" ],
 		"browse" : {
 			"Pfarrer" : {
-				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . OPTIONAL { ?resourceUri foaf:lastName ?lastName . } FILTER ( ?isPastor = 1 || ?isPastor = '1' ) } ORDER BY ?lastName ?label ?resourceUri",
+				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . OPTIONAL { ?resourceUri foaf:lastName ?lastName . } FILTER ( ?isPastor = 1 || ?isPastor = '1' || ?isPastor = true ) } ORDER BY ?lastName ?label ?resourceUri",
 				"classes" : ["http://xmlns.com/foaf/0.1/Person"]
 			},
 			"Orte" : {
