@@ -19,7 +19,7 @@
 		<label>Stelle</label>
 		<input type="resource" external name="rdf:object" placeholder="Ort oder Stelle eingeben ..."
 			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
-            query="SELECT DISTINCT * WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Position>; <http://www.w3.org/2000/01/rdf-schema#label> ?posLabel; <http://purl.org/voc/hp/place> ?placeUri. ?placeUri <http://www.w3.org/2000/01/rdf-schema#label> ?label. FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
+            query="SELECT DISTINCT * WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Position>; <http://www.w3.org/2000/01/rdf-schema#label> ?posLabel; <http://purl.org/voc/hp/place> ?placeUri. ?placeUri <http://www.w3.org/2000/01/rdf-schema#label> ?label. FILTER (regex(?label,%s,'i') || regex(?posLabel,%s,'i'))} ORDER BY ?label ?posLabel LIMIT 40"
 		/>
 
 		<label>Person</label>
