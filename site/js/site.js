@@ -52,7 +52,7 @@ $("input.search-field").on("focus", function() {
 // add browser.js
 if ( $(".browser").length > 0 ) {
 	var browserArg = {
-		"model" : [ "http://pfarrerbuch.comiles.eu/sachsen/", "http://pfarrerbuch.comiles.eu/ungarn/" ],
+		"model" : [ "https://pfarrerbuch.aksw.org/sachsen/", "https://pfarrerbuch.aksw.org/ungarn/" ],
 		"browse" : {
 			"Pfarrer" : {
 				"query" : "SELECT DISTINCT * WHERE {  ?resourceUri <http://purl.org/voc/hp/isPastor> ?isPastor . ?resourceUri foaf:name ?label . OPTIONAL { ?resourceUri foaf:lastName ?lastName . } FILTER ( ?isPastor = 1 || ?isPastor = '1' || ?isPastor = true ) } ORDER BY ?lastName ?label ?resourceUri",
