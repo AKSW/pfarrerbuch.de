@@ -1,4 +1,4 @@
-<form base="http://pfarrerbuch.aksw.org/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
+<form base="https://pfarrerbuch.aksw.org/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
 	<legend>Person</legend>
 	<div typeof="foaf:Person" resource="person/{foaf:name}">
 		<input name="classUri" type="hidden" value="{rdform-classUri}" />
@@ -29,7 +29,7 @@
 
 		<label>Geburtsort</label>
 		<input type="resource" external name="hp:birthPlace" autocomplete
-			query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
         />
 
@@ -38,35 +38,35 @@
 
 		<label>Sterbeort</label>
 		<input type="resource" external name="hp:placeOfDeath" typeof="hp:Place" autocomplete
-			query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
 		/>
 
 		<label>Vater</label>
 		<input type="resource" external name="hp:father"
 			subform="personPlain"
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person>;<http://www.w3.org/2000/01/rdf-schema#label> ?label;<http://xmlns.com/foaf/0.1/lastName> ?lastName. FILTER ( regex(?lastName,%s,'i') || regex(?label,%s,'i') )} ORDER BY ?lastName LIMIT 20"
 		/>
 
 		<label>Mutter</label>
 		<input type="resource" external name="hp:mother"
 			subform="personPlain"
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person>;<http://www.w3.org/2000/01/rdf-schema#label> ?label;<http://xmlns.com/foaf/0.1/lastName> ?lastName. FILTER ( regex(?lastName,%s,'i') || regex(?label,%s,'i') )} ORDER BY ?lastName LIMIT 20"
 		/>
 
 		<label>Ehepartner</label>
 		<input type="resource" external name="hp:spouse"
 			subform="personPlain"
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person>;<http://www.w3.org/2000/01/rdf-schema#label> ?label;<http://xmlns.com/foaf/0.1/lastName> ?lastName. FILTER ( regex(?lastName,%s,'i') || regex(?label,%s,'i') )} ORDER BY ?lastName LIMIT 20"
 		/>
 
 		<label>Kinder</label>
 		<input type="resource" external name="hp:child" multiple
 			subform="personPlain"
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person>;<http://www.w3.org/2000/01/rdf-schema#label> ?label;<http://xmlns.com/foaf/0.1/lastName> ?lastName. FILTER ( regex(?lastName,%s,'i') || regex(?label,%s,'i') )} ORDER BY ?lastName LIMIT 20"
 		/>
 
@@ -77,7 +77,7 @@
 
 			subform-query="SELECT DISTINCT * WHERE { ?event <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Event> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <{classUri}> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://purl.org/voc/hp/attendedSchool> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> <{THIS}> . }"
 
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/School>; <http://purl.org/voc/hp/schoolType> ?schoolType; <http://purl.org/voc/hp/place> ?placeUri. ?placeUri <http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL { ?item <http://www.w3.org/2000/01/rdf-schema#label> ?schoolLabel } FILTER( regex(?label,%s,'i') || regex(?schoolType,%s,'i') ) } ORDER BY ?label LIMIT 20"
 		/>
 
@@ -87,14 +87,14 @@
 		<label>Ordinationsort</label>
 		<input type="resource" external name="hp:placeOfOrdination"
 			subform="Place"
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
 		/>
 
 		<label>Ordinator</label>
 		<input type="resource" external name="hp:ordinator"
 			subform="personPlain"
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person>;<http://www.w3.org/2000/01/rdf-schema#label> ?label;<http://xmlns.com/foaf/0.1/lastName> ?lastName. FILTER regex(?lastName,%s,'i')} ORDER BY ?lastName LIMIT 20"
 		/>
 
@@ -104,7 +104,7 @@
 
 			subform-query="SELECT DISTINCT * WHERE { ?event <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Event> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <{classUri}> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://purl.org/voc/hp/hasPosition> ; <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> <{THIS}> . }"
 
-			autocomplete query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			autocomplete query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE { ?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Position>; <http://www.w3.org/2000/01/rdf-schema#label> ?posLabel; <http://purl.org/voc/hp/place> ?placeUri. ?placeUri <http://www.w3.org/2000/01/rdf-schema#label> ?label. FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
 		/>
 

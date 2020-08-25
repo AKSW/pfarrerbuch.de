@@ -1,4 +1,4 @@
-<form base="http://pfarrerbuch.aksw.org/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
+<form base="https://pfarrerbuch.aksw.org/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
 	<legend>Stelle</legend>
 	<div typeof="http://purl.org/voc/hp/Position" resource="stelle/{id}">
 		<input name="id" type="hidden" value="{http://www.w3.org/2000/01/rdf-schema#label}" />
@@ -11,7 +11,7 @@
 
 		<label>Ort</label>
 		<input type="resource" external name="http://purl.org/voc/hp/place" typeof="http://purl.org/voc/hp/Place" autocomplete
-			query-endpoint="http://pfarrerbuch.aksw.org/sparql"
+			query-endpoint="https://pfarrerbuch.aksw.org/sparql"
             query-apitype="sparql"
             query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"

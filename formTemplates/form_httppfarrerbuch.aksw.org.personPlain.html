@@ -1,4 +1,4 @@
-<form base="http://pfarrerbuch.aksw.org/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
+<form base="https://pfarrerbuch.aksw.org/sachsen/" prefix="hp http://purl.org/voc/hp/ rdf http://www.w3.org/1999/02/22-rdf-syntax-ns# rdfs http://www.w3.org/2000/01/rdf-schema# foaf http://xmlns.com/foaf/0.1/ xsd http://www.w3.org/2001/XMLSchema#">
 	<legend>Person Plain</legend>
 	<div typeof="foaf:Person" resource="person/{id}">
 		<input name="id" type="hidden" value="{foaf:name}" />
@@ -29,7 +29,7 @@
 
 		<label>Geburtsort</label>
 		<input type="resource" external name="hp:birthPlace" typeof="hp:Place" autocomplete
-			query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
         />
 
@@ -38,7 +38,7 @@
 
 		<label>Sterbeort</label>
 		<input type="resource" external name="hp:placeOfDeath" typeof="hp:Place" autocomplete
-			query-endpoint="http://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
+			query-endpoint="https://pfarrerbuch.aksw.org/sparql" query-apitype="sparql" query-datatype="json"
             query="SELECT DISTINCT * WHERE {?item <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/voc/hp/Place>;<http://www.w3.org/2000/01/rdf-schema#label> ?label. OPTIONAL{ ?item <http://purl.org/voc/hp/district> ?district } FILTER regex(?label,%s,'i')} ORDER BY ?label LIMIT 20"
 		/>
 
