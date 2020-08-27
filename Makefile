@@ -160,6 +160,7 @@ custom: submodules
 	rm -f extensions/site/sites/local
 	cd extensions/site/sites/ && ln -s ../../../site local
 	cd extensions/rdform/ && make deploy
+	cp formTemplates/* extensions/rdform/public/
 
 submodules: # read-only
 	git submodule init
